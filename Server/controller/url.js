@@ -40,9 +40,7 @@ class URL_SHORTENER {
       shortID: shortID,
     });
     if (!response) {
-      return res.status(404).json({
-        error: "URL not found!",
-      });
+      return res.redirect(process.env.URL_REDIRECT);
     }
     await updateClicks(shortID);
     if (response.longURL.includes("http")) {
@@ -54,16 +52,19 @@ class URL_SHORTENER {
 
   async getClickCount(req, res) {
     var { url } = req.body;
-    // if (!validator.isURL(url)) {
-    //   return res.status(400).json({
-    //     error: "Invalid URL!",
-    //   });
-    // }
+    if (!validator.isURL(url)) {
+      return res.status(400).json({
+        error: "Invalid URL!",
+      });
+    }
+    if (!!url.includes("https")) {
+      let stringLength = url.length;
+      url = url.substring(8, stringLength);
+    }
     if (!url.includes("http")) {
       url = req.protocol + "://" + url;
     }
     const myArr = url.split(getHost(req));
-    console.log(myArr);
     if (myArr.length > 2) {
       return res.status(400).json({
         error: "Invalid URL!",

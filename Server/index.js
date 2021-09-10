@@ -16,6 +16,11 @@ const corsOption = {
   origin: ["http://localhost:3000"],
 };
 app.use(cors(corsOption));
+
+app.get("/", (req, res) => {
+  res.redirect(process.env["URL_REDIRECT"]);
+});
+
 app.use(router);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
