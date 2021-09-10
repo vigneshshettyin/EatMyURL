@@ -7,7 +7,6 @@ async function getShortCode() {
   const response = await Counter.findOne({
     _id: process.env.COUNTER_ID,
   });
-  console.log(response);
   return base62.encode(response.counter);
 }
 
@@ -31,7 +30,7 @@ async function updateClicks(shortID) {
   await response.save();
 }
 
-class URL_SHORTNER {
+class URL_SHORTENER {
   async redirect(req, res) {
     const { shortID } = req.params;
     if (!shortID) {
@@ -63,7 +62,6 @@ class URL_SHORTNER {
     if (!url.includes("http")) {
       url = req.protocol + "://" + url;
     }
-    console.log(getHost(req));
     const myArr = url.split(getHost(req));
     console.log(myArr);
     if (myArr.length > 2) {
@@ -71,7 +69,15 @@ class URL_SHORTNER {
         error: "Invalid URL!",
       });
     }
-    res.send(myArr);
+    const response = await URL.findOne({
+      shortID: myArr[1],
+    });
+    if (!response) {
+      return res.status(404).json({
+        error: "URL not found!",
+      });
+    }
+    res.status(200).json(response);
   }
 
   async shorten(req, res) {
@@ -87,8 +93,9 @@ class URL_SHORTNER {
     });
     await updateCounter();
     const response = await newURL.save();
+    response.shortID = getHost(req) + response.shortID;
     res.status(200).json(response);
   }
 }
 
-module.exports = new URL_SHORTNER();
+module.exports = new URL_SHORTENER();

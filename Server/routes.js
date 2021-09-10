@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const URL_SHORTNER = require("./controller/url");
+const URL_SHORTENER = require("./controller/url");
 const multer = require("multer");
 const upload = multer();
 
-router.get("/:shortID", URL_SHORTNER.redirect);
+router.get("/:shortID", URL_SHORTENER.redirect);
 
-router.post("/api/new", upload.none(), URL_SHORTNER.shorten);
+router.post("/api/new", upload.none(), URL_SHORTENER.shorten);
 
-router.get("/api/click", upload.none(), URL_SHORTNER.getClickCount);
+router.get("/api/click", upload.none(), URL_SHORTENER.getClickCount);
 
 module.exports = router;
