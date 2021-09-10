@@ -1,6 +1,8 @@
+const base62 = require("./base62/base62");
 class URL_SHORTNER {
   async testing(req, res) {
-    res.redirect("https://google.com");
+    const counter = 1000000000;
+    return res.send(base62.encode(counter));
   }
 }
 
