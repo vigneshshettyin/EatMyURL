@@ -7,7 +7,6 @@ async function getShortCode() {
   const response = await Counter.findOne({
     _id: process.env.COUNTER_ID,
   });
-  console.log(response);
   return base62.encode(response.counter);
 }
 
@@ -31,7 +30,7 @@ async function updateClicks(shortID) {
   await response.save();
 }
 
-class URL_SHORTNER {
+class URL_SHORTENER {
   async redirect(req, res) {
     const { shortID } = req.params;
     if (!shortID) {
@@ -94,8 +93,9 @@ class URL_SHORTNER {
     });
     await updateCounter();
     const response = await newURL.save();
+    response.shortID = getHost(req) + response.shortID;
     res.status(200).json(response);
   }
 }
 
-module.exports = new URL_SHORTNER();
+module.exports = new URL_SHORTENER();
