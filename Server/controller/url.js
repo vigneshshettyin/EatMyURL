@@ -63,7 +63,6 @@ class URL_SHORTNER {
     if (!url.includes("http")) {
       url = req.protocol + "://" + url;
     }
-    console.log(getHost(req));
     const myArr = url.split(getHost(req));
     console.log(myArr);
     if (myArr.length > 2) {
@@ -71,7 +70,15 @@ class URL_SHORTNER {
         error: "Invalid URL!",
       });
     }
-    res.send(myArr);
+    const response = await URL.findOne({
+      shortID: myArr[1],
+    });
+    if (!response) {
+      return res.status(404).json({
+        error: "URL not found!",
+      });
+    }
+    res.status(200).json(response);
   }
 
   async shorten(req, res) {
