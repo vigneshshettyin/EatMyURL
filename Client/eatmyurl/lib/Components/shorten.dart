@@ -58,7 +58,7 @@ class _ShortenURLState extends State<ShortenURL> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
-              width: 300,
+              width: size.width * 0.8,
               height: 60,
               child: TextFormField(
                 validator: (value) {
@@ -86,38 +86,43 @@ class _ShortenURLState extends State<ShortenURL> {
               ),
             ),
           ),
-          SizedBox(
-            width: size.width * .15,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: SizedBox(
+              width: size.width * .8,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return matpinkbuttonpressed;
+                        }
+                        return matpinkbutton;
+                        // Use the component's default.
+                      },
                     ),
                   ),
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed)) {
-                        return matpinkbuttonpressed;
-                      }
-                      return matpinkbutton;
-                      // Use the component's default.
-                    },
-                  ),
-                ),
-                onPressed: () {},
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  child: Center(
-                    child: Text(
-                      'Tap here',
-                      style: GoogleFonts.poppins(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 20),
+                    child: Center(
+                      child: Text(
+                        'Lemme eat it !!',
+                        style: GoogleFonts.poppins(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
-                          color: mattext),
+                          color: mattext,
+                        ),
+                      ),
                     ),
                   ),
                 ),
