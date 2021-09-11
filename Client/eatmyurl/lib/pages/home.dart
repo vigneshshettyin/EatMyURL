@@ -1,10 +1,15 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:eatmyurl/Components/colors.dart';
+import 'package:eatmyurl/Components/count.dart';
 import 'package:eatmyurl/Components/shorten.dart';
+import 'package:eatmyurl/cubit/eatmyurl_cubit.dart';
+import 'package:eatmyurl/data/network_service.dart';
+import 'package:eatmyurl/data/repository.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,8 +21,24 @@ class HomePage extends StatefulWidget {
 }
 
 FlipCardController _controller = FlipCardController();
+Repository repository = Repository(networkService: NetworkService());
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation _colorTween;
+  bool ispressed = false;
+  bool count = false;
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+    _colorTween = ColorTween(begin: matpinkcard, end: matpinkbutton)
+        .animate(_animationController);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -50,13 +71,18 @@ class _HomePageState extends State<HomePage> {
                           color: matpinkcard,
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        child: const ShortenURL(),
+                        child: BlocProvider(
+                          create: (context) =>
+                              EatmyurlCubit(repository: repository),
+                          child: ShortenURL(),
+                        ),
                       ),
                       back: Container(
                         decoration: BoxDecoration(
                           color: matpinkcard,
                           borderRadius: BorderRadius.circular(40),
                         ),
+                        child: const URLclickCount(),
                       ),
                     ),
                   ),
@@ -65,11 +91,14 @@ class _HomePageState extends State<HomePage> {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        SvgPicture.asset(
-                          'assets/images/switch.svg',
-                          width: size.width * .4,
-                          height: size.height * .4,
-                          color: matpinkcard,
+                        AnimatedBuilder(
+                          animation: _colorTween,
+                          builder: (context, child) => SvgPicture.asset(
+                            'assets/images/switch.svg',
+                            width: size.width * .4,
+                            height: size.height * .4,
+                            color: _colorTween.value,
+                          ),
                         ),
                         SizedBox(
                           width: size.width * .15,
@@ -83,20 +112,39 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith<Color>(
-                                  (Set<MaterialState> states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      return matpinkbuttonpressed;
-                                    }
-                                    return matpinkbutton;
-                                    // Use the component's default.
-                                  },
-                                ),
+                                backgroundColor: ispressed
+                                    ? MaterialStateProperty.resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                          if (states.contains(
+                                              MaterialState.pressed)) {
+                                            return matpinkbutton;
+                                          }
+                                          return matpinkcard;
+                                          // Use the component's default.
+                                        },
+                                      )
+                                    : MaterialStateProperty.resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                          if (states.contains(
+                                              MaterialState.pressed)) {
+                                            return matpinkbuttonpressed;
+                                          }
+                                          return matpinkbutton;
+                                          // Use the component's default.
+                                        },
+                                      ),
                               ),
                               onPressed: () {
                                 _controller.toggleCard();
+                                setState(() {
+                                  ispressed = !ispressed;
+                                });
+                                if (_animationController.status ==
+                                    AnimationStatus.completed) {
+                                  _animationController.reverse();
+                                } else {
+                                  _animationController.forward();
+                                }
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(

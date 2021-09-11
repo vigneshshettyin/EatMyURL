@@ -1,4 +1,3 @@
-import 'package:eatmyurl/Components/colors.dart';
 import 'package:eatmyurl/pages/home.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: const HomePage(),
+      home:  HomePage(),
     );
   }
 }
