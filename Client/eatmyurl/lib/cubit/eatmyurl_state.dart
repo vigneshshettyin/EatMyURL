@@ -5,9 +5,8 @@ abstract class EatmyurlState {}
 
 class EatmyurlInitial extends EatmyurlState {}
 
-class EatmyurlLoading extends EatmyurlState {}
 
 class EatmyurlLoaded extends EatmyurlState {
-  late final Map data;
+  late final String data;
   EatmyurlLoaded({required this.data});
 }

@@ -15,6 +15,10 @@ class ShortenURL extends StatelessWidget {
   Repository repository = Repository(networkService: NetworkService());
   ShortenURL({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
+  urlsend() {
+    return url.text;
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -126,7 +130,7 @@ class ShortenURL extends StatelessWidget {
                             builder: (context) => BlocProvider(
                               create: (context) =>
                                   EatmyurlCubit(repository: repository),
-                              child: const FinalShrink(),
+                              child: FinalShrink(urlfrom: url.text),
                             ),
                           ),
                         );

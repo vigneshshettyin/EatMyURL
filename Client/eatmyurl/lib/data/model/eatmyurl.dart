@@ -1,5 +1,6 @@
 class URL {
-  late String url;
-  late String isSuccess;
-  late int id;
+  late String longURL;
+  late String shortID;
+  late int clicks;
+  late String id;
 }

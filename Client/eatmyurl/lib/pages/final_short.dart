@@ -1,8 +1,9 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, must_be_immutable
 
 import 'package:eatmyurl/Components/colors.dart';
 import 'package:eatmyurl/Components/count.dart';
 import 'package:eatmyurl/Components/isloaded.dart';
+import 'package:eatmyurl/Components/shorten.dart';
 import 'package:eatmyurl/cubit/eatmyurl_cubit.dart';
 import 'package:eatmyurl/data/network_service.dart';
 import 'package:eatmyurl/data/repository.dart';
@@ -13,8 +14,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+var temp = '';
+
 class FinalShrink extends StatefulWidget {
-  const FinalShrink({Key? key}) : super(key: key);
+  FinalShrink({Key? key, required this.urlfrom}) : super(key: key);
+  String urlfrom;
+  sendit() {
+    temp = urlfrom;
+  }
+
   @override
   _FinalShrinkState createState() => _FinalShrinkState();
 }
@@ -28,19 +36,21 @@ class _FinalShrinkState extends State<FinalShrink>
   late Animation _colorTween;
   bool ispressed = false;
   bool count = false;
+
   @override
   void initState() {
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     _colorTween = ColorTween(begin: matpinkcard, end: matpinkbutton)
         .animate(_animationController);
-
+    print(temp);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: background,
@@ -74,7 +84,9 @@ class _FinalShrinkState extends State<FinalShrink>
                           child: BlocProvider(
                             create: (context) =>
                                 EatmyurlCubit(repository: repository),
-                            child: ShrinkedPage(url: s.url.text),
+                            child: ShrinkedPage(
+                              url: temp,
+                            ),
                           ),
                         ),
                         back: Container(
