@@ -2,6 +2,7 @@ const base62 = require("./base62/base62");
 const Counter = require("../db/schema/counter");
 const URL = require("../db/schema/url");
 const validator = require("validator");
+const url2 = require("url");
 
 async function getShortCode() {
   const response = await Counter.findOne({
@@ -51,34 +52,23 @@ class URL_SHORTENER {
   }
 
   async getClickCount(req, res) {
-    var { url } = req.body;
+    const { url } = req.body;
     if (!validator.isURL(url)) {
       return res.status(400).json({
         error: "Invalid URL!",
       });
     }
-    if (!!url.includes("https")) {
-      let stringLength = url.length;
-      url = url.substring(8, stringLength);
-    }
-    if (!url.includes("http")) {
-      url = req.protocol + "://" + url;
-    }
-    const myArr = url.split(getHost(req));
-    if (myArr.length > 2) {
+    const myURL = new url2.URL(url);
+    console.log(myURL.pathname.slice(1));
+    const response = await URL.findOne({
+      shortID: myURL.pathname.slice(1),
+    });
+    if (!response) {
       return res.status(400).json({
         error: "Invalid URL!",
       });
     }
-    const response = await URL.findOne({
-      shortID: myArr[1],
-    });
-    if (!response) {
-      return res.status(404).json({
-        error: "URL not found!",
-      });
-    }
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
 
   async shorten(req, res) {

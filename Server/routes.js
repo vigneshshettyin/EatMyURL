@@ -7,6 +7,6 @@ router.get("/:shortID", URL_SHORTENER.redirect);
 
 router.post("/api/new", upload.none(), URL_SHORTENER.shorten);
 
-router.get("/api/click", upload.none(), URL_SHORTENER.getClickCount);
+router.post("/api/click", upload.none(), URL_SHORTENER.getClickCount);
 
 module.exports = router;
