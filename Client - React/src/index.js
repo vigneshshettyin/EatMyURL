@@ -3,10 +3,15 @@ import ReactDOM from "react-dom";
 import ReactCardFlip from "react-card-flip";
 import swal from "sweetalert";
 import axios from "axios";
+import Footer from "./component/footer";
+import TextState from "./context/textState";
 import "./index.css";
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TextState>
+      <App />
+      <Footer />
+    </TextState>
   </React.StrictMode>,
   document.getElementById("root")
 );
