@@ -48,7 +48,7 @@ export function App() {
       let formdata = new FormData();
       formdata.append("url", url);
       axios
-        .post("https://eatmyurl.ml/api/new", formdata)
+        .post(`${process.env.REACT_APP_SERVER_URL}/api/new`, formdata)
         .then((res) => {
           setLoader(false);
           console.log(res.data);
@@ -73,7 +73,7 @@ export function App() {
       let formdata = new FormData();
       formdata.append("url", url);
       axios
-        .post("https://eatmyurl.ml/api/click", formdata)
+        .post(`${process.env.REACT_APP_SERVER_URL}/api/click`, formdata)
         .then((res) => {
           setLoader2(false);
           swal("Success", "Click Count: " + res.data.click, "success");
@@ -93,7 +93,7 @@ export function App() {
           <div className="col-md-6">
             <img
               className="img-fluid"
-              src="https://raw.githubusercontent.com/vigneshshettyin/URL-Shortener/main/Client/eatmyurl/assets/images/logo.png"
+              src="https://res.cloudinary.com/vigneshshettyin/image/upload/v1631588908/oia0inntihtas3ymsvgi.png"
               alt="LOGO"
               draggable="false"
             />
@@ -123,7 +123,7 @@ export function App() {
                     onClick={getShortLink}
                     className="btn btn-primary custom-button"
                   >
-                    {loader ? <Loading /> : <h5>Letme Eat it!!</h5>}
+                    {loader ? <Loading /> : `Letme Eat it!!`}
                   </button>
                 </center>
                 <button
@@ -153,7 +153,7 @@ export function App() {
                     onClick={getClickCount}
                     className="btn btn-primary custom-button"
                   >
-                    {loader2 ? <Loading /> : <h5>Get Link Count!!</h5>}
+                    {loader2 ? <Loading /> : `Get Link Count!!`}
                   </button>
                 </center>
                 <button
@@ -164,11 +164,6 @@ export function App() {
                 </button>
               </div>
             </ReactCardFlip>
-          </div>
-          <div className="col-md-6 border center display-none">
-            <div className="button-body">
-              <button className="btn btn-primary ">Click Me!</button>
-            </div>
           </div>
         </div>
       </div>

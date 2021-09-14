@@ -3,6 +3,7 @@
   margin: 0%;
   padding: 0%;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
 
 body {
@@ -60,12 +61,12 @@ h4 {
   right: 0;
 }
 .display-none {
-  display: none;
+  display: display;
 }
 p {
   text-shadow: 5px 5px 5px #000000;
 }
-span {
+.footer-text {
   margin-left: 2px;
   color: royalblue;
   font-weight: bold;

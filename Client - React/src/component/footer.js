@@ -37,6 +37,7 @@ const Footer = () => {
           <p className="text-center text-capitalize">
             MADE IN ❤️ WITH
             <span
+              className="footer-text"
               onClick={() => {
                 a.timer();
               }}
