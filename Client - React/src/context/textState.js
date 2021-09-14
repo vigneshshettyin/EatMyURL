@@ -7,11 +7,8 @@ const TextState = (props) => {
   });
   const timer = () => {
     setTimeout(() => {
-      setState((props) => {
-        return {
-          ...props,
-          ["text"]: "JAVASCRIPT",
-        };
+      setState({
+        text: "MERN STACK",
       });
     }, 2000);
   };

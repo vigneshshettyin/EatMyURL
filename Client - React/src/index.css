@@ -62,3 +62,12 @@ h4 {
 .display-none {
   display: none;
 }
+p {
+  text-shadow: 5px 5px 5px #000000;
+}
+span {
+  margin-left: 2px;
+  color: royalblue;
+  font-weight: bold;
+  cursor: pointer;
+}
