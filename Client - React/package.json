@@ -12,6 +12,7 @@
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "react-share": "^4.4.0",
+    "react-toastify": "^8.0.3",
     "sweetalert": "^2.1.2",
     "web-vitals": "^1.0.1"
   },

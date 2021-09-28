@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import ReactCardFlip from "react-card-flip";
 import swal from "sweetalert";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 import Footer from "./component/footer";
 import TextState from "./context/textState";
 import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
 ReactDOM.render(
   <React.StrictMode>
     <TextState>
@@ -21,11 +23,18 @@ export function App() {
 
   const [longState, setLongState] = useState("Long URL");
 
+  const [copyState, setCopyState] = useState(false);
+
   const [url, setUrl] = useState("");
 
   const [loader, setLoader] = useState(false);
 
   const [loader2, setLoader2] = useState(false);
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    toast("Link Copied!");
+  };
 
   function handleFlipState(e) {
     e.preventDefault();
@@ -38,6 +47,7 @@ export function App() {
     e.preventDefault();
     setUrl(e.target.value);
     setLongState("Long URL");
+    setCopyState(false);
   }
 
   function getShortLink() {
@@ -54,6 +64,7 @@ export function App() {
           console.log(res.data);
           setUrl(res.data.shortID);
           setLongState("Short URL");
+          setCopyState(true);
         })
         .catch((err) => {
           console.log(err);
@@ -88,6 +99,7 @@ export function App() {
 
   return (
     <div className="body">
+      <ToastContainer />
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-6">
@@ -121,16 +133,27 @@ export function App() {
                 <center>
                   <button
                     onClick={getShortLink}
-                    className="btn btn-primary custom-button"
+                    className="btn btn-primary custom-button m-1"
                   >
                     {loader ? <Loading /> : `Letme Eat it!!`}
                   </button>
+
+                  {copyState && (
+                    <button
+                      onClick={() => {
+                        copyToClipboard(url);
+                      }}
+                      className="btn btn-primary custom-button m-1"
+                    >
+                      Clipboard 📋
+                    </button>
+                  )}
                 </center>
                 <button
                   className="btn btn-primary button-bottom custom-button"
                   onClick={handleFlipState}
                 >
-                  Get Count 🚧
+                  Get Count!
                 </button>
               </div>
 
@@ -160,7 +183,7 @@ export function App() {
                   className="btn btn-primary button-bottom custom-button"
                   onClick={handleFlipState}
                 >
-                  Shorten URL ➰
+                  Shorten URL!
                 </button>
               </div>
             </ReactCardFlip>
