@@ -10,6 +10,7 @@ import {
   WhatsappShareButton,
   WhatsappIcon,
 } from "react-share";
+import { Zoom } from "react-reveal";
 
 const Footer = () => {
   const a = useContext(TextContext);
@@ -34,17 +35,19 @@ const Footer = () => {
           </p>
         </div>
         <div className="col-md-12">
-          <p className="text-center text-capitalize">
-            MADE IN ❤️ WITH
-            <span
-              className="footer-text"
-              onClick={() => {
-                a.timer();
-              }}
-            >
-              {a.state.text}
-            </span>
-          </p>
+          <Zoom>
+            <p className="text-center text-capitalize">
+              MADE IN ❤️ WITH
+              <span
+                className="footer-text"
+                onClick={() => {
+                  a.timer();
+                }}
+              >
+                {a.state.text}
+              </span>
+            </p>
+          </Zoom>
         </div>
       </footer>
     </>
