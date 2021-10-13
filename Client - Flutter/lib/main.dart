@@ -1,4 +1,4 @@
-import 'package:eatmyurl/pages/home.dart';
+import 'package:eatmyurl/Pages/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'EatMyURL',
+      title: 'Eat my URL',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.orange,
       ),
-      home:  const HomePage(),
+      home: const HomeScreen(),
     );
   }
 }
