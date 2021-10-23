@@ -18,6 +18,7 @@ dependencies:
   dio: ^4.0.0
   url_launcher: ^6.0.12
   pretty_qr_code: ^2.0.2
+  lottie: ^1.2.1
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:eatmyurl/Pages/home_screen.dart';
+import 'package:eatmyurl/Pages/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: const HomeScreen(),
+      home: Splash(),
     );
   }
 }
