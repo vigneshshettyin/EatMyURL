@@ -183,12 +183,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ShortenURL(),
                         ),
                       ),
-                      back: Container(
-                        decoration: BoxDecoration(
-                          color: matpinkcard,
-                          borderRadius: BorderRadius.circular(20),
+                      back: SizedBox(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: matpinkcard,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: CountClicks(),
                         ),
-                        child: CountClicks(),
                       ),
                     ),
                   ),

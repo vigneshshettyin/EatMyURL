@@ -445,7 +445,7 @@ class ClickOutput extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
                       width: size.width * 0.2,
@@ -505,12 +505,11 @@ class ClickOutput extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 20),
+                        horizontal: 10, vertical: 10),
                     child: SizedBox(
                       width: size.width * .2,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: ElevatedButton(
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
@@ -552,7 +551,7 @@ class ClickOutput extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: size.width * .1,
+                    width: size.width * .3,
                     height: size.height * .1,
                     child: Container(
                       decoration: BoxDecoration(
@@ -561,6 +560,7 @@ class ClickOutput extends StatelessWidget {
                       child: Center(
                         child: Text(
                           clicks.toString() + ' times',
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.poppins(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -612,7 +612,7 @@ class ClickOutput extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text(
                   'Enter URL',
                   textAlign: TextAlign.center,
@@ -624,12 +624,12 @@ class ClickOutput extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: size.height * 0.08,
+                      // height: size.height * 0.08,
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -639,7 +639,7 @@ class ClickOutput extends StatelessWidget {
                         },
                         controller: url,
                         style: GoogleFonts.poppins(
-                            fontSize: 20,
+                            fontSize: 15,
                             fontWeight: FontWeight.w600,
                             color: hinttext),
                         decoration: InputDecoration(
@@ -668,7 +668,7 @@ class ClickOutput extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                            width: size.width * 0.2,
+                            width: size.width * 0.3,
                             child: Text(
                               'Your link has been visited',
                               textAlign: TextAlign.center,
@@ -680,19 +680,22 @@ class ClickOutput extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: size.width * .15,
                             height: size.height * .07,
                             child: Container(
                               decoration: BoxDecoration(
                                   color: background,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Center(
-                                child: Text(
-                                  clicks.toString() + ' times',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: mattext,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Center(
+                                  child: Text(
+                                    clicks.toString() + ' times',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: mattext,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -704,57 +707,51 @@ class ClickOutput extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: SizedBox(
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: SizedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith<Color>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return matpinkbuttonpressed;
+                            }
+                            return matpinkbutton;
+                            // Use the component's default.
+                          },
+                        ),
+                      ),
+                      onPressed: () {
+                        response.value = 400;
+                        url.clear();
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return matpinkbuttonpressed;
-                                }
-                                return matpinkbutton;
-                                // Use the component's default.
-                              },
-                            ),
-                          ),
-                          onPressed: () {
-                            response.value = 400;
-                            url.clear();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 20),
-                            child: Center(
-                              child: Text(
-                                'Check another',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: mattext,
-                                ),
-                              ),
+                            horizontal: 5, vertical: 10),
+                        child: Center(
+                          child: Text(
+                            'Check another',
+                            style: GoogleFonts.poppins(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: mattext,
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
             ],
           ),
