@@ -12,7 +12,7 @@ async function getShortCode() {
 }
 
 function getHost(req) {
-  return req.protocol + "://" + req.get("host") + "/";
+  return "https" + "://" + req.get("host") + "/";
 }
 
 async function updateCounter() {
