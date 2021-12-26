@@ -1,27 +1,36 @@
 const base62 = require("./base62/base62");
-const Counter = require("../db/schema/counter");
+// Revoked in Version 2.0.0
+// const Counter = require("../db/schema/counter");
 const URL = require("../db/schema/url");
 const validator = require("validator");
 const url2 = require("url");
 
+// Revoked in Version 2.0.0
+
+// async function getShortCode() {
+//   const response = await Counter.findOne({
+//     _id: process.env.COUNTER_ID,
+//   });
+//   return base62.encode(response.counter);
+// }
+
 async function getShortCode() {
-  const response = await Counter.findOne({
-    _id: process.env.COUNTER_ID,
-  });
-  return base62.encode(response.counter);
+  return base62.encode(`${Date.now()}`);
 }
 
 function getHost(req) {
   return "https" + "://" + req.get("host") + "/";
 }
 
-async function updateCounter() {
-  const response = await Counter.findOne({
-    _id: process.env.COUNTER_ID,
-  });
-  response.counter = response.counter + 1;
-  await response.save();
-}
+// Revoked in Version 2.0.0
+
+// async function updateCounter() {
+//   const response = await Counter.findOne({
+//     _id: process.env.COUNTER_ID,
+//   });
+//   response.counter = response.counter + 1;
+//   await response.save();
+// }
 
 async function updateClicks(shortID) {
   const response = await URL.findOne({
@@ -82,7 +91,8 @@ class URL_SHORTENER {
       shortID: await getShortCode(),
       longURL: url,
     });
-    await updateCounter();
+    // Revoked in Version - 2.0.0
+    // await updateCounter();
     const response = await newURL.save();
     response.shortID = getHost(req) + response.shortID;
     res.status(200).json(response);
@@ -112,7 +122,8 @@ class URL_SHORTENER {
         shortID: shortID,
         longURL: url,
       });
-      await updateCounter();
+      // Revoked in Version - 2.0.0
+      // await updateCounter();
       const response = await newURL.save();
       response.shortID = getHost(req) + response.shortID;
       res.status(200).json(response);
