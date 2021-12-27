@@ -45,13 +45,15 @@ Connect();
 
 const app = express();
 
+app.use(express.json());
+
 app.use(morgan("tiny"));
 
 // Connecting to MongoDB
 // Cors Setup
 const corsOption = {
   credentials: true,
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:3000", "http://localhost:8000"],
 };
 app.use(cors(corsOption));
 
@@ -66,7 +68,7 @@ app.use(cors(corsOption));
 // Create the rate limit rule
 const apiRequestLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 10, // limit each IP to 2 requests per windowMs
+  max: 60, // limit each IP to 2 requests per windowMs
 });
 
 // Use the limit rule as an application middleware
@@ -74,11 +76,11 @@ app.use(apiRequestLimiter);
 
 // Revoked in Version 2.0.0
 
-// app.get("/", (req, res) => {
-//   res.redirect(process.env["URL_REDIRECT"]);
-// });
+app.get("/", (req, res) => {
+  res.redirect("/api-docs");
+});
 
-app.use("/", swaggerUI.serve, swaggerUI.setup(specs));
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(router);
 
