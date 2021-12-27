@@ -28,7 +28,9 @@ const HomePage = () => {
               Who’s visited my link?
             </Button>
           </LinkWrapper>
-          <DocsWrapper></DocsWrapper>
+          <DocsWrapper>
+            <h2>Docs Section</h2>
+          </DocsWrapper>
         </ChildWrapper>
       </ParentWrapper>
     </>
