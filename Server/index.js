@@ -7,9 +7,41 @@ const rateLimit = require("express-rate-limit").default;
 const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
+
+// PORT
+
+const PORT = process.env.PORT || 8000;
+
+// Swagger Docs
+
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "EatMyURL API",
+      version: "2.0.0",
+      description:
+        "Free URL Shortener & API. Shorten and replace long URL to short link. Track your links. Use it to affiliate programs, ads, social websites, emails, text messages.",
+    },
+    servers: [
+      {
+        url: `http://localhost:${PORT}`,
+      },
+      {
+        url: "https://eatmyurl.ml/",
+      },
+    ],
+  },
+  apis: ["./routes.js"],
+};
+
+const specs = swaggerJsDoc(options);
+
 Connect();
 // Port
-const PORT = process.env.PORT || 6000;
 
 const app = express();
 
@@ -40,9 +72,13 @@ const apiRequestLimiter = rateLimit({
 // Use the limit rule as an application middleware
 app.use(apiRequestLimiter);
 
-app.get("/", (req, res) => {
-  res.redirect(process.env["URL_REDIRECT"]);
-});
+// Revoked in Version 2.0.0
+
+// app.get("/", (req, res) => {
+//   res.redirect(process.env["URL_REDIRECT"]);
+// });
+
+app.use("/", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(router);
 
