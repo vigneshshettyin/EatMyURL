@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import HomePage from "./page";
 
 ReactDOM.render(
   <React.StrictMode>
     <>
-      <h1>Hello</h1>
+      <HomePage />
     </>
   </React.StrictMode>,
   document.getElementById("root")
