@@ -1,4 +1,54 @@
-# URL-Shortener
 
-Long URL Shortener using Flutter and Node JS
-![MacBook Pro](https://user-images.githubusercontent.com/62848565/137064006-beab437c-2a59-453b-aa6f-e2106e645d5e.png)
+![Logo](https://res.cloudinary.com/vigneshshettyin/image/upload/v1631588908/oia0inntihtas3ymsvgi.png)
+
+
+## Introduction
+
+Free URL Shortener & API. Shorten and replace long URL to short link. Track your links. Use it to affiliate programs, ads, social websites, emails, text messages.
+
+
+
+## Features
+
+- Swagger API Docs
+- Custom Short Link Support
+- Fast Response Time
+- Cross Platform Support
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file ie MongoDB database URI.
+
+`DB_CONNECT`
+
+
+## Installation
+
+Install Client-React with Yarn
+
+```bash
+  cd Client-React/v1 
+  yarn install && yarn start
+```
+
+Install Server with Yarn
+
+```bash
+  cd Server
+  yarn install && yarn dev
+```
+    
+## Tech Stack
+
+**Client:** React, Flutter, Material
+
+**Server:** Node, Express
+
+
+## Authors
+
+- [@vigneshshettyin](https://www.github.com/vigneshshettyin)
+- [@data-charya](https://www.github.com/vigneshshettyin)
+
+
