@@ -39,13 +39,19 @@ const DocsWrapper = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
-  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  iframe {
+    width: 38vw;
+    height: 66vh;
+    border-radius: 10px;
+  }
+  width: 40vw;
   height: 70vh;
   border: 4px solid black;
   border-radius: 20px;
   background-color: #ffdfa1;
-  display: flex;
-  justify-content: center;
 `;
 
 export { ParentWrapper, ChildWrapper, LinkWrapper, DocsWrapper };

@@ -33,7 +33,10 @@ const HomePage = () => {
             </Button>
           </LinkWrapper>
           <DocsWrapper>
-            <h2>Docs Section</h2>
+            <iframe
+              title="EatMyURL API Docs"
+              src="https://eatmyurl.ml/api-docs/"
+            ></iframe>
           </DocsWrapper>
         </ChildWrapper>
       </ParentWrapper>
