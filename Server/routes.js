@@ -58,6 +58,43 @@ const upload = multer();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     CUSTOM_SHORT_URL:
+ *       type: object
+ *       required:
+ *         - url
+ *         - shortID
+ *       properties:
+ *         url:
+ *           type: string
+ *           description: The long URL to be shortened
+ *         shortID:
+ *           type: string
+ *           description: The short ID corresponding to the long URL
+ *       example:
+ *         url: https://blog.vigneshcodes.in/quick-guide-to-deploy-using-docker
+ *         shortID: 15FTKq
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     SHORT_URL:
+ *       type: object
+ *       required:
+ *         - url
+ *       properties:
+ *         url:
+ *           type: string
+ *           description: The long URL to be shortened
+ *       example:
+ *         url: https://eatmyurl.ml/15FTKs
+ */
+
+/**
+ * @swagger
  * tags:
  *   name: EatMyURL
  *   description: API Docs
@@ -69,7 +106,7 @@ router.get("/:shortID", URL_SHORTENER.redirect);
  * @swagger
  * /api/new:
  *   post:
- *     summary: Create a short link
+ *     summary: To create a short link
  *     tags: [EatMyURL]
  *     requestBody:
  *       required: true
@@ -91,7 +128,55 @@ router.get("/:shortID", URL_SHORTENER.redirect);
 
 router.post("/api/new", upload.none(), URL_SHORTENER.shorten);
 
+/**
+ * @swagger
+ * /api/new-custom:
+ *   post:
+ *     summary: To create a custom short link
+ *     tags: [EatMyURL]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CUSTOM_SHORT_URL'
+ *     responses:
+ *       200:
+ *         description: The short link has been created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/URL'
+ *       500:
+ *         description: Some server error
+ *
+ */
+
 router.post("/api/new-custom", upload.none(), URL_SHORTENER.customShorten);
+
+/**
+ * @swagger
+ * /api/click:
+ *   post:
+ *     summary: To get the short link click count
+ *     tags: [EatMyURL]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SHORT_URL'
+ *     responses:
+ *       200:
+ *         description: The short link click count has been retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/URL'
+ *       500:
+ *         description: Some server error
+ *
+ */
 
 router.post("/api/click", upload.none(), URL_SHORTENER.getClickCount);
 

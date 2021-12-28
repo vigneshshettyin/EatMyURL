@@ -21,7 +21,6 @@ const HomePage = () => {
                   label="URL"
                   variant="outlined"
                   className="URLfield"
-                  style={{ width: "20vw" }}
                 />
                 <TextField
                   id="outlined-basic"
