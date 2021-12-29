@@ -3,21 +3,44 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 const LinkSection = () => {
   return (
-    <LinkWrapper>
-      <h2 className="logo">EatMyURL</h2>
-      <TextField
-        id="outlined-basic"
-        label="URL"
-        variant="outlined"
-        className="URLfield"
-      />
-      <TextField id="outlined-basic" label="Short ID" variant="outlined" />
-      <Button variant="contained" size="large">
-        Lemme eat it !!
-      </Button>
-      <Button variant="contained" size="large">
-        Who’s visited my link?
-      </Button>
+    <LinkWrapper className="container-fluid">
+      <div className="row">
+        <div className="col-md-12">
+          <h1 className="logo">EatMyURL</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <TextField
+            className="container-fluid mt-2 mb-2"
+            id="outlined-basic"
+            label="Long URL"
+            variant="outlined"
+          />
+        </div>
+        <div class="col-6 col-md-4 border-1">
+          <TextField
+            className="container-fluid mt-2 mb-2"
+            id="outlined-basic"
+            label="Short ID"
+            variant="outlined"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <Button className="container-fluid" variant="contained" size="large">
+            Lemme eat it !!
+          </Button>
+        </div>
+        <div class="col-6">
+          <Button className="container-fluid" variant="contained" size="large">
+            Visitor Clicks?
+          </Button>
+        </div>
+      </div>
     </LinkWrapper>
   );
 };

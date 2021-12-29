@@ -21,10 +21,15 @@ const ChildWrapper = styled.div`
 `;
 
 const LinkWrapper = styled.div`
+  h1 {
+    font-size: 75px;
+    font-weight: 600;
+  }
   @media (max-width: 768px) {
     width: 90vw;
     height: 90vh;
     padding: 0 10px 0px 10px;
+    width: 90vw;
   }
   width: 45vw;
   height: 70vh;
@@ -33,12 +38,25 @@ const LinkWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   border-radius: 20px;
+  Button {
+    margin-top: 20px;
+    font-style: normal;
+    text-transform: capitalize;
+    border-radius: 20px;
+    background-color: #2d2c2c;
+    color: white;
+    padding: 20px 30px 20px 30px;
+    :hover {
+      background-color: #0f0f0f;
+    }
+  }
 `;
 
 const DocsWrapper = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
