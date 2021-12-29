@@ -3,6 +3,7 @@ import Docs from "../components/docs";
 import LinkSection from "../components/link";
 import { useState, useEffect } from "react";
 import Loading from "./loading";
+import Fade from "react-reveal/Fade";
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
@@ -17,12 +18,14 @@ const HomePage = () => {
       {loading ? (
         <Loading />
       ) : (
-        <ParentWrapper>
-          <ChildWrapper>
-            <LinkSection />
-            <Docs />
-          </ChildWrapper>
-        </ParentWrapper>
+        <Fade>
+          <ParentWrapper>
+            <ChildWrapper>
+              <LinkSection />
+              <Docs />
+            </ChildWrapper>
+          </ParentWrapper>
+        </Fade>
       )}
     </>
   );
