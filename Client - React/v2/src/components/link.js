@@ -6,7 +6,10 @@ const LinkSection = () => {
     <LinkWrapper className="container-fluid">
       <div className="row">
         <div className="col-md-12">
-          <h1 className="logo">EatMyURL</h1>
+          <img
+            src="https://res.cloudinary.com/vigneshshettyin/image/upload/v1631588908/oia0inntihtas3ymsvgi.png"
+            alt="EatMyURL Logo"
+          />
         </div>
       </div>
 

@@ -26,13 +26,14 @@ const LinkWrapper = styled.div`
     justify-content: center;
     align-items: center;
   }
-  h1 {
-    font-size: 75px;
-    font-weight: 600;
+  img {
+    width: 35vw;
+    margin-bottom: 20px;
     @media (max-width: 768px) {
-      font-size: 55px;
+      width: 75vw;
     }
   }
+
   @media (max-width: 768px) {
     width: 90vw;
     height: 90vh;
@@ -48,7 +49,6 @@ const LinkWrapper = styled.div`
   border-radius: 20px;
   Button {
     margin-top: 20px;
-    font-style: normal;
     text-transform: capitalize;
     border-radius: 20px;
     background-color: #2d2c2c;
@@ -56,6 +56,9 @@ const LinkWrapper = styled.div`
     padding: 20px 30px 20px 30px;
     :hover {
       background-color: #0f0f0f;
+    }
+    @media (max-width: 768px) {
+      padding: 10px 20px 10px 20px;
     }
   }
 `;
