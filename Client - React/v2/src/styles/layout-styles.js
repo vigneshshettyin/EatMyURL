@@ -21,9 +21,17 @@ const ChildWrapper = styled.div`
 `;
 
 const LinkWrapper = styled.div`
+  .buttons-material {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   h1 {
     font-size: 75px;
     font-weight: 600;
+    @media (max-width: 768px) {
+      font-size: 55px;
+    }
   }
   @media (max-width: 768px) {
     width: 90vw;
@@ -33,7 +41,7 @@ const LinkWrapper = styled.div`
   }
   width: 45vw;
   height: 70vh;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   display: flex;
   flex-direction: column;
   justify-content: center;

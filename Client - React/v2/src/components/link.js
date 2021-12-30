@@ -30,14 +30,14 @@ const LinkSection = () => {
       </div>
 
       <div class="row">
-        <div class="col-6">
-          <Button className="container-fluid" variant="contained" size="large">
+        <div class="col-6 buttons-material">
+          <Button variant="contained" size="large">
             Lemme eat it !!
           </Button>
         </div>
-        <div class="col-6">
-          <Button className="container-fluid" variant="contained" size="large">
-            Visitor Clicks?
+        <div class="col-6 buttons-material">
+          <Button variant="contained" size="large">
+            Visitor Clicks ?
           </Button>
         </div>
       </div>
