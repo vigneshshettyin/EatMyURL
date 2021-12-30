@@ -5,12 +5,14 @@ import IconButton from "@mui/material/IconButton";
 import ContentPasteOutlinedIcon from "@mui/icons-material/ContentPasteOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import ShuffleOutlinedIcon from "@mui/icons-material/ShuffleOutlined";
+import QrCode2Icon from "@mui/icons-material/QrCode2";
 import Tooltip from "@mui/material/Tooltip";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { useState } from "react";
+import QRCode from "qrcode.react";
 const LinkSection = () => {
   const navigate = useNavigate();
 
@@ -20,6 +22,20 @@ const LinkSection = () => {
   );
 
   const notify = () => toast("Copied to clipboard 📋");
+
+  const downloadQRCode = () => {
+    // Generate download with use canvas and stream
+    const canvas = document.getElementById("qr-gen");
+    const pngUrl = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    let downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = `${nanoid(5)}.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   return (
     <LinkWrapper className="container-fluid">
@@ -58,7 +74,7 @@ const LinkSection = () => {
       </div>
 
       <div class="row">
-        <div class="col-4 buttons-material">
+        <div class="col-3 buttons-material">
           <Tooltip placement="top" title="Copy To Clipboard">
             <IconButton
               onClick={notify}
@@ -69,7 +85,22 @@ const LinkSection = () => {
             </IconButton>
           </Tooltip>
         </div>
-        <div class="col-4 buttons-material">
+
+        <div class="col-3 buttons-material">
+          <Tooltip placement="top" title="Generate QR Code">
+            <IconButton
+              onClick={() => {
+                downloadQRCode();
+              }}
+              aria-label="QrCode2Icon"
+              size="large"
+            >
+              <QrCode2Icon />
+            </IconButton>
+          </Tooltip>
+        </div>
+
+        <div class="col-3 buttons-material">
           <Tooltip placement="top" title="Generate Short ID">
             <IconButton
               onClick={() => {
@@ -82,7 +113,7 @@ const LinkSection = () => {
             </IconButton>
           </Tooltip>
         </div>
-        <div class="col-4 buttons-material">
+        <div class="col-3 buttons-material">
           <Tooltip placement="top" title="Clear Text">
             <IconButton
               onClick={() => {
@@ -117,6 +148,14 @@ const LinkSection = () => {
         </div>
       </div>
       <ToastContainer closeButton={false} />
+      <QRCode
+        style={{ display: "none" }}
+        id="qr-gen"
+        value={longURL}
+        size={290}
+        level={"H"}
+        includeMargin={true}
+      />
     </LinkWrapper>
   );
 };
