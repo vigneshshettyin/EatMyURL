@@ -75,7 +75,7 @@ const LinkSection = () => {
             variant="outlined"
           />
         </div>
-        <div class="col-12 col-md-4 border-1">
+        <div class="col-6 col-md-4 border-1">
           <TextField
             onChange={(e) => setShortID(e.target.value)}
             value={shortID}
@@ -147,19 +147,13 @@ const LinkSection = () => {
       </div>
 
       <div class="row">
-        <div class="col-12 col-sm-6 buttons-material">
-          <Button
-            style={{ width: "100%" }}
-            onClick={shortenLink}
-            variant="contained"
-            size="large"
-          >
+        <div class="col-6 buttons-material">
+          <Button onClick={shortenLink} variant="contained" size="large">
             Lemme eat it !!
           </Button>
         </div>
-        <div class="col-12 col-sm-6 buttons-material">
+        <div class="col-6 buttons-material">
           <Button
-            style={{ width: "100%" }}
             onClick={() => {
               navigate("/click");
             }}
