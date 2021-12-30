@@ -34,6 +34,16 @@ const LinkWrapper = styled.div`
     }
   }
 
+  h2 {
+    padding: 15px;
+    font-style: normal;
+    font=family: Poppins;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 40px;
+    color: #7b7b7b;
+  }
+
   @media (max-width: 768px) {
     width: 90vw;
     height: 90vh;
