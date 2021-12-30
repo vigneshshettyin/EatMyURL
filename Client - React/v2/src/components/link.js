@@ -21,8 +21,6 @@ const LinkSection = () => {
     "https://github.com/vigneshshettyin/EatMyURL"
   );
 
-  const notify = () => toast("Copied to clipboard 📋");
-
   const downloadQRCode = () => {
     // Generate download with use canvas and stream
     const canvas = document.getElementById("qr-gen");
@@ -77,7 +75,17 @@ const LinkSection = () => {
         <div class="col-3 buttons-material">
           <Tooltip placement="top" title="Copy To Clipboard">
             <IconButton
-              onClick={notify}
+              onClick={() => {
+                toast.success("🦄 Wow so easy!", {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }}
               aria-label="ContentPasteOutlinedIcon"
               size="large"
             >
@@ -143,7 +151,7 @@ const LinkSection = () => {
             variant="contained"
             size="large"
           >
-            Visitor Clicks ?
+            User Clicks ?
           </Button>
         </div>
       </div>
