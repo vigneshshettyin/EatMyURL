@@ -88,6 +88,9 @@ const LinkSection = () => {
           />
         </div>
       </div>
+      <h2 className="desc" style={{ color: "100%" }}>
+        Shorten URL
+      </h2>
 
       {!callState ? (
         <div className="container-fluid">
