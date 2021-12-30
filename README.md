@@ -50,5 +50,6 @@ Install Server with Yarn
 
 - [@vigneshshettyin](https://www.github.com/vigneshshettyin)
 - [@data-charya](https://www.github.com/vigneshshettyin)
+- [@simonnepinto](https://github.com/simonnepinto)
 
 
