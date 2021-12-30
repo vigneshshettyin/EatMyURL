@@ -1,4 +1,4 @@
-import { LinkWrapper } from "../styles/layout-styles";
+import { LinkWrapper, toastObject } from "../styles/layout-styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import QRCode from "qrcode.react";
+import makeRequest from "../api/request";
 const LinkSection = () => {
   const navigate = useNavigate();
 
@@ -35,6 +36,22 @@ const LinkSection = () => {
     document.body.removeChild(downloadLink);
   };
 
+  const shortenLink = async () => {
+    let checkForShortID = shortID.trim();
+    if (checkForShortID.length === 0) {
+      makeRequest("POST", "api/new", { url: longURL })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res.data);
+            toast.success("Shortened URL successfully created!", toastObject);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Error creating shortened URL!", toastObject);
+        });
+    }
+  };
   return (
     <LinkWrapper className="container-fluid">
       <div className="row">
@@ -76,15 +93,7 @@ const LinkSection = () => {
           <Tooltip placement="top" title="Copy To Clipboard">
             <IconButton
               onClick={() => {
-                toast.success("🦄 Wow so easy!", {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
+                toast.success("🦄 Wow so easy!", toastObject);
               }}
               aria-label="ContentPasteOutlinedIcon"
               size="large"
@@ -139,7 +148,7 @@ const LinkSection = () => {
 
       <div class="row">
         <div class="col-6 buttons-material">
-          <Button variant="contained" size="large">
+          <Button onClick={shortenLink} variant="contained" size="large">
             Lemme eat it !!
           </Button>
         </div>
