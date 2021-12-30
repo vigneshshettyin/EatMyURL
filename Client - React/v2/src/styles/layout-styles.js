@@ -37,7 +37,7 @@ const LinkWrapper = styled.div`
   h2 {
     padding: 15px;
     font-style: normal;
-    font=family: Poppins;
+    font-family: Poppins;
     font-weight: bold;
     font-size: 30px;
     line-height: 40px;
@@ -77,6 +77,7 @@ const DocsWrapper = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
+  margin-right: 10px;
   overflow: hidden;
   display: flex;
   justify-content: center;
