@@ -13,7 +13,7 @@ Free URL Shortener & API. Shorten and replace long URL to short link. Track your
 - Swagger API Docs
 - Custom Short Link Support
 - Fast Response Time
-- Cross Platform Support
+- Cross Platform Clients
 
 
 ## Environment Variables
@@ -52,4 +52,8 @@ Install Server with Yarn
 - [@data-charya](https://www.github.com/vigneshshettyin)
 - [@simonnepinto](https://github.com/simonnepinto)
 
+
+## Support
+
+For support, email eatmyurl@vigneshcodes.in
 
