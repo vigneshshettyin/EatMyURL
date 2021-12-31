@@ -16,6 +16,8 @@ import { nanoid } from "nanoid";
 import { useState } from "react";
 import QRCode from "qrcode.react";
 import makeRequest from "../api/request";
+import Stack from "@mui/material/Stack";
+import LinearProgress from "@mui/material/LinearProgress";
 const LinkSection = () => {
   const navigate = useNavigate();
 
@@ -23,6 +25,7 @@ const LinkSection = () => {
   const [longURL, setLongURL] = useState("");
   const [shortURL, setShortURL] = useState("");
   const [callState, setCallState] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const downloadQRCode = () => {
     // Generate download with use canvas and stream
@@ -45,6 +48,7 @@ const LinkSection = () => {
     }
     let checkForShortID = shortID.trim();
     if (checkForShortID.length === 0) {
+      setLoading(true);
       makeRequest("POST", "api/new", { url: longURL })
         .then((res) => {
           if (res.status === 200) {
@@ -52,13 +56,16 @@ const LinkSection = () => {
             setShortURL(res.data.shortID);
             console.log(res.data);
             toast.success("Shortened URL successfully created!", toastObject);
+            setLoading(false);
           }
         })
         .catch((err) => {
           console.log(err);
           toast.error("Error creating shortened URL!", toastObject);
+          setLoading(false);
         });
     } else if (checkForShortID.length > 2) {
+      setLoading(true);
       makeRequest("POST", "api/new-custom", { url: longURL, shortID: shortID })
         .then((res) => {
           if (res.status === 200) {
@@ -66,6 +73,7 @@ const LinkSection = () => {
             setShortURL(res.data.shortID);
             console.log(res.data);
             toast.success("Shortened URL successfully created!", toastObject);
+            setLoading(false);
           }
         })
         .catch((err) => {
@@ -206,6 +214,16 @@ const LinkSection = () => {
             </div>
           </div>
         </Fade>
+      ) : null}
+
+      {loading ? (
+        <div className="row">
+          <div className="col-md-12 p-3 buttons-material">
+            <Stack sx={{ width: "97%", color: "grey.500" }} spacing={2}>
+              <LinearProgress color="inherit" />
+            </Stack>
+          </div>
+        </div>
       ) : null}
 
       <div class="row">

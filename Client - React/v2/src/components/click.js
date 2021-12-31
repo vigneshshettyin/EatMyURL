@@ -8,6 +8,8 @@ import makeRequest from "../api/request";
 import Fade from "react-reveal/Fade";
 import validator from "validator";
 import { ToastContainer, toast } from "react-toastify";
+import Stack from "@mui/material/Stack";
+import LinearProgress from "@mui/material/LinearProgress";
 import "react-toastify/dist/ReactToastify.css";
 
 const ClickSection = () => {
@@ -15,6 +17,7 @@ const ClickSection = () => {
   const [url, setURL] = useState("");
   const [click, setClick] = useState(0);
   const [callState, setCallState] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const shortenLinkClickCount = async () => {
     if (!validator.isURL(url)) {
@@ -25,6 +28,7 @@ const ClickSection = () => {
       toast.error("Invalid URL!", toastObject);
       return;
     }
+    setLoading(true);
     let checkForShortID = url.trim();
     makeRequest("POST", "api/click", { url: checkForShortID })
       .then((res) => {
@@ -32,10 +36,12 @@ const ClickSection = () => {
           setCallState(true);
           setClick(res.data.click);
           toast.success("Data collected successfully!", toastObject);
+          setLoading(false);
         }
       })
       .catch((err) => {
         toast.error("Error collecting data!", toastObject);
+        setLoading(false);
       });
   };
 
@@ -61,6 +67,17 @@ const ClickSection = () => {
         onChange={(e) => setURL(e.target.value)}
         defaultValue={url}
       />
+
+      {loading ? (
+        <div className="row">
+          <div className="col-md-12 p-3 buttons-material">
+            <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+              <LinearProgress color="inherit" />
+            </Stack>
+          </div>
+        </div>
+      ) : null}
+
       {callState ? (
         <Fade bottom>
           <div className="container-fluid">
@@ -106,15 +123,13 @@ const ClickSection = () => {
               <div class="col-12 col-sm-6 buttons-material">
                 <Button
                   onClick={() => {
-                    setCallState(false);
-                    setClick(0);
-                    setURL("");
+                    navigate("/");
                   }}
                   style={{ width: "100%" }}
                   variant="contained"
                   size="large"
                 >
-                  Check More?
+                  Let's Eat URL?
                 </Button>
               </div>
             </div>
