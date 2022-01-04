@@ -46,11 +46,11 @@ Install Server with Yarn
 **Server:** Node, Express
 
 
-## Authors
+## Contributors
 
-- [@vigneshshettyin](https://www.github.com/vigneshshettyin)
-- [@data-charya](https://www.github.com/vigneshshettyin)
-- [@simonnepinto](https://github.com/simonnepinto)
+<a href="https://github.com/vigneshshettyin/EatMyURL/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=vigneshshettyin/EatMyURL" />
+</a>
 
 
 ## Support
