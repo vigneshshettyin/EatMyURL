@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverURL = "https://eatmyurl.ml";
+const serverURL = "https://eurl.tech";
 
 const makeRequest = (method, params, data) => {
   let url = `${serverURL}/${params}`;
