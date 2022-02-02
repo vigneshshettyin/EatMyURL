@@ -5,7 +5,7 @@ const Docs = () => {
     <DocsWrapper>
       <iframe
         title="EatMyURL API Docs"
-        src="https://eatmyurl.ml/api-docs/"
+        src="https://eurl.tech/api-docs/"
       ></iframe>
     </DocsWrapper>
   );
