@@ -8,7 +8,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/click" element={<CountLink />} />
+      <Route path="/:click" element={<CountLink />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")

@@ -12,3 +12,5 @@ const makeRequest = (method, params, data) => {
 };
 
 export default makeRequest;
+
+export { serverURL };
