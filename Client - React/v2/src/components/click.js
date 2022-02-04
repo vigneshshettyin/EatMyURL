@@ -24,7 +24,7 @@ const ClickSection = () => {
       toast.error("Invalid URL!", toastObject);
       return;
     }
-    if (!url.includes("eatmyurl.ml")) {
+    if (!url.includes("eurl.tech")) {
       toast.error("Invalid URL!", toastObject);
       return;
     }
