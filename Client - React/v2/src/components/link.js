@@ -6,7 +6,7 @@ import Fade from "react-reveal/Fade";
 import IconButton from "@mui/material/IconButton";
 import ContentPasteOutlinedIcon from "@mui/icons-material/ContentPasteOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
-import ShuffleOutlinedIcon from "@mui/icons-material/ShuffleOutlined";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import Tooltip from "@mui/material/Tooltip";
 import { ToastContainer, toast } from "react-toastify";
@@ -183,15 +183,15 @@ const LinkSection = () => {
               </div>
 
               <div class="col-3 buttons-material">
-                <Tooltip placement="top" title="Generate Short ID">
+                <Tooltip placement="top" title="Open In New Tab">
                   <IconButton
                     onClick={() => {
-                      setShortID(nanoid(7));
+                      window.open(shortURL, "_blank");
                     }}
-                    aria-label="ShuffleOutlinedIcon"
+                    aria-label="OpenInNewIcon"
                     size="large"
                   >
-                    <ShuffleOutlinedIcon />
+                    <OpenInNewIcon />
                   </IconButton>
                 </Tooltip>
               </div>

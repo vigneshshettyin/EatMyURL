@@ -58,15 +58,21 @@ const ClickSection = () => {
       <h2 className="desc" style={{ color: "100%" }}>
         URL Clicks
       </h2>
-      <TextField
-        id="outlined-basic"
-        label="URL"
-        variant="outlined"
-        className="URLfield"
-        value={url}
-        onChange={(e) => setURL(e.target.value)}
-        defaultValue={url}
-      />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-12">
+            <TextField
+              id="outlined-basic"
+              label="URL"
+              variant="outlined"
+              className="URLfield container-fluid"
+              value={url}
+              onChange={(e) => setURL(e.target.value)}
+              defaultValue={url}
+            />
+          </div>
+        </div>
+      </div>
 
       {loading ? (
         <div className="row">
