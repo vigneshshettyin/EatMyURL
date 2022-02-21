@@ -57,3 +57,7 @@ Install Server with Yarn
 
 For support, email eatmyurl@vigneshcodes.in
 
+<p align="center">
+ <a href="https://www.producthunt.com/posts/eatmyurl-free-url-shortener?utm_source=badge-review&utm_medium=badge&utm_souce=badge-eatmyurl-free-url-shortener#discussion-body" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/review.svg?post_id=332657&theme=dark" alt="EatMyURL - Free URL Shortener - Let's Eat Long URL! | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+</p>
+
