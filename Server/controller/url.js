@@ -1,6 +1,7 @@
 const base62 = require("./base62/base62");
 // Revoked in Version 2.0.0
 // const Counter = require("../db/schema/counter");
+require("dotenv").config();
 const URL = require("../db/schema/url");
 const validator = require("validator");
 const url2 = require("url");
@@ -44,13 +45,13 @@ class URL_SHORTENER {
   async redirect(req, res) {
     const { shortID } = req.params;
     if (!shortID) {
-      return res.redirect(process.env.URL_REDIRECT);
+      return res.redirect(process.env.CLIENT_URL);
     }
     const response = await URL.findOne({
       shortID: shortID,
     });
     if (!response) {
-      return res.redirect(process.env.URL_REDIRECT);
+      return res.redirect(process.env.CLIENT_URL);
     }
     await updateClicks(shortID);
     if (response.longURL.includes("http")) {
