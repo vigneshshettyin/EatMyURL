@@ -8,7 +8,7 @@ const rateLimit = require("express-rate-limit").default;
 const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
-const HOST_URL = "https://app.eurl.tech";
+const HOST_URL = process.env.CLIENT_URL;
 // Swagger Docs
 
 const swaggerUI = require("swagger-ui-express");
@@ -25,7 +25,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://eurl.tech",
+        url: process.env.SERVER_URL,
       },
     ],
   },
@@ -71,15 +71,14 @@ app.get("/", (req, res) => {
   res.redirect(HOST_URL);
 });
 
-app.get("testing-api", (req, res) => {
-  res.status(200).json({
-    message: "Testing API",
-    status: 200,
-  });
-});
-
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(router);
 
-module.exports.handler = serverless(app);
+if (!process.env.HOST) {
+  module.exports.handler = serverless(app);
+} else {
+  app.listen(process.env.PORT, () => {
+    console.log(`Server started on port ${process.env.PORT}`);
+  });
+}
