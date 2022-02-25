@@ -1,3 +1,4 @@
+const serverless = require("serverless-http");
 // Dependencies
 require("dotenv").config();
 const express = require("express");
@@ -7,11 +8,7 @@ const rateLimit = require("express-rate-limit").default;
 const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
-
-// PORT
-
-const PORT = process.env.PORT || 8000;
-
+const HOST_URL = "https://app.eurl.tech";
 // Swagger Docs
 
 const swaggerUI = require("swagger-ui-express");
@@ -28,10 +25,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
-      },
-      {
-        url: "https://eatmyurl.ml/",
+        url: "https://eurl.tech",
       },
     ],
   },
@@ -51,11 +45,8 @@ app.use(morgan("tiny"));
 
 // Connecting to MongoDB
 // Cors Setup
-const corsOption = {
-  credentials: true,
-  origin: ["http://localhost:3000", "http://localhost:8000"],
-};
-app.use(cors(corsOption));
+
+app.use(cors());
 
 // Cache Setup
 
@@ -77,11 +68,18 @@ app.use(apiRequestLimiter);
 // Revoked in Version 2.0.0
 
 app.get("/", (req, res) => {
-  res.redirect("/api-docs");
+  res.redirect(HOST_URL);
+});
+
+app.get("testing-api", (req, res) => {
+  res.status(200).json({
+    message: "Testing API",
+    status: 200,
+  });
 });
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(router);
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+module.exports.handler = serverless(app);
