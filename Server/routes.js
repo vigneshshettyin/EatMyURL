@@ -180,4 +180,6 @@ router.post("/api/new-custom", upload.none(), URL_SHORTENER.customShorten);
 
 router.post("/api/click", upload.none(), URL_SHORTENER.getClickCount);
 
+router.get("/api/stats", URL_SHORTENER.getStats);
+
 module.exports = router;

@@ -42,6 +42,27 @@ async function updateClicks(shortID) {
 }
 
 class URL_SHORTENER {
+  async getStats(req, res) {
+    const response = await URL.find();
+    if (!response) {
+      return res.status(400).json({
+        error: "No URLs found!",
+      });
+    }
+    res.status(200).json({
+      clientURL: process.env.CLIENT_URL,
+      serverURL: process.env.SERVER_URL,
+      total: response.length,
+      stats: response.map((url) => {
+        return {
+          createdAt: url.createdAt,
+          updatedAt: url.updatedAt,
+          click: url.click,
+        };
+      }),
+    });
+  }
+
   async redirect(req, res) {
     const { shortID } = req.params;
     if (!shortID) {
