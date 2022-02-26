@@ -53,7 +53,7 @@ app.use(morgan("tiny"));
 // Cors Setup
 const corsOption = {
   credentials: true,
-  origin: ["http://localhost:3000", "http://localhost:8000"],
+  origin: [process.env.CLIENT_URL],
 };
 app.use(cors(corsOption));
 
