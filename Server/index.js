@@ -1,4 +1,3 @@
-const serverless = require("serverless-http");
 // Dependencies
 require("dotenv").config();
 const express = require("express");
@@ -8,7 +7,15 @@ const rateLimit = require("express-rate-limit").default;
 const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
+<<<<<<< HEAD:Server/handler.js
 const HOST_URL = process.env.CLIENT_URL;
+=======
+
+// PORT
+
+const PORT = process.env.PORT || 8000;
+
+>>>>>>> parent of 8d57412 (AWS Serverless):Server/index.js
 // Swagger Docs
 
 const swaggerUI = require("swagger-ui-express");
@@ -25,7 +32,14 @@ const options = {
     },
     servers: [
       {
+<<<<<<< HEAD:Server/handler.js
         url: process.env.SERVER_URL,
+=======
+        url: `http://localhost:${PORT}`,
+      },
+      {
+        url: "https://eatmyurl.ml/",
+>>>>>>> parent of 8d57412 (AWS Serverless):Server/index.js
       },
     ],
   },
@@ -45,8 +59,11 @@ app.use(morgan("tiny"));
 
 // Connecting to MongoDB
 // Cors Setup
-
-app.use(cors());
+const corsOption = {
+  credentials: true,
+  origin: ["http://localhost:3000", "http://localhost:8000"],
+};
+app.use(cors(corsOption));
 
 // Cache Setup
 
@@ -68,13 +85,18 @@ app.use(apiRequestLimiter);
 // Revoked in Version 2.0.0
 
 app.get("/", (req, res) => {
+<<<<<<< HEAD:Server/handler.js
   res.redirect(HOST_URL);
+=======
+  res.redirect("/api-docs");
+>>>>>>> parent of 8d57412 (AWS Serverless):Server/index.js
 });
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(router);
 
+<<<<<<< HEAD:Server/handler.js
 if (process.env.STATUS === "prod") {
   module.exports.handler = serverless(app);
 } else {
@@ -82,3 +104,6 @@ if (process.env.STATUS === "prod") {
     console.log(`Server running on port ${process.env.PORT}`);
   });
 }
+=======
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+>>>>>>> parent of 8d57412 (AWS Serverless):Server/index.js
