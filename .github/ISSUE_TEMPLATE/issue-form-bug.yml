@@ -25,7 +25,7 @@ body:
         - Documentation
         - Client - (Flutter)
         - Client - (React)
-        - Server - (Express - AWS Serverless)
+        - Server - (Express)
     validations:
       required: true
   - type: checkboxes
