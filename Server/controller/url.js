@@ -1,4 +1,6 @@
 const base62 = require("./base62/base62");
+const { v4: uuidv4 } = require("uuid");
+const shortid = require("shortid");
 // Revoked in Version 2.0.0
 // const Counter = require("../db/schema/counter");
 require("dotenv").config();
@@ -14,6 +16,8 @@ const url2 = require("url");
 //   });
 //   return base62.encode(response.counter);
 // }
+
+// Revoked in Version 2.0.1
 
 async function getShortCode() {
   return base62.encode(`${Date.now()}`);
@@ -34,11 +38,10 @@ function getHost(req) {
 // }
 
 async function updateClicks(shortID) {
-  const response = await URL.findOne({
-    shortID: shortID,
-  });
-  response.click = response.click + 1;
-  await response.save();
+  const respone = await URL.findOneAndUpdate(
+    { shortID: shortID },
+    { $inc: { click: 1 } }
+  );
 }
 
 class URL_SHORTENER {
@@ -109,15 +112,35 @@ class URL_SHORTENER {
         error: "Invalid URL!",
       });
     }
-    const newURL = new URL({
-      shortID: await getShortCode(),
+
+    const checkForURL = await URL.findOne({
       longURL: url,
     });
+    if (!!checkForURL) {
+      checkForURL.shortID = getHost(req) + checkForURL.shortID;
+      return res.status(200).json(checkForURL);
+    } else {
+      const createShortLink = new URL({
+        shortID: await getShortCode(),
+        longURL: url,
+        ip: req.ip,
+      });
+      const response = await createShortLink.save();
+      response.shortID = getHost(req) + response.shortID;
+      res.status(200).json(response);
+    }
+
+    // Revoked in Version - 2.0.1
+    // const newURL = new URL({
+    //   shortID: await getShortCode(),
+    //   longURL: url,
+    // });
     // Revoked in Version - 2.0.0
     // await updateCounter();
-    const response = await newURL.save();
-    response.shortID = getHost(req) + response.shortID;
-    res.status(200).json(response);
+    // Revoked in Version - 2.0.1
+    // const response = await newURL.save();
+    // response.shortID = getHost(req) + response.shortID;
+    // res.status(200).json(response);
   }
 
   async customShorten(req, res) {
@@ -143,6 +166,7 @@ class URL_SHORTENER {
       const newURL = new URL({
         shortID: shortID,
         longURL: url,
+        ip: req.ip,
       });
       // Revoked in Version - 2.0.0
       // await updateCounter();
