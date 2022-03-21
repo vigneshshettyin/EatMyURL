@@ -36,6 +36,12 @@ UserSchema.methods.generateToken = async function (userid) {
   });
   return token;
 };
+UserSchema.methods.generateRefreshToken = async function (userid) {
+  const refreshtoken = await jwt.sign({ userid }, process.env.SECRET_RKEY, {
+    expiresIn: "30d",
+  });
+  return refreshtoken;
+};
 
 //Comparing with hash password
 UserSchema.methods.comparePassword = async function (password) {

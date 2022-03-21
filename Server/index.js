@@ -18,6 +18,7 @@ const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const UserRouter = require("./db/routes/Userroutes");
 
+
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -52,6 +53,7 @@ app.use(morgan("tiny"));
 
 //User router
 app.use("/api/user",UserRouter);
+
 // Connecting to MongoDB
 // Cors Setup
 const corsOption = {
