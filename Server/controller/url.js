@@ -106,6 +106,7 @@ class URL_SHORTENER {
   }
 
   async shorten(req, res) {
+    console.log(req.user);
     const { url } = req.body;
     if (!validator.isURL(url)) {
       return res.status(400).json({
@@ -120,14 +121,23 @@ class URL_SHORTENER {
       checkForURL.shortID = getHost(req) + checkForURL.shortID;
       return res.status(200).json(checkForURL);
     } else {
+      // const createShortLink = new URL({
+      //   shortID: await getShortCode(),
+      //   longURL: url,
+      //   ip: req.ip,
+      // });
       const createShortLink = new URL({
         shortID: await getShortCode(),
         longURL: url,
         ip: req.ip,
       });
       const response = await createShortLink.save();
-      response.shortID = getHost(req) + response.shortID;
-      res.status(200).json(response);
+      const newentry = await URL.findById({ _id: response._id }).findOne({
+        _id: response._id,
+      });
+
+      newentry.shortID = getHost(req) + newentry.shortID;
+      res.status(200).json(newentry);
     }
 
     // Revoked in Version - 2.0.1
@@ -163,6 +173,13 @@ class URL_SHORTENER {
         error: "Short ID already exists!",
       });
     } else {
+      // const newURL = new URL({
+      //   shortID: shortID,
+      //   longURL: url,
+      //   ip: req.ip,
+      // });
+      //new API
+      console.log(req.user);
       const newURL = new URL({
         shortID: shortID,
         longURL: url,
