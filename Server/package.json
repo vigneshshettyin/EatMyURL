@@ -4,11 +4,11 @@
   "description": "Long URL Shortener using Flutter and Node JS",
   "main": "index.js",
   "repository": "https://github.com/vigneshshettyin/URL-Shortener",
-  "author": "Vignesh & Shanwill Pinto",
+  "author": "Vignesh",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon index.js",
-    "run": "node index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "apicache": "^1.6.3",
