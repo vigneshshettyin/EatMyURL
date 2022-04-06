@@ -19,7 +19,6 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const UserRouter = require("./db/routes/Userroutes");
 const URLrouter = require("./db/routes/URLroutes");
 
-
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -53,15 +52,16 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 //User router
+<<<<<<< HEAD
 app.use("/api/user",UserRouter);
 app.use("/api/url",URLrouter)
+=======
+app.use("/api/user", UserRouter);
+
+>>>>>>> baeed8e3312b01aac278258ecb831fc97cabe04c
 // Connecting to MongoDB
 // Cors Setup
-const corsOption = {
-  credentials: true,
-  origin: [process.env.CLIENT_URL],
-};
-app.use(cors(corsOption));
+app.use(cors());
 
 // Cache Setup
 

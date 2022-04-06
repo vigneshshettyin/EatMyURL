@@ -84,9 +84,9 @@ class URL_SHORTENER {
       return res.redirect("https://" + response.longURL);
     }
   }
-
+ 
   async getClickCount(req, res) {
-    const { url } = req.body;
+    const { url,user } = req.body;
     if (!validator.isURL(url)) {
       return res.status(400).json({
         error: "Invalid URL!",
