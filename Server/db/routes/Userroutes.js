@@ -1,9 +1,11 @@
 const express = require("express");
 const User = require("../schema/user");
+const URL = require("../schema/url");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const UserSchemaValidation = require("../@ValidationSchema/ValidateUser");
 const authenticate = require("../Middleware/verifytoken");
+const { authenticateUser } = require("../Middleware/authuser");
 const tokenlist = {};
 const UserRouter = express.Router();
 
@@ -122,5 +124,13 @@ UserRouter.post("/token", authenticate, async (req, res) => {
   //It'll generate new tokens and thn come here
   //If refresh too is invalid it wont come here.
   return res.status(200).send({ Message: "Authorised User" });
+});
+
+UserRouter.get("/getallurls", async (req, res) => {
+  console.log(req.user);
+  const { user } = req.body;
+  var allurls = await URL.find({ user: user }).populate("user");
+
+  res.status(200).send(allurls);
 });
 module.exports = UserRouter;

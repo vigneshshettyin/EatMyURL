@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 8000;
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const UserRouter = require("./db/routes/Userroutes");
+const URLrouter = require("./db/routes/URLroutes");
 
 const options = {
   definition: {
@@ -51,8 +52,13 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 //User router
+<<<<<<< HEAD
+app.use("/api/user",UserRouter);
+app.use("/api/url",URLrouter)
+=======
 app.use("/api/user", UserRouter);
 
+>>>>>>> baeed8e3312b01aac278258ecb831fc97cabe04c
 // Connecting to MongoDB
 // Cors Setup
 app.use(cors());
