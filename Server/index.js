@@ -52,13 +52,8 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 //User router
-<<<<<<< HEAD
-app.use("/api/user",UserRouter);
-app.use("/api/url",URLrouter)
-=======
 app.use("/api/user", UserRouter);
-
->>>>>>> baeed8e3312b01aac278258ecb831fc97cabe04c
+app.use("/api/url", URLrouter);
 // Connecting to MongoDB
 // Cors Setup
 app.use(cors());
