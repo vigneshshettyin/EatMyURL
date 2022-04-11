@@ -52,16 +52,16 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 const corsOptions = {
-  origin: "*",
+  origin: ["https://app.eurl.tech"],
   optionsSuccessStatus: 200,
 };
+app.use(cors(corsOptions));
 
 //User router
 app.use("/api/user", UserRouter);
 app.use("/api/url", URLrouter);
 // Connecting to MongoDB
 // Cors Setup
-app.use(cors(corsOptions));
 
 // Cache Setup
 
