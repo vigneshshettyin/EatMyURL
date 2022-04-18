@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverURL = "https://eurl.tech";
+const serverURL = "https://eurl.vigneshcodes.in";
 
 const makeRequest = (method, params, data) => {
   let url = `${serverURL}/${params}`;
