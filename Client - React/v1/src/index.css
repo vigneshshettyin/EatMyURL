@@ -8,17 +8,18 @@
 
 body {
   height: 100vh;
+  overflow-y: scroll;
   width: 100vw;
   background: #fcedea;
 }
 .card {
-  height: 50vh;
-  background: #f4b6b0;
+  height: 50vh !important;
+  background: #f4b6b0 !important;
 }
 .center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex ;
+  justify-content: center ;
+  align-items: center ;
 }
 h4 {
   font-weight: bold;
@@ -72,3 +73,81 @@ p {
   font-weight: bold;
   cursor: pointer;
 }
+
+/*CSS for toggling signup page*/
+
+
+.hide{
+  display: none;
+}
+
+.btn{
+  padding: 0.3rem;
+  margin: 0.3rem;
+  border-radius: 0.5rem;
+  border: 2px solid black;
+}
+
+/*CSS for main input container*/
+.signup{
+  border: 2px solid #df7c73;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: #fcedea;
+}
+.bg{
+  background-color: #ef9a9a;
+}
+/*CSS for input section in container*/
+.inputsection{
+  border: 2px solid #df7c73;
+  border-radius: 0.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  background-color: #f4b6b0;
+ margin-bottom: 2rem;
+  /* padding: 5rem; */
+}
+
+/*CSS separating each input field*/
+.inputsection .inputwrap{
+  padding: 0.8rem;
+}
+
+.inputwrap input{
+  border-radius: 0.6rem;
+  height: 2.5rem;
+  padding: 0.6rem;
+}
+
+/*Signup header*/
+.header{
+  font-size: 3rem;
+  padding: 0.2rem;
+  font-weight: bolder;
+  color: #733030;
+}
+/*Button container*/
+.btnwrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*Button CSS*/
+.btn{
+  border: 2px solid #733030 !important;
+  background-color: #df7c73 !important;
+  border-radius: 0.6rem !important;
+  padding: 0.2rem;
+  color: #fff !important;
+  cursor: pointer;
+}
+
+.btn:hover{
+  background-color: #e79392 !important;
+}
+

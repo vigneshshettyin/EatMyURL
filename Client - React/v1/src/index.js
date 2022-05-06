@@ -7,13 +7,16 @@ import { toast, ToastContainer } from "react-toastify";
 import { Zoom, Bounce } from "react-reveal";
 import Footer from "./component/footer";
 import TextState from "./context/textState";
+import { Route, useHistory } from "react-router-dom";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
+import Signup from "./Screens/Signup";
+// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+// import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 ReactDOM.render(
   <React.StrictMode>
     <TextState>
       <App />
-      <Footer />
     </TextState>
   </React.StrictMode>,
   document.getElementById("root")
@@ -98,104 +101,131 @@ export function App() {
     }
   }
 
+
+
+  const [signupvis, setsignupvis] = useState(false);
+  const shoesignup = () => {
+    // alert("clicked");
+    setsignupvis(!signupvis);
+  };
   return (
-    <div className="body">
-      <ToastContainer />
-      <div className="container-fluid">
-        <div className="row">
-          <Zoom>
-            <div className="col-md-6">
-              <img
-                className="img-fluid"
-                src="https://res.cloudinary.com/vigneshshettyin/image/upload/v1631588908/oia0inntihtas3ymsvgi.png"
-                alt="LOGO"
-                draggable="false"
-              />
-            </div>
-          </Zoom>
+    <>
+      <div className="body">
+        <button
+          className="btn btn-primary custom-button m-1"
+          onClick={() => shoesignup()}
+        >
+          Click here to sign-up
+        </button>
+        <div className={`signupwrapper ${!signupvis ? "hide" : ""}`}>
+          <Signup />
         </div>
-      </div>
-      <div className="container-fluid mt3">
-        <div className="row m-1">
-          <Bounce>
-            <div className="col-md-6">
-              <ReactCardFlip isFlipped={flipState} flipDirection="horizontal">
-                <div className="card shadow-lg rounded">
-                  <h4 className="rounded">Shorten URL!</h4>
-                  <div className="form-floating m-2">
-                    <input
-                      type="text"
-                      onChange={handleUrl}
-                      value={url}
-                      className="form-control text-input"
-                      id="floatingInput"
-                      placeholder="https://github.com/vigneshshettyin/URL-Shortener"
+        {!signupvis ? (
+          <>
+            <ToastContainer />
+            <div className="container-fluid">
+              <div className="row">
+                <Zoom>
+                  <div className="col-md-6">
+                    <img
+                      className="img-fluid"
+                      src="https://res.cloudinary.com/vigneshshettyin/image/upload/v1631588908/oia0inntihtas3ymsvgi.png"
+                      alt="LOGO"
+                      draggable="false"
                     />
-                    <label>{longState}</label>
                   </div>
-
-                  <center>
-                    <button
-                      onClick={getShortLink}
-                      className="btn btn-primary custom-button m-1"
-                    >
-                      {loader ? <Loading /> : `Letme Eat it!!`}
-                    </button>
-
-                    {copyState && (
-                      <button
-                        onClick={() => {
-                          copyToClipboard(url);
-                        }}
-                        className="btn btn-primary custom-button m-1"
-                      >
-                        Clipboard 📋
-                      </button>
-                    )}
-                  </center>
-                  <button
-                    className="btn btn-primary button-bottom custom-button"
-                    onClick={handleFlipState}
-                  >
-                    Get Count!
-                  </button>
-                </div>
-
-                <div className="card shadow-lg rounded">
-                  <h4 className="rounded">Get Click Count!</h4>
-                  <div className="form-floating m-2">
-                    <input
-                      type="text"
-                      onChange={handleUrl}
-                      value={url}
-                      className="form-control"
-                      id="floatingInput"
-                      placeholder="https://github.com/vigneshshettyin/URL-Shortener"
-                    />
-                    <label>Short URL</label>
-                  </div>
-
-                  <center>
-                    <button
-                      onClick={getClickCount}
-                      className="btn btn-primary custom-button"
-                    >
-                      {loader2 ? <Loading /> : `Get Link Count!!`}
-                    </button>
-                  </center>
-                  <button
-                    className="btn btn-primary button-bottom custom-button"
-                    onClick={handleFlipState}
-                  >
-                    Shorten URL!
-                  </button>
-                </div>
-              </ReactCardFlip>
+                </Zoom>
+              </div>
             </div>
-          </Bounce>
-        </div>
+            <div className="container-fluid mt3 ">
+              <div className="row m-1">
+                <Bounce>
+                  <div className="col-md-6 ">
+                    <ReactCardFlip
+                      isFlipped={flipState}
+                      flipDirection="horizontal"
+                    >
+                      <div className="card shadow-lg rounded  ">
+                        <h4 className="rounded">Shorten URL!</h4>
+                        <div className="form-floating m-2">
+                          <input
+                            type="text"
+                            onChange={handleUrl}
+                            value={url}
+                            className="form-control text-input"
+                            id="floatingInput"
+                            placeholder="https://github.com/vigneshshettyin/URL-Shortener"
+                          />
+                          <label>{longState}</label>
+                        </div>
+
+                        <center>
+                          <button
+                            onClick={getShortLink}
+                            className="btn btn-primary custom-button m-1"
+                          >
+                            {loader ? <Loading /> : `Letme Eat it!!`}
+                          </button>
+
+                          {copyState && (
+                            <button
+                              onClick={() => {
+                                copyToClipboard(url);
+                              }}
+                              className="btn btn-primary custom-button m-1"
+                            >
+                              Clipboard 📋
+                            </button>
+                          )}
+                        </center>
+                        <button
+                          className="btn btn-primary button-bottom custom-button"
+                          onClick={handleFlipState}
+                        >
+                          Get Count!
+                        </button>
+                      </div>
+
+                      <div className="card shadow-lg rounded">
+                        <h4 className="rounded">Get Click Count!</h4>
+                        <div className="form-floating m-2">
+                          <input
+                            type="text"
+                            onChange={handleUrl}
+                            value={url}
+                            className="form-control"
+                            id="floatingInput"
+                            placeholder="https://github.com/vigneshshettyin/URL-Shortener"
+                          />
+                          <label>Short URL</label>
+                        </div>
+
+                        <center>
+                          <button
+                            onClick={getClickCount}
+                            className="btn btn-primary custom-button"
+                          >
+                            {loader2 ? <Loading /> : `Get Link Count!!`}
+                          </button>
+                        </center>
+                        <button
+                          className="btn btn-primary button-bottom custom-button"
+                          onClick={handleFlipState}
+                        >
+                          Shorten URL!
+                        </button>
+                      </div>
+                    </ReactCardFlip>
+                  </div>
+                </Bounce>
+              </div>
+            </div>
+
+            <Footer />
+          </>
+        ) : null}
       </div>
-    </div>
+    </>
   );
 }
 
