@@ -27,9 +27,11 @@ UserRouter.post("/signup", async (req, res) => {
     return;
   }
   try {
+    console.log("Finding user")
     //If user exists, don't allow to signup
     const findUser = await User.findOne({ email: email });
     if (findUser) {
+      console.log("Uswr exists")
       res.status(500).send({ Message: "User Already exists" });
       return;
     }
@@ -43,7 +45,7 @@ UserRouter.post("/signup", async (req, res) => {
       token: token,
       refreshtoken: refreshtoken,
     });
-
+    console.log(newUser)
     const UserCreated = await newUser.save();
 
     //Response to be sent to frontend
@@ -57,6 +59,7 @@ UserRouter.post("/signup", async (req, res) => {
     res.status(200).send(UserData);
     return;
   } catch (e) {
+    console.log(`error: ${e}`)
     res.status(400).send({ Message: e });
     return;
   }
