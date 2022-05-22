@@ -1,36 +1,33 @@
 import React, { useState } from "react";
 import { Bounce, Zoom } from "react-reveal";
-import TextField
-   from "@mui/material/TextField";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-import { useEffect } from "react";
-import axios from "axios";
 import Navbar from "./dashboard";
-const Login = () => {
- 
+import { Link, useNavigate } from "react-router-dom";
+
+const Login = (props) => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
- 
-
+  const Navigate = useNavigate();
   const SubmitHandler = async (e) => {
     e.preventDefault();
     //First check if password and cpassword are same
-    if ( !email || !password ) {
+    if (!email || !password) {
       alert("Please fill all the fields");
       return;
     }
-    
+
     alert("Login done");
 
-    
     setemail("");
     setpassword("");
-   
+
+    //Login done,direct to home page
+    Navigate("/");
   };
   return (
     <>
-    <Navbar l2={true}/>
+      <Navbar l2={true} />
       <div className="container signup1">
         <div className="signup row">
           {/*Entry part */}
@@ -38,12 +35,9 @@ const Login = () => {
           <br />
           <div className="col-md-6 col-lg-6 col-12 d-flex justify-content-center ">
             <Bounce>
-              <form action="POST" className="inputsection">
-               
-                <div className="inputwrap">
+              <form action="POST" className="inputsection mt-5">
+                <div className="inputwrap mt-3">
                   <TextField
-                    
-                    id="outlined-basic"
                     label="Enter your email"
                     variant="outlined"
                     className="URLfield container-fluid"
@@ -54,10 +48,8 @@ const Login = () => {
                     required
                   />
                 </div>
-                <div className="inputwrap">
+                <div className="inputwrap mt-3">
                   <TextField
-                    
-                    id="outlined-basic"
                     label="Enter your password"
                     variant="outlined"
                     className="URLfield container-fluid"
@@ -67,8 +59,8 @@ const Login = () => {
                     required
                   />
                 </div>
-               
-                <div className="btnwrap">
+
+                <div className="btnwrap mt-3">
                   <Button
                     style={{ width: "100%" }}
                     onClick={SubmitHandler}
@@ -78,7 +70,11 @@ const Login = () => {
                   >
                     Login
                   </Button>
-                 
+                </div>
+                <div className="btnwrap mt-3 mb-3">
+                  <Link to={{ pathname: "/signup" }} className="text-center">
+                    New user ? Sign up
+                  </Link>
                 </div>
               </form>
             </Bounce>
@@ -89,10 +85,9 @@ const Login = () => {
               <img
                 src="https://res.cloudinary.com/vigneshshettyin/image/upload/v1631588908/oia0inntihtas3ymsvgi.png"
                 alt=""
-                className="img-fluid"
+                className="img-fluid logo"
               />
             </Zoom>
-            
           </div>
         </div>
       </div>

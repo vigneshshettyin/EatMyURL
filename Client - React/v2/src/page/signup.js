@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Bounce, Zoom } from "react-reveal";
-import TextField
-   from "@mui/material/TextField";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-import { useEffect } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import Navbar from "./dashboard";
 const Signup = () => {
   const [name, setname] = useState("");
@@ -33,7 +30,7 @@ const Signup = () => {
   };
   return (
     <>
-    <Navbar l1={true}/>
+      <Navbar l1={true} />
       <div className="container signup1">
         <div className="signup row">
           {/*Entry part */}
@@ -44,7 +41,6 @@ const Signup = () => {
               <form action="POST" className="inputsection">
                 <div className="inputwrap">
                   <TextField
-                    
                     id="outlined-basic"
                     label="Enter your name"
                     variant="outlined"
@@ -56,7 +52,6 @@ const Signup = () => {
                 </div>
                 <div className="inputwrap">
                   <TextField
-                    
                     id="outlined-basic"
                     label="Enter your email"
                     variant="outlined"
@@ -70,7 +65,6 @@ const Signup = () => {
                 </div>
                 <div className="inputwrap">
                   <TextField
-                    
                     id="outlined-basic"
                     label="Enter your password"
                     variant="outlined"
@@ -83,7 +77,6 @@ const Signup = () => {
                 </div>
                 <div className="inputwrap">
                   <TextField
-                    
                     id="outlined-basic"
                     label="Reenter your password"
                     variant="outlined"
@@ -104,7 +97,11 @@ const Signup = () => {
                   >
                     Signup
                   </Button>
-                 
+                </div>
+                <div className="btnwrap mt-3 mb-3">
+                  <Link to={{ pathname: "/login" }} className="text-center">
+                    registered ? Log in
+                  </Link>
                 </div>
               </form>
             </Bounce>
@@ -115,10 +112,9 @@ const Signup = () => {
               <img
                 src="https://res.cloudinary.com/vigneshshettyin/image/upload/v1631588908/oia0inntihtas3ymsvgi.png"
                 alt=""
-                className="img-fluid"
+                className="img-fluid logo"
               />
             </Zoom>
-            
           </div>
         </div>
       </div>
