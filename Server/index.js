@@ -1,5 +1,5 @@
 // Dependencies
-require("dotenv").config();
+//require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 // const apicache = require("apicache");
@@ -7,8 +7,12 @@ const rateLimit = require("express-rate-limit").default;
 const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
+const UserRouter = require("./db/routes/Userroutes");
 
+const app = express();
 // PORT
+const dotenv=require("dotenv")
+dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 
@@ -16,8 +20,7 @@ const PORT = process.env.PORT || 8000;
 
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
-// const UserRouter = require("./db/routes/Userroutes");
-// const URLrouter = require("./db/routes/URLroutes");
+
 
 const options = {
   definition: {
@@ -45,7 +48,6 @@ const specs = swaggerJsDoc(options);
 Connect();
 // Port
 
-const app = express();
 
 app.use(express.json());
 
@@ -54,8 +56,8 @@ app.use(morgan("tiny"));
 app.use(cors());
 
 //User router
-// app.use("/api/user", UserRouter);
-// app.use("/api/url", URLrouter);
+app.use("/api/user", UserRouter);
+
 // Connecting to MongoDB
 // Cors Setup
 

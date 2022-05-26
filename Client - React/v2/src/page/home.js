@@ -4,6 +4,8 @@ import LinkSection from "../components/link";
 import { useState, useEffect } from "react";
 import Loading from "./loading";
 import Fade from "react-reveal/Fade";
+import Navbar from "./dashboard";
+
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
@@ -19,6 +21,7 @@ const HomePage = () => {
         <Loading />
       ) : (
         <Fade>
+         <Navbar l3={true}/>
           <ParentWrapper>
             <ChildWrapper>
               <LinkSection />
