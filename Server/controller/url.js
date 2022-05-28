@@ -106,7 +106,7 @@ class URL_SHORTENER {
   }
 
   async shorten(req, res) {
-    console.log(req.user);
+    console.log(req.body)
     const { url,user } = req.body;
     if (!validator.isURL(url)) {
       return res.status(400).json({

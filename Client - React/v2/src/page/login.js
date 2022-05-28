@@ -4,6 +4,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Navbar from "./dashboard";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { toastObject } from "../styles/layout-styles";
 
 const Login = (props) => {
   const [email, setemail] = useState("");
@@ -16,14 +19,26 @@ const Login = (props) => {
       alert("Please fill all the fields");
       return;
     }
-
-    alert("Login done");
-
-    setemail("");
-    setpassword("");
-
-    //Login done,direct to home page
-    Navigate("/");
+    try {
+      //Post data using API
+      const { data } = await axios.post("/api/user", {
+        email,
+        password,
+      });
+      //If login is done ,notify user
+      toast.success("Login Done!", toastObject);
+      localStorage.setItem("User", JSON.stringify(data));
+      //After animation effect is half done,jump to home page
+      setTimeout(() => {
+        Navigate("/");
+        setemail("");
+        setpassword("");
+      }, 3000);
+    } catch (e) {
+      //Notify user about error
+      toast.error("Invalid cridentials");
+      return;
+    }
   };
   return (
     <>
@@ -91,6 +106,7 @@ const Login = (props) => {
           </div>
         </div>
       </div>
+      <ToastContainer closeButton={false} />
       {/* <Footer/> */}
     </>
   );

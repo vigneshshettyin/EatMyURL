@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { Bounce, Zoom } from "react-reveal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./dashboard";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { toastObject } from "../styles/layout-styles";
+
 const Signup = () => {
+  const Navigate = useNavigate();
+
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -18,11 +24,30 @@ const Signup = () => {
       return;
     }
     if (password !== cpassword) {
-      alert("Password should match confirm password");
+      toast.error("Password should match with confirm password");
       return;
     }
-    alert("Signup done");
 
+    try {
+      //Call API for signup
+      const { data } = await axios.post("/api/user/signup", {
+        name,
+        email,
+        password,
+      });
+      //Notify user and ask him to login
+      toast.success("Registartion Done!", toastObject);
+      localStorage.setItem("User", JSON.stringify(data));
+      setTimeout(() => {
+        Navigate("/login");
+      }, 3000);
+    } catch (e) {
+      //Notifu user about errors if any
+      toast.error(
+        "Unable to Sign up,Try using strong password, make sure you hadn't registered before"
+      );
+      return;
+    }
     setname("");
     setemail("");
     setpassword("");
@@ -118,6 +143,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <ToastContainer closeButton={false} />
       {/* <Footer/> */}
     </>
   );
