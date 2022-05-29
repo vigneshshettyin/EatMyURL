@@ -8,10 +8,12 @@ const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
 const UserRouter = require("./db/routes/Userroutes");
+const URLrouter = require("./db/routes/URLroutes");
 
 const app = express();
+
 // PORT
-const dotenv=require("dotenv")
+const dotenv = require("dotenv");
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
@@ -20,7 +22,6 @@ const PORT = process.env.PORT || 8000;
 
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
-
 
 const options = {
   definition: {
@@ -48,15 +49,11 @@ const specs = swaggerJsDoc(options);
 Connect();
 // Port
 
-
 app.use(express.json());
 
 app.use(morgan("tiny"));
 
 app.use(cors());
-
-//User router
-app.use("/api/user", UserRouter);
 
 // Connecting to MongoDB
 // Cors Setup
@@ -89,9 +86,11 @@ app.get("/testing-live", (req, res) => {
     message: "I am online!",
   });
 });
-
+//User router
+app.use("/api/user", UserRouter);
+app.use("/api/url", URLrouter);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-app.use(router);
+//app.use(router);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
