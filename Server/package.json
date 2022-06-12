@@ -2,22 +2,20 @@
   "name": "url-shortener",
   "version": "1.0.0",
   "description": "Long URL Shortener using Flutter and Node JS",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "https://github.com/vigneshshettyin/URL-Shortener",
   "author": "Vignesh",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon app.js",
+    "run": "node app.js"
   },
   "dependencies": {
     "apicache": "^1.6.3",
-    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-rate-limit": "^6.0.1",
-    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
     "multer": "^1.4.3",
@@ -25,8 +23,7 @@
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0",
     "uuid": "^8.3.2",
-    "validator": "^13.6.0",
-    "joi": "^17.4.1"
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

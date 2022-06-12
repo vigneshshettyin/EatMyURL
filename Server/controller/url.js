@@ -41,7 +41,7 @@ async function updateClicks(shortID) {
   const respone = await URL.findOneAndUpdate(
     { shortID: shortID },
     { $inc: { click: 1 } }
-  ).populate("user", "-password");
+  );
 }
 
 class URL_SHORTENER {
@@ -84,9 +84,9 @@ class URL_SHORTENER {
       return res.redirect("https://" + response.longURL);
     }
   }
- 
+
   async getClickCount(req, res) {
-    const { url,user } = req.body;
+    const { url } = req.body;
     if (!validator.isURL(url)) {
       return res.status(400).json({
         error: "Invalid URL!",
@@ -96,7 +96,7 @@ class URL_SHORTENER {
     console.log(myURL.pathname.slice(1));
     const response = await URL.findOne({
       shortID: myURL.pathname.slice(1),
-    }).populate("user", "-password");
+    });
     if (!response) {
       return res.status(400).json({
         error: "Invalid URL!",
@@ -106,8 +106,7 @@ class URL_SHORTENER {
   }
 
   async shorten(req, res) {
-    console.log(req.body)
-    const { url,user } = req.body;
+    const { url } = req.body;
     if (!validator.isURL(url)) {
       return res.status(400).json({
         error: "Invalid URL!",
@@ -116,33 +115,19 @@ class URL_SHORTENER {
 
     const checkForURL = await URL.findOne({
       longURL: url,
-    }).populate("user", "-password");
+    });
     if (!!checkForURL) {
       checkForURL.shortID = getHost(req) + checkForURL.shortID;
       return res.status(200).json(checkForURL);
     } else {
-      // const createShortLink = new URL({
-      //   shortID: await getShortCode(),
-      //   longURL: url,
-      //   ip: req.ip,
-      // });
-      console.log("Creating new");
-      console.log(user);
       const createShortLink = new URL({
         shortID: await getShortCode(),
         longURL: url,
         ip: req.ip,
-        user: user,
       });
       const response = await createShortLink.save();
-      const newentry = await URL.findById({ _id: response._id })
-        .findOne({
-          _id: response._id,
-        })
-        .populate("user", "-password");
-
-      newentry.shortID = getHost(req) + newentry.shortID;
-      res.status(200).json(newentry);
+      response.shortID = getHost(req) + response.shortID;
+      res.status(200).json(response);
     }
 
     // Revoked in Version - 2.0.1
@@ -178,13 +163,6 @@ class URL_SHORTENER {
         error: "Short ID already exists!",
       });
     } else {
-      // const newURL = new URL({
-      //   shortID: shortID,
-      //   longURL: url,
-      //   ip: req.ip,
-      // });
-      //new API
-      console.log(req.user);
       const newURL = new URL({
         shortID: shortID,
         longURL: url,
@@ -192,8 +170,7 @@ class URL_SHORTENER {
       });
       // Revoked in Version - 2.0.0
       // await updateCounter();
-      const response = await newURL.save().populate("user", "-password");
-
+      const response = await newURL.save();
       response.shortID = getHost(req) + response.shortID;
       res.status(200).json(response);
     }
