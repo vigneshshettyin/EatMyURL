@@ -1,5 +1,5 @@
 // Dependencies
-require("dotenv").config();
+//require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 // const apicache = require("apicache");
@@ -7,8 +7,14 @@ const rateLimit = require("express-rate-limit").default;
 const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
+const UserRouter = require("./db/routes/Userroutes");
+const URLrouter = require("./db/routes/URLroutes");
+
+const app = express();
 
 // PORT
+const dotenv = require("dotenv");
+dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 
@@ -28,10 +34,10 @@ const options = {
     },
     servers: [
       {
-        url: process.env.SERVER_URL,
+        url: `http://localhost:${PORT}`,
       },
       {
-        url: `http://localhost:${PORT}`,
+        url: process.env.SERVER_URL,
       },
     ],
   },
@@ -43,16 +49,14 @@ const specs = swaggerJsDoc(options);
 Connect();
 // Port
 
-const app = express();
-
 app.use(express.json());
 
 app.use(morgan("tiny"));
 
+app.use(cors());
+
 // Connecting to MongoDB
 // Cors Setup
-
-app.use(cors());
 
 // Cache Setup
 
@@ -82,9 +86,11 @@ app.get("/testing-live", (req, res) => {
     message: "I am online!",
   });
 });
-
+//User router
+app.use("/api/user", UserRouter);
+app.use("/api/url", URLrouter);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-app.use(router);
+//app.use(router);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
