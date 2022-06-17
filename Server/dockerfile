@@ -1,4 +1,6 @@
-FROM alpine:3.6
+FROM node:18-alpine3.15
+
+LABEL maintainer="vigneshcodes.in"
 
 WORKDIR /var/mynode
 

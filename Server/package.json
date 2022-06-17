@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon index.js",
-    "run": "node index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "apicache": "^1.6.3",

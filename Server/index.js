@@ -28,10 +28,10 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
+        url: process.env.SERVER_URL,
       },
       {
-        url: process.env.SERVER_URL,
+        url: `http://localhost:${PORT}`,
       },
     ],
   },
@@ -78,12 +78,6 @@ app.use(apiRequestLimiter);
 
 app.get("/", (req, res) => {
   res.redirect(process.env.CLIENT_URL);
-});
-
-app.get("/testing-live", (req, res) => {
-  res.status(200).json({
-    message: "I am online!",
-  });
 });
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
