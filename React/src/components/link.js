@@ -18,6 +18,7 @@ import QRCode from "qrcode.react";
 import makeRequest from "../api/request";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useEffect } from "react";
 const LinkSection = () => {
   const navigate = useNavigate();
 
@@ -26,6 +27,13 @@ const LinkSection = () => {
   const [shortURL, setShortURL] = useState("");
   const [callState, setCallState] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem("shortLinks")) {
+      localStorage.setItem("shortLinks", JSON.stringify([]));
+      console.log("shortLinks created");
+    }
+  }, []);
 
   const downloadQRCode = () => {
     // Generate download with use canvas and stream
@@ -71,7 +79,13 @@ const LinkSection = () => {
           if (res.status === 200) {
             setCallState(true);
             setShortURL(res.data.shortID);
-            console.log(res.data);
+            localStorage.setItem(
+              "shortLinks",
+              JSON.stringify([
+                ...JSON.parse(localStorage.getItem("shortLinks")),
+                res.data,
+              ])
+            );
             toast.success("Shortened URL successfully created!", toastObject);
             setLoading(false);
           }
