@@ -62,7 +62,13 @@ const LinkSection = () => {
           if (res.status === 200) {
             setCallState(true);
             setShortURL(res.data.shortID);
-            console.log(res.data);
+            localStorage.setItem(
+              "shortLinks",
+              JSON.stringify([
+                ...JSON.parse(localStorage.getItem("shortLinks")),
+                res.data,
+              ])
+            );
             toast.success("Shortened URL successfully created!", toastObject);
             setLoading(false);
           }
@@ -274,6 +280,7 @@ const LinkSection = () => {
         level={"H"}
         includeMargin={true}
       />
+      {JSON.stringify(localStorage.getItem("shortLinks"))}
     </LinkWrapper>
   );
 };
