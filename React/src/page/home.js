@@ -6,7 +6,6 @@ import Loading from "./loading";
 import Fade from "react-reveal/Fade";
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);

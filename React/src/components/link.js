@@ -280,7 +280,7 @@ const LinkSection = () => {
         level={"H"}
         includeMargin={true}
       />
-      {JSON.stringify(localStorage.getItem("shortLinks"))}
+      {/* {JSON.stringify(localStorage.getItem("shortLinks"))} */}
     </LinkWrapper>
   );
 };
