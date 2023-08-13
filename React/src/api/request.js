@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverURL = "https://eurl.tech";
+const serverURL = "https://eurl.vshetty.dev";
 
 const makeRequest = (method, params, data) => {
   let url = `${serverURL}/${params}`;
