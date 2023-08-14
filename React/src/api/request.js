@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const serverURL = "https://eurl.vshetty.dev";
+const domain = "eurl.vshetty.dev";
+const serverURL = `https://${domain}`;
 
 const makeRequest = (method, params, data) => {
   let url = `${serverURL}/${params}`;
@@ -13,4 +14,4 @@ const makeRequest = (method, params, data) => {
 
 export default makeRequest;
 
-export { serverURL };
+export { serverURL, domain };

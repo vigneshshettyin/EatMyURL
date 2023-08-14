@@ -1,5 +1,6 @@
 import { ParentWrapper, ChildWrapper } from "../styles/layout-styles";
 import Docs from "../components/docs";
+import { serverURL } from "../api/request";
 import { useParams } from "react-router-dom";
 import ClickSection from "../components/click";
 import { useState, useEffect } from "react";
@@ -9,7 +10,7 @@ const CountLink = () => {
   const { click } = useParams();
 
   if (click !== "click") {
-    window.open(`https://eurl.tech/${click}`, "_parent");
+    window.open(`${serverURL}/${click}`, "_parent");
   }
 
   const [loading, setLoading] = useState(true);

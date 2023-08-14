@@ -31,7 +31,7 @@ const LinkSection = () => {
   useEffect(() => {
     if (!localStorage.getItem("shortLinks")) {
       localStorage.setItem("shortLinks", JSON.stringify([]));
-      console.log("shortLinks created");
+      // console.log("shortLinks created");
     }
   }, []);
 
@@ -74,7 +74,7 @@ const LinkSection = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           toast.error("Error creating shortened URL!", toastObject);
           setLoading(false);
         });
@@ -97,7 +97,7 @@ const LinkSection = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           toast.error("Error creating shortened URL!", toastObject);
         });
       return;

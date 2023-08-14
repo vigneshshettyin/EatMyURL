@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import intToString from "../logic/num-conv";
-import makeRequest from "../api/request";
+import makeRequest, { domain } from "../api/request";
 import Fade from "react-reveal/Fade";
 import validator from "validator";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,7 +24,7 @@ const ClickSection = () => {
       toast.error("Invalid URL!", toastObject);
       return;
     }
-    if (!url.includes("eurl.tech")) {
+    if (!url.includes(domain)) {
       toast.error("Invalid URL!", toastObject);
       return;
     }
