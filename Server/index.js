@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit").default;
 const morgan = require("morgan");
 const router = require("./routes");
 const Connect = require("./db/connect");
+const {user} = require('./Routes/user')
 
 // PORT
 
@@ -81,6 +82,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+
+app.use('/api/v1/user',user)
 
 app.use(router);
 

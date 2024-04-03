@@ -7,6 +7,7 @@ require("dotenv").config();
 const URL = require("../db/schema/url");
 const validator = require("validator");
 const url2 = require("url");
+const {urlValidator} = require('../Validations/index')
 
 // Revoked in Version 2.0.0
 
@@ -38,7 +39,7 @@ function getHost(req) {
 // }
 
 async function updateClicks(shortID) {
-  const respone = await URL.findOneAndUpdate(
+  await URL.findOneAndUpdate(
     { shortID: shortID },
     { $inc: { click: 1 } }
   );
@@ -68,46 +69,58 @@ class URL_SHORTENER {
 
   async redirect(req, res) {
     const { shortID } = req.params;
+
     if (!shortID) {
       return res.redirect(process.env.CLIENT_URL);
     }
+
     const response = await URL.findOne({
       shortID: shortID,
     });
     if (!response) {
       return res.redirect(process.env.CLIENT_URL);
     }
+
     await updateClicks(shortID);
+
+    // why ?? 
     if (response.longURL.includes("http")) {
       return res.redirect(response.longURL);
     } else {
       return res.redirect("https://" + response.longURL);
     }
-  }
+}
 
   async getClickCount(req, res) {
     const { url } = req.body;
-    if (!validator.isURL(url)) {
+    const validate = urlValidator.safeParse(url)
+
+    if (!validate.success) {
       return res.status(400).json({
         error: "Invalid URL!",
       });
     }
     const myURL = new url2.URL(url);
     console.log(myURL.pathname.slice(1));
+
     const response = await URL.findOne({
       shortID: myURL.pathname.slice(1),
     });
+
     if (!response) {
       return res.status(400).json({
-        error: "Invalid URL!",
+        error: "Error occured while shortening link!!",
       });
     }
+
     return res.status(200).json(response);
   }
 
   async shorten(req, res) {
     const { url } = req.body;
-    if (!validator.isURL(url)) {
+    const validate = urlValidator.safeParse(url)
+
+    if (!validate.success) {
       return res.status(400).json({
         error: "Invalid URL!",
       });
@@ -116,10 +129,12 @@ class URL_SHORTENER {
     const checkForURL = await URL.findOne({
       longURL: url,
     });
-    if (!!checkForURL) {
-      checkForURL.shortID = getHost(req) + checkForURL.shortID;
-      return res.status(200).json(checkForURL);
-    } else {
+
+    if (checkForURL) {
+        checkForURL.shortID = getHost(req) + checkForURL.shortID;
+        return res.status(200).json(checkForURL);
+    } 
+    else {
       const createShortLink = new URL({
         shortID: await getShortCode(),
         longURL: url,
@@ -145,11 +160,9 @@ class URL_SHORTENER {
 
   async customShorten(req, res) {
     const { url, shortID } = req.body;
-    if (
-      !validator.isURL(url) ||
-      !shortID ||
-      !validator.isAlphanumeric(shortID)
-    ) {
+    const validate = urlValidator.safeParse(url)
+
+    if (!validate.success || !shortID || !validator.isAlphanumeric(shortID)) {
       return res.status(400).json({
         error: "Not able to proccess this request!",
       });
@@ -158,11 +171,13 @@ class URL_SHORTENER {
     const response = await URL.findOne({
       shortID: shortID,
     });
+
     if (response) {
       return res.status(400).json({
         error: "Short ID already exists!",
       });
-    } else {
+      } 
+      else {
       const newURL = new URL({
         shortID: shortID,
         longURL: url,
