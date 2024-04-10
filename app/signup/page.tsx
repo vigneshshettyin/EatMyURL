@@ -31,6 +31,7 @@ const SignupPage = () => {
             <CardFooter>
                 <div className='flex justify-center w-full'>
                 <Button onClick={async ()=>{
+                    console.log("initiated")
                     const res:any = await register(email,pass)
                     console.log(res)
                     if(res.status == 200){

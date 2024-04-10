@@ -23,8 +23,10 @@ export const authOptions = {
                   password
                 }
               })
-              console.log(user)
-              return {id: user.id}
+              return {
+                id: user.id,
+                email: user.email
+              }
               }
               catch(e){
                   return null
