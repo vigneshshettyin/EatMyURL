@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Card,CardContent,CardDescription,CardFooter,CardHeader,CardTitle,} from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -41,7 +41,7 @@ const SignupPage = () => {
                         toast({
                             title: "User logged in successfully !!"
                         })
-                        router.push('/')
+                        router.push('/dashboard')
                     }
                     else{
                         toast({

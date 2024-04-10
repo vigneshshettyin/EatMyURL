@@ -1,7 +1,7 @@
 "use client"
 import { Label } from "@/components/ui/label";
 import { ModeToggle } from "./ModeToggle";
-import { signOut, useSession,getSession, signIn } from "next-auth/react";
+import { signOut,signIn } from "next-auth/react";
 import {
     Menubar,
     MenubarContent,
@@ -13,9 +13,12 @@ import {
   } from "@/components/ui/menubar"
 import { Button } from "./button";
 import { useRouter } from "next/navigation";
+import { usePathname } from 'next/navigation'
+import { toast } from "./use-toast";
   
 export function Appbar(){
     const router = useRouter()
+    const pathname = usePathname()
 
     return <div className="flex mt-3 px-6">
         <div className="flex mt-1">
@@ -26,8 +29,8 @@ export function Appbar(){
             <MenubarMenu>
                 <MenubarTrigger>Features</MenubarTrigger>
                 <MenubarContent>
-                    <MenubarItem>New Tab</MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
+                    <MenubarItem>Shorten</MenubarItem>
+                    <MenubarItem>View Analytics</MenubarItem>
                     <MenubarSeparator />
                     <MenubarItem>Share</MenubarItem>
                     <MenubarSeparator />
@@ -40,10 +43,16 @@ export function Appbar(){
         <Button variant='link' className="ml-4">Enterprise</Button>
         </div>
         <div className="absolute right-6 flex">
-        <div>
+        {pathname == '/dashboard'?<div><Button variant='outline' className="mr-4" onClick={async ()=>{
+            router.push('/signin')
+            //@ts-ignore
+            await new Promise((res)=>setTimeout(res,100))
+            signOut()
+            }}>Signout</Button></div>:<div>
         <Button variant='outline' onClick={()=>signIn()} className="mr-2">Login</Button>
         <Button variant='outline' className="mr-4" onClick={()=>router.push('/signup')}>Register</Button>
-        </div>
+        </div>}
+        
         <ModeToggle/>
         </div>
     </div>
