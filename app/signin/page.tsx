@@ -51,7 +51,7 @@ const SignupPage = () => {
                 <Label>Email</Label>
                 <Input value={email} onChange={(e)=>setEmail(e.target.value)} className='mb-4' placeholder='Enter your email'/>
                 <Label>Password</Label>
-                <Input value={pass} onChange={(e)=>setPass(e.target.value)} className='mb-4' placeholder='Enter your password'/>
+                <Input value={pass} type='password' onChange={(e)=>setPass(e.target.value)} className='mb-4' placeholder='Enter your password'/>
             </CardContent>
             <CardFooter>
                 <div className='flex justify-center w-full'>

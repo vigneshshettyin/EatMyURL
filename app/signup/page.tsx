@@ -64,7 +64,7 @@ const SignupPage = () => {
                 <Label>Email</Label>
                 <Input name="email" className='mb-4' placeholder='Enter your email'/>
                 <Label>Password</Label>
-                <Input name="password" className='mb-4' placeholder='Enter your password'/>
+                <Input type='password' name="password" className='mb-4' placeholder='Enter your password'/>
                 
             </CardContent>
             <CardFooter>

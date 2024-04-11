@@ -15,6 +15,7 @@ import { QrCodeIcon } from "lucide-react"
 
 export function QrPopup() {
   return (
+    <div>
     <Dialog>
       <DialogTrigger asChild>
         <QrCodeIcon className="ml-2 h-4 w-4 cursor-pointer hover:scale-110"/>
@@ -27,7 +28,7 @@ export function QrPopup() {
             Get redirected to the current link by scanning the qr code
         </DialogDescription>
         <div className="flex justify-center">
-          <img className="rounded-xl" src="https://s3.amazonaws.com/images.seroundtable.com/qrfree-kaywa-1379333209.png" alt="" />
+          <img className="rounded-xl w-[248px] h-[248px]" src="https://s3.amazonaws.com/images.seroundtable.com/qrfree-kaywa-1379333209.png" alt="" />
         </div>
         <DialogFooter>
         <DialogClose asChild>
@@ -38,5 +39,6 @@ export function QrPopup() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    </div>
   )
 }
