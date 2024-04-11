@@ -16,15 +16,16 @@ import { Button } from "./button";
 import { useRouter } from "next/navigation";
 import { usePathname } from 'next/navigation'
 import { LoginRegDropDown } from "./LoginRegDropDown";
+import { Card } from "./card";
   
 export function Appbar(){
     const router = useRouter()
     const pathname = usePathname()
     
-
-    return <div className="flex mt-3 px-6">
+    return <Card className="sticky top-0 overflow-hidden w-full pb-3">
+    <div className="flex mt-3 px-6">
         <div className="flex mt-1">
-        <Label className="text-xl font-bold">EatMyUrl</Label>
+        <Label onClick={()=>router.push('/')} className="text-xl font-bold cursor-pointer">EatMyUrl</Label>
         </div>
         <div className="invisible md:visible flex ml-12">
         <Menubar>
@@ -53,4 +54,5 @@ export function Appbar(){
         <ModeToggle/>
         </div>
     </div>
+    </Card> 
 }
