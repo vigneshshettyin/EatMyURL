@@ -53,7 +53,6 @@ export function LoginRegDropDown({ pathname }: any) {
               </div>
             )}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

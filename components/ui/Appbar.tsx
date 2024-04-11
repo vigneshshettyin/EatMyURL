@@ -33,27 +33,6 @@ export function Appbar() {
             EatMyUrl
           </Label>
         </div>
-        <div className="invisible md:visible flex ml-12">
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger>Features</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>Shorten</MenubarItem>
-                <MenubarItem>View Analytics</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>Share</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>Print</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-          <Button variant="link" className="ml-4">
-            Customers
-          </Button>
-          <Button variant="link" className="ml-4">
-            Pricing
-          </Button>
-        </div>
         <div className="absolute right-6 flex">
           <LoginRegDropDown pathname={pathname} />
           {pathname == "/dashboard" ? (
