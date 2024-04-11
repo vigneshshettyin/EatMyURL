@@ -3,6 +3,7 @@ import { Card, CardContent } from "./card";
 import { Label } from "./label";
 import { CopyIcon,QrCodeIcon,BarChart } from "lucide-react";
 import { toast } from "./use-toast";
+import { QrPopup } from "./QrPopup";
 
 export function LinkCardComponent(){
     return <div>
@@ -22,7 +23,7 @@ export function LinkCardComponent(){
                         title: "Copied the link to clipboard !!"
                     })
                 }} className="ml-3 h-4 w-4 cursor-pointer hover:scale-110"/>
-                <QrCodeIcon className="ml-2 h-4 w-4 cursor-pointer hover:scale-110"/>
+                <QrPopup/>
                 <BarChart className="ml-6 h-4 w-4"/>
                 <Label className="text-xs ml-1 text-gray-500">7.5K Clicks</Label>
                 </div>
