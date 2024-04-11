@@ -12,8 +12,6 @@ import { useSession } from 'next-auth/react'
 import { SkeletonCard } from '@/components/ui/SkeletonCard'
 
 const SignupPage = () => {
-    const [email,setEmail] = useState("")
-    const [pass,setPass] = useState("")
     const {toast} = useToast()
     const router = useRouter()
     const [loading,setLoading] = useState(true)
@@ -46,36 +44,35 @@ const SignupPage = () => {
                 <CardTitle className='text-center text-xl'>Register Page</CardTitle>
             <CardDescription className='text-center text-lg'>Enter your details to get started</CardDescription>
             </CardHeader>
+            <form action={async (formData)=>{
+                const res = await register(formData)
+                if(res){
+                    toast({
+                        title: "User registered successfully !!",
+                        description: "Please login to continue"
+                    })
+                    router.push('/signin')
+                }
+                else{
+                    toast({
+                        title: "Error while signing up !!",
+                        variant: 'destructive'
+                    })
+                }
+            }}>
             <CardContent>
                 <Label>Email</Label>
-                <Input value={email} onChange={(e)=>setEmail(e.target.value)} className='mb-4' placeholder='Enter your email'/>
+                <Input name="email" className='mb-4' placeholder='Enter your email'/>
                 <Label>Password</Label>
-                <Input value={pass} onChange={(e)=>setPass(e.target.value)} className='mb-4' placeholder='Enter your password'/>
+                <Input name="password" className='mb-4' placeholder='Enter your password'/>
+                
             </CardContent>
             <CardFooter>
                 <div className='flex justify-center w-full'>
-                <Button onClick={async ()=>{
-                    console.log("initiated")
-                    const res:any = await register(email,pass)
-                    console.log(res)
-                    if(res.status == 200){
-                        toast({
-                            title: "User registered successfully",
-                            description: "You can login now",
-                        })
-                        router.push('/signin')
-                    }
-                    else{
-                        toast({
-                            title: "Uh no! Something went wrong",
-                            description: "Error while signing up",
-                            variant: 'destructive'
-                        })
-                    }
-                   
-                }}>Register</Button>
+                <Button>Register</Button>
                 </div>
             </CardFooter>
+            </form>
         </Card>
     </div>
   )
