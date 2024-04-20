@@ -23,7 +23,7 @@ export function Appbar() {
   const pathname = usePathname();
 
   return (
-    <Card className="sticky top-0 overflow-hidden w-full pb-3">
+    <Card className="sticky top-0 w-full pb-3 z-20">
       <div className="flex mt-3 px-6">
         <div className="flex mt-1">
           <Label
