@@ -5,8 +5,7 @@ import { Button } from "./button";
 import { Label } from "@radix-ui/react-label";
 
 export function SideNavBar (){
-    return <div className="flex flex-col px-2 md:px-4 border-r-2 h-screen">
-     
+    return <div className="px-2 md:px-4 border-r-2 h-screen fixed left-0">
     <Button className="hidden md:block mt-12">Create New</Button>
     <Button size="icon" className="md:hidden mt-12">
       <Plus />

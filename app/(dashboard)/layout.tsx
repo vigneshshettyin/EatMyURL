@@ -5,6 +5,8 @@ export default function Layout({children}:{
 }){
     return <div className="flex pb-4">
         <SideNavBar/>
+        <div className="ml-[50px] md:ml-[150px] w-full">
         {children}
+        </div>
     </div>
 }

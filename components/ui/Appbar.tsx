@@ -2,15 +2,6 @@
 import { Label } from "@/components/ui/label";
 import { ModeToggle } from "./ModeToggle";
 import { signOut, signIn } from "next-auth/react";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
 
 import { Button } from "./button";
 import { useRouter } from "next/navigation";

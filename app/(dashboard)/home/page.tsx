@@ -161,11 +161,16 @@ export default function HomePage() {
           </Accordion>
 
         </div>
-        <div className="flex-1 border-2 rounded-xl p-4 shadow-md md:ml-12 mt-4 md:mt-0">
+        <div className="flex-1 flex flex-col border-2 rounded-xl p-4 shadow-md md:ml-12 mt-4 md:mt-0 justify-center">
           <h1 className="font-bold text-xl">Replace “eurl.dev” with your brand.</h1>
           <h1 className="mt-3 text-gray-500">Get a custom domain to create links that represent you. Add your own short domain or choose a complimentary one when you upgrade.</h1>
-          <Button className="mt-4" variant='destructive'>View our plans</Button>
+          <Button className="mt-4 w-36" variant='destructive'>View our plans</Button>
       </div>
+      </div>
+
+      {/* coz of accordian creates a buggy texture --- to be fixed */}
+      <div className="h-[100px]">
+
       </div>
     </div>
   );
