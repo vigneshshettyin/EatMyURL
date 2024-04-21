@@ -113,12 +113,12 @@ export default function HomePage() {
               <input checked={checkboxConfig.first} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none" />
                 <h1 className="ml-2 line-through">Make a short link or QR Code</h1>
                 </AccordionTrigger>
-                <AccordionContent className="flex px-6">
-                  <Button size='sm' className="py-3" variant='default'>
+                <AccordionContent className="flex px-6 md:flex-row flex-col">
+                  <Button size='sm' className="py-3 w-fit" variant='default'>
                     <Link/>
                     <h1 className="ml-1">Create a link</h1>
                     </Button>
-                  <Button size='sm' variant='default' className="ml-2 py-3">
+                  <Button size='sm' variant='default' className="md:ml-2 py-3 mt-2 md:mt-0 w-fit">
                     <QrCode/>
                     <h1 className="ml-1">Create a QR Code</h1>
                     </Button>
@@ -132,12 +132,12 @@ export default function HomePage() {
               <input checked={checkboxConfig.second} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " />
                 <h1 className="ml-2">Click it, scan it, or share it.</h1>
                 </AccordionTrigger>
-                <AccordionContent className="flex px-6">
-                  <Button size='sm' className="py-3" variant='default'>
+                <AccordionContent className="flex px-6 md:flex-row flex-col">
+                  <Button size='sm' className="py-3 w-fit" variant='default'>
                     <Link/>
                     <h1 className="ml-1">View your links</h1>
                     </Button>
-                  <Button size='sm' variant='default' className="ml-2 py-3">
+                  <Button size='sm' variant='default' className="md:ml-2 py-3 md:mt-0 mt-2 w-fit">
                     <QrCode/>
                     <h1 className="ml-1">View your QR codes</h1>
                     </Button>

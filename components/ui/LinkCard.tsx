@@ -1,10 +1,4 @@
-import {
-  BarChart2,
-  Calendar,
-  Copy,
-  LinkIcon,
-  Share2,
-} from "lucide-react";
+import { BarChart2, Calendar, Copy, LinkIcon, Share2 } from "lucide-react";
 import {
   HoverCard,
   HoverCardContent,
@@ -22,7 +16,8 @@ export function LinkCard({
   };
 }) {
   return (
-    <div className="flex mt-6 p-6 rounded-xl border-[0.5px] shadow-md">
+    <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
+    <div className="flex">
       <div className="h-8 w-8 md:h-12 md:w-12 border-[0.5px] shadow-md rounded-full flex justify-center items-center">
         <LinkIcon className="h-4 w-4 md:h-6 md:w-6" />
       </div>
@@ -67,17 +62,18 @@ export function LinkCard({
             <Calendar className="ml-0 md:ml-4 " size={20} />
             <h1 className="text-sm ml-2">April 21,2024</h1>
           </div>
-          <div className="mt-6 md:hidden">
-            <Button variant="outline">
-              <Copy size={15} className="mr-2" />
-              Copy
-            </Button>
-            <Button variant="outline" className="ml-2">
-              <Share2 size={15} className="mr-2" />
-              Share
-            </Button>
-          </div>
         </div>
+      </div>
+    </div>
+    <div className="mt-6 ml-4 md:hidden">
+        <Button variant="outline">
+          <Copy size={15} className="mr-2" />
+          Copy
+        </Button>
+        <Button variant="outline" className="ml-2">
+          <Share2 size={15} className="mr-2" />
+          Share
+        </Button>
       </div>
     </div>
   );

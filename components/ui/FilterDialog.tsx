@@ -23,7 +23,7 @@ import {
 import { SelectGroup, SelectLabel } from "@radix-ui/react-select";
 
 export function FilterDialog(){
-    return <div>
+    return <div className="mx-2">
         <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline">
