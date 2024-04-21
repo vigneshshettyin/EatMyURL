@@ -4,15 +4,18 @@ import { FilterDialog } from "@/components/ui/FilterDialog";
 import { LinkCard } from "@/components/ui/LinkCard";
 
 const data = [{
+  id:1,
   title : "Rick Rolling",
   shortLink : "eurl.dev/hello",
   longLink : "https://google.com"
 },{
+  id:2,
   title : "Blah Rolling",
   shortLink : "eurl.dev/blaha",
   longLink : "https://goo.com"
 },
 {
+  id:3,
   title : "cutew Rolling",
   shortLink : "eurl.dev/cuteww",
   longLink : "https://goocut.com"
@@ -29,7 +32,7 @@ export default function Page() {
         </div>  
       </div>
       
-      {data.map((link)=><LinkCard link={link}/>)}
+      {data.map((link)=><LinkCard key={link.id} link={link}/>)}
       
     </div>
   );
