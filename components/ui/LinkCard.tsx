@@ -22,9 +22,9 @@ export function LinkCard({
   };
 }) {
   return (
-    <div className="flex mt-6 mr-8 p-6 rounded-xl border-[0.5px] shadow-md">
-      <div className="h-12 w-12 border-[0.5px] shadow-md rounded-full flex justify-center items-center">
-        <LinkIcon />
+    <div className="flex mt-6 p-6 rounded-xl border-[0.5px] shadow-md">
+      <div className="h-8 w-8 md:h-12 md:w-12 border-[0.5px] shadow-md rounded-full flex justify-center items-center">
+        <LinkIcon className="h-4 w-4 md:h-6 md:w-6" />
       </div>
       <div className="flex flex-col ml-6 w-full">
         <div className="flex justify-between ">

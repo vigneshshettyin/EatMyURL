@@ -28,7 +28,7 @@ export function DatePickerWithRange({className}: React.HTMLAttributes<HTMLDivEle
             id="date"
             variant={"outline"}
             className={cn(
-              "w-[300px] justify-start text-left font-normal",
+              "w-fit justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
           >
