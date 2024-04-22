@@ -3,12 +3,14 @@
 import { BarChart2Icon, HomeIcon, LinkIcon, Plus, QrCodeIcon, Settings } from "lucide-react";
 import { Button } from "./button";
 import { Label } from "@radix-ui/react-label";
+import { CreateNewDropDown } from "./CreateNewDropDown";
+
 
 export function SideNavBar (){
     return <div className="px-2 md:px-4 border-r-2 h-screen fixed left-0">
-    <Button className="hidden md:block mt-12">Create New</Button>
+    <CreateNewDropDown><Button className="hidden md:block mt-12">Create New</Button></CreateNewDropDown>
     <Button size="icon" className="md:hidden mt-12">
-      <Plus />
+      <CreateNewDropDown><Plus /></CreateNewDropDown>
     </Button>
     {/* this is a seperator */}
     <div className="border-t-2 my-4"></div>
