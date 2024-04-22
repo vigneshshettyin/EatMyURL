@@ -16,7 +16,7 @@ import { register } from "@/lib/actions/register";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { SkeletonCard } from "@/components/ui/SkeletonCard";
+import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
 
 const RegisterPage = () => {
   const { toast } = useToast();

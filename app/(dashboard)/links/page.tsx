@@ -1,7 +1,7 @@
-import { DatePickerWithRange } from "@/components/ui/DatePickerWithRange";
+import { DatePickerWithRange } from "@/components/DialogComponents/DatePickerWithRange";
 import React from "react";
-import { FilterDialog } from "@/components/ui/FilterDialog";
-import { LinkCard } from "@/components/ui/LinkCard";
+import { FilterDialog } from "@/components/DialogComponents/FilterDialog";
+import { LinkCard } from "@/components/CardComponents/LinkCard";
 
 const data = [{
   id:1,

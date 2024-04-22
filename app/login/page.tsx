@@ -16,7 +16,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { SkeletonCard } from "@/components/ui/SkeletonCard";
+import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

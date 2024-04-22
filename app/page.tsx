@@ -1,10 +1,10 @@
 "use client";
-import { LinkCardComponent } from "@/components/ui/LinkCardComponent";
+import { LinkCardComponent } from "@/components/CardComponents/LinkCardComponent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
-import { LinkCardSkeleton } from "@/components/ui/LinkCardSkeleton";
+import { LinkCardSkeleton } from "@/components/CardComponents/LinkCardSkeleton";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Home() {

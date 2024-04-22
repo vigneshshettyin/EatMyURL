@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster"
-import { Appbar } from "@/components/ui/Appbar";
+import { Appbar } from "@/components/NavigationBars/Appbar";
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 
@@ -24,8 +24,8 @@ export default function RootLayout({
             <Providers>
             <Appbar/>
               {children}
-            </Providers>
             <Toaster />
+            </Providers>
         </body>
     </html>
   );

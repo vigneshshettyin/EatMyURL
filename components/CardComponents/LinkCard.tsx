@@ -4,7 +4,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 
 export function LinkCard({
   link,

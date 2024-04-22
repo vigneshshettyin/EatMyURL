@@ -1,9 +1,9 @@
-import { Avatar, AvatarImage, AvatarFallback } from "./avatar";
-import { Card, CardContent } from "./card";
-import { Label } from "./label";
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
+import { Card, CardContent } from "../ui/card";
+import { Label } from "../ui/label";
 import { CopyIcon, QrCodeIcon, BarChart } from "lucide-react";
-import { toast } from "./use-toast";
-import { QrPopup } from "./QrPopup";
+import { toast } from "../ui/use-toast";
+import { QrPopup } from "../DialogComponents/QrPopup";
 
 export function LinkCardComponent() {
   return (

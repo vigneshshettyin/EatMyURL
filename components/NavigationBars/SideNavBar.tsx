@@ -1,9 +1,9 @@
 "use client"
 
 import { BarChart2Icon, HomeIcon, LinkIcon, Plus, QrCodeIcon, Settings } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { Label } from "@radix-ui/react-label";
-import { CreateNewDropDown } from "./CreateNewDropDown";
+import { CreateNewDropDown } from "../DropdownComponents/CreateNewDropDown";
 
 
 export function SideNavBar (){

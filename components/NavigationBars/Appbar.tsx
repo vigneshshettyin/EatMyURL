@@ -1,20 +1,20 @@
 "use client";
 import { Label } from "@/components/ui/label";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "../DropdownComponents/ModeToggle";
 import { signOut, signIn } from "next-auth/react";
 
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { LoginRegDropDown } from "./LoginRegDropDown";
-import { Card } from "./card";
+import { LoginRegDropDown } from "../DropdownComponents/LoginRegDropDown";
+import { Card } from "../ui/card";
 
 export function Appbar() {
   const router = useRouter();
   const pathname = usePathname();
 
   return (
-    <Card className="sticky top-0 w-full pb-3 z-20">
+    <Card className="sticky top-0 w-full pb-3 z-30">
       <div className="flex mt-3 px-6">
         <div className="flex mt-1">
           <Label

@@ -1,6 +1,6 @@
 import { Link2Icon, QrCodeIcon } from "lucide-react";
-import { Button } from "./button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger } from "./dropdown-menu";
+import { Button } from "../ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export function CreateNewDropDown ({children}:{
     children: React.ReactNode
