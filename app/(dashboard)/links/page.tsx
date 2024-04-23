@@ -24,10 +24,12 @@ const data = [{
 export default function Page() {
   return (
     <div className="pt-10 pl-6 w-full pr-2">
-      <h1 className="font-bold text-3xl ml-1">Links</h1>
-      <div className="flex mt-3 md:flex-row flex-col">
+      <h1 className="font-bold text-3xl ml-3">Links</h1>
+      <div className="flex mt-6 md:flex-row flex-col">
+        <div className="ml-2">
         <DatePickerWithRange/>
-        <div className="mt-3 md:mt-0 md:ml-4">
+        </div>
+        <div className="mt-3 md:mt-0 ml-0 md:ml-4">
           <FilterDialog/>
         </div>  
       </div>
