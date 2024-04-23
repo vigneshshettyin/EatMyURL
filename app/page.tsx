@@ -1,5 +1,5 @@
 "use client";
-import { LinkCardComponent } from "@/components/CardComponents/LinkCardComponent";
+import { LinkCardComponent } from "@/components/CardComponents/LinkCardDemoComponent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

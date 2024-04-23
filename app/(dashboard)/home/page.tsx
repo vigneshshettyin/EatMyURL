@@ -9,12 +9,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 
 export default function HomePage() {
   const [progressValue,setProgressValue] = useState(33.33);
-  
+  const router = useRouter();
   const checkboxConfig: any = {
     first : true,
     second : false,
@@ -53,6 +54,7 @@ export default function HomePage() {
                 variant="outline"
                 size="sm"
                 className="text-sm mt-2 text-wrap"
+                onClick={()=>router.push('/links')}
               >
                 Go to Links
               </Button>
@@ -70,6 +72,7 @@ export default function HomePage() {
                 variant="outline"
                 size="sm"
                 className="text-sm mt-2 text-wrap"
+                onClick={()=>router.push('/qrcodes')}
               >
                 Go to QR
               </Button>
@@ -114,11 +117,11 @@ export default function HomePage() {
                 <h1 className="ml-2 line-through">Make a short link or QR Code</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6 md:flex-row flex-col">
-                  <Button size='sm' className="py-3 w-fit" variant='default'>
+                  <Button onClick={()=>router.push('/links/create')} size='sm' className="py-3 w-fit" variant='default'>
                     <Link/>
                     <h1 className="ml-1">Create a link</h1>
                     </Button>
-                  <Button size='sm' variant='default' className="md:ml-2 py-3 mt-2 md:mt-0 w-fit">
+                  <Button onClick={()=>router.push('/qrcodes/create')} size='sm' variant='default' className="md:ml-2 py-3 mt-2 md:mt-0 w-fit">
                     <QrCode/>
                     <h1 className="ml-1">Create a QR Code</h1>
                     </Button>
@@ -133,11 +136,11 @@ export default function HomePage() {
                 <h1 className="ml-2">Click it, scan it, or share it.</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6 md:flex-row flex-col">
-                  <Button size='sm' className="py-3 w-fit" variant='default'>
+                  <Button size='sm' onClick={()=>router.push('/links')} className="py-3 w-fit" variant='default'>
                     <Link/>
                     <h1 className="ml-1">View your links</h1>
                     </Button>
-                  <Button size='sm' variant='default' className="md:ml-2 py-3 md:mt-0 mt-2 w-fit">
+                  <Button size='sm' onClick={()=>router.push('/qrcodes')} variant='default' className="md:ml-2 py-3 md:mt-0 mt-2 w-fit">
                     <QrCode/>
                     <h1 className="ml-1">View your QR codes</h1>
                     </Button>
