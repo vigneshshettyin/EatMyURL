@@ -1,19 +1,5 @@
 import { Label } from "@radix-ui/react-label";
-import { BarChart2, Calendar, CornerDownRightIcon, Download, Link } from "lucide-react";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "../ui/hover-card";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { BarChart2, Calendar, CornerDownRightIcon, Download, Link, Pencil } from "lucide-react";
 import { DownloadQRDropDown } from "../DropdownComponents/DownloadQRDropDown";
 import { Button } from "../ui/button";
 
@@ -29,15 +15,16 @@ export function QRCodeCardComponent() {
       </div>
       <div className="flex flex-col ml-6 md:mt-0 mt-4 w-full">
         <div className="flex justify-between pr-8">
-          <Label className="text-2xl font-bold">CP Algorithm</Label>
-          <div>
+          <Label className="text-2xl font-bold cursor-pointer hover:underline">CP Algorithm</Label>
+          <div className="hidden md:flex">
             <DownloadQRDropDown><Button variant='outline'><Download size={20}/></Button></DownloadQRDropDown>
+            <Button variant='outline' className="ml-4"><Pencil size={20}/></Button>
           </div>
         </div>
         <Label className="font-medium mt-2">Website</Label>
         <div className="flex mt-2 items-center">
           <CornerDownRightIcon size="16" />
-          <Label className="hover:underline ml-2 text-sm">
+          <Label className="hover:underline ml-2 text-sm cursor-pointer">
             http://google.com
           </Label>
         </div>
@@ -45,13 +32,7 @@ export function QRCodeCardComponent() {
           <div className="flex">
             <BarChart2 size={20} />
             <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-              1{" "}
-              <HoverCard>
-                <HoverCardTrigger>scans</HoverCardTrigger>
-                <HoverCardContent>
-                  Includes short link clicks, QR Code scans
-                </HoverCardContent>
-              </HoverCard>
+              1 scans
             </h1>
           </div>
           <div className="flex mt-2 md:mt-0">
@@ -60,9 +41,13 @@ export function QRCodeCardComponent() {
           </div>
           <div className="flex mt-2 md:mt-0">
             <Link className="ml-0 md:ml-4 " size={20} />
-            <h1 className="text-sm ml-2 hover:underline">eurl.dev/new</h1>
+            <h1 className="text-sm ml-2 hover:underline cursor-pointer">eurl.dev/new</h1>
           </div>
         </div>
+        <div className="flex md:hidden mt-6 justify-end pr-12">
+            <DownloadQRDropDown><Button variant='outline'><Download size={20}/></Button></DownloadQRDropDown>
+            <Button variant='outline' className="ml-4"><Pencil size={20}/></Button>
+          </div>
       </div>
     </div>
   );

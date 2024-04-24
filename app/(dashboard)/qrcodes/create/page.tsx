@@ -45,7 +45,7 @@ export default function CreatePage() {
             </div>
 
             <div className="flex mt-4 flex-col md:flex-row">
-              <Input placeholder="bit.ly" disabled />
+              <Input placeholder="eurl.dev" disabled />
               <Label className="mx-4 hidden md:block text-2xl">/</Label>
               <div className="flex md:hidden mt-4 md:mt-0">
                   <Label>Custom back-half</Label>

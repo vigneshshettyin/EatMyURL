@@ -1,4 +1,4 @@
-import { BarChart2, Calendar, Copy, LinkIcon, Share2 } from "lucide-react";
+import { BarChart2, Calendar, Copy, LinkIcon, Pencil, Share2 } from "lucide-react";
 import {
   HoverCard,
   HoverCardContent,
@@ -34,6 +34,10 @@ export function LinkCard({
             <Button variant="outline" className="ml-2">
               <Share2 size={15} className="mr-2" />
               Share
+            </Button>
+            <Button variant="outline" className="ml-2">
+              <Pencil size={15} className="mr-2" />
+              Edit
             </Button>
           </div>
         </div>
@@ -73,6 +77,10 @@ export function LinkCard({
         <Button variant="outline" className="ml-2">
           <Share2 size={15} className="mr-2" />
           Share
+        </Button>
+        <Button className="ml-2" variant="outline">
+          <Pencil size={15} className="mr-2" />
+          Edit
         </Button>
       </div>
     </div>
