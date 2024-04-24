@@ -5,6 +5,18 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { EditLinkDialog } from "../DialogComponents/EditLinkDialog";
 
 export function LinkCard({
   link,
@@ -35,10 +47,14 @@ export function LinkCard({
               <Share2 size={15} className="mr-2" />
               Share
             </Button>
-            <Button variant="outline" className="ml-2">
-              <Pencil size={15} className="mr-2" />
-              Edit
-            </Button>
+
+            <EditLinkDialog>
+              <Button variant="outline" className="ml-2">
+                <Pencil size={15} className="mr-2" />
+                Edit
+              </Button>
+            </EditLinkDialog>
+
           </div>
         </div>
 
