@@ -69,18 +69,15 @@ export function LinkCard({
         </div>
       </div>
     </div>
-    <div className="mt-6 ml-4 md:hidden">
+    <div className="mt-8 ml-4 md:hidden">
         <Button variant="outline">
-          <Copy size={15} className="mr-2" />
-          Copy
+          <Copy size={15} />
         </Button>
         <Button variant="outline" className="ml-2">
-          <Share2 size={15} className="mr-2" />
-          Share
+          <Share2 size={15} />
         </Button>
         <Button className="ml-2" variant="outline">
-          <Pencil size={15} className="mr-2" />
-          Edit
+          <Pencil size={15}/>
         </Button>
       </div>
     </div>
