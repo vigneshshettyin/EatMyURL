@@ -23,7 +23,9 @@ export default function RootLayout({
       <body className={inter.className}>
             <Providers>
             <Appbar/>
+            <div className="h-screen">
               {children}
+              </div>
             <Toaster />
             </Providers>
         </body>
