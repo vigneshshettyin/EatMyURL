@@ -16,7 +16,7 @@ export function EditLinkDialog({ children }: any) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[525px]">
+      <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
           <DialogTitle>Edit Link</DialogTitle>
         </DialogHeader>

@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
+import { KeyRound } from "lucide-react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -78,8 +79,8 @@ const LoginPage = () => {
           />
         </CardContent>
         <CardFooter>
-          <div className="flex justify-center w-full">
-            <Button
+          <div className="flex flex-col items-center w-full">
+            <Button className="w-32"
               onClick={async () => {
                 const res: any = await signIn("credentials", {
                   email: email,
@@ -101,7 +102,15 @@ const LoginPage = () => {
             >
               Login
             </Button>
+            <div className="flex justify-center">
+              <Button className="mt-4">
+                <KeyRound size={18}/>
+                <h1 className="ml-2">Sign in with google</h1>
+              </Button>
+            </div>
+            
           </div>
+          
         </CardFooter>
       </Card>
     </div>

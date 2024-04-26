@@ -1,3 +1,4 @@
+"use client"
 import { BarChart2, Calendar, Copy, LinkIcon, Pencil, Share2 } from "lucide-react";
 import {
   HoverCard,
@@ -5,18 +6,9 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { EditLinkDialog } from "../DialogComponents/EditLinkDialog";
+import { toast } from "../ui/use-toast";
+import { LinkShareDialog } from "../DialogComponents/LinkShareDialog";
 
 export function LinkCard({
   link,
@@ -27,6 +19,14 @@ export function LinkCard({
     longLink: string;
   };
 }) {
+
+  function copyToClipboard(){
+    navigator.clipboard.writeText(link.shortLink);
+    toast({
+      title: "Copied the link to clipboard !!",
+    });
+  }
+
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
     <div className="flex">
@@ -39,15 +39,16 @@ export function LinkCard({
             {link.title}
           </h1>
           <div className="hidden md:block">
-            <Button variant="outline">
+            <Button onClick={copyToClipboard} variant="outline">
               <Copy size={15} className="mr-2" />
               Copy
             </Button>
+            <LinkShareDialog link={link}>
             <Button variant="outline" className="ml-2">
               <Share2 size={15} className="mr-2" />
               Share
             </Button>
-
+            </LinkShareDialog>
             <EditLinkDialog>
               <Button variant="outline" className="ml-2">
                 <Pencil size={15} className="mr-2" />
@@ -85,12 +86,14 @@ export function LinkCard({
       </div>
     </div>
     <div className="mt-8 ml-8 md:hidden">
-        <Button variant="outline">
+        <Button onClick={copyToClipboard} variant="outline">
           <Copy size={15} />
         </Button>
+        <LinkShareDialog link={link}>
         <Button variant="outline" className="ml-2">
           <Share2 size={15} />
         </Button>
+        </LinkShareDialog>
         <EditLinkDialog>
         <Button className="ml-2" variant="outline">
           <Pencil size={15}/>
