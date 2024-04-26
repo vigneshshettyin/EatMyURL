@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+  @layer components{
+    .screen-full{
+      overflow-y: overlay;
+      height: 100vh;
+    }
+  }
+
   @layer base {
     :root {
       --background: 0 0% 100%;

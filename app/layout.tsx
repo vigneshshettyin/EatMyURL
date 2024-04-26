@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
             <Providers>
             <Appbar/>
-            <div className="overflow-y-scroll h-screen">
+            <div className="screen-full">
               {children}
               </div>
             <Toaster />
