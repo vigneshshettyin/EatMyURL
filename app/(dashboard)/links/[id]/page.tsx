@@ -15,13 +15,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Label } from "@radix-ui/react-label";
+import { PieChart } from "@/components/GraphicalComponents/PieChart";
 
 export default function Page({ params }: any) {
   const id = params.id;
   const router = useRouter();
 
   return (
-    <div className="h-screen">
+    <div>
       <div
         className="flex ml-10 cursor-pointer w-fit"
         onClick={() => router.push("/links")}
@@ -73,6 +74,13 @@ export default function Page({ params }: any) {
             </TableRow>
           </TableBody>
         </Table>
+      </div>
+
+      <div className="ml-0 md:ml-8 scale-75 md:scale-100 mt-12 shadow-md p-6 rounded-xl w-fit">
+        <Label className="font-bold ml-3 text-lg">Devices</Label>
+        <div className="mt-4">
+        <PieChart/>
+        </div>
       </div>
     </div>
   );
