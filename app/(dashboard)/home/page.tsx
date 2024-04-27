@@ -113,7 +113,7 @@ export default function HomePage() {
           <Accordion className="mt-3" type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center"> 
-              <input checked={checkboxConfig.first} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none" />
+              <input checked={checkboxConfig.first} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none" readOnly/>
                 <h1 className="ml-2 line-through">Make a short link or QR Code</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6 md:flex-row flex-col">
@@ -132,7 +132,7 @@ export default function HomePage() {
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center"> 
-              <input checked={checkboxConfig.second} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " />
+              <input checked={checkboxConfig.second} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " readOnly/>
                 <h1 className="ml-2">Click it, scan it, or share it.</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6 md:flex-row flex-col">
@@ -151,7 +151,7 @@ export default function HomePage() {
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center"> 
-              <input checked={checkboxConfig.third} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " />
+              <input checked={checkboxConfig.third} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " readOnly/>
                 <h1 className="ml-2">Check out EatMyUrl Analytics</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6">
