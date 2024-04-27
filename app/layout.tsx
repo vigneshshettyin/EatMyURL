@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
+inter.className += ' overflow-y-hidden'
 
 export const metadata: Metadata = {
   title : "EatMyUrl",
