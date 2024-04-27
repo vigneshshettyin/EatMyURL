@@ -1,6 +1,6 @@
 "use client"
 
-import { BarChart2, Calendar, Copy, LinkIcon, Pencil, Share2 } from "lucide-react";
+import { Calendar, Copy, LinkIcon, Pencil, Share2 } from "lucide-react";
 import { LinkShareDialog } from "../DialogComponents/LinkShareDialog";
 import { Button } from "../ui/button";
 import { EditLinkDialog } from "../DialogComponents/EditLinkDialog";

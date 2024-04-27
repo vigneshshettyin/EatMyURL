@@ -1,14 +1,11 @@
 "use client";
 
-import { LinkCard } from "@/components/CardComponents/LinkCard";
-import { LinkCardComponent } from "@/components/CardComponents/LinkCardDemoComponent";
 import { LinkCardSpecific } from "@/components/CardComponents/LinkCardSpecific";
 import { ArrowLeft, ArrowUpDownIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,

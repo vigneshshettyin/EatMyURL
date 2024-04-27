@@ -11,8 +11,6 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-
-
 export default function HomePage() {
   const [progressValue,setProgressValue] = useState(33.33);
   const router = useRouter();
@@ -21,12 +19,6 @@ export default function HomePage() {
     second : false,
     third : false
   }
-
-  const RadialBarConfig: any = {
-    "--value": progressValue,
-    "--size": "2rem",
-    "--thickness": "5px",
-  };
 
   return (
     <div className="pt-8 pl-4 w-full pr-4">
@@ -101,11 +93,6 @@ export default function HomePage() {
             <h1 className="font-bold text-lg md:text-xl">Getting Started with EatMyUrl</h1>
             <div className="flex">
               <h1>{progressValue}%</h1>
-              <div
-                className="radial-progress"
-                style={RadialBarConfig}
-                role="progressbar"
-              ></div>
             </div>
           </div>
 
