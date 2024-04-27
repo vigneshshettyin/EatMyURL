@@ -22,9 +22,9 @@ export default function Page({ params }: any) {
   const router = useRouter();
 
   return (
-    <div>
+    <div className="pl-8 pr-12">
       <div
-        className="flex ml-10 cursor-pointer w-fit"
+        className="flex cursor-pointer w-fit"
         onClick={() => router.push("/links")}
       >
         <ArrowLeft size={20} />
@@ -37,7 +37,7 @@ export default function Page({ params }: any) {
           longLink: "https://cp-algorithms.com/",
         }}
       />
-      <div className="flex md:flex-row flex-col ml-8 mt-6 mr-8">
+      <div className="flex md:flex-row flex-col mt-6 mr-8">
         <div className="flex-1 flex justify-between shadow-md p-4 rounded-xl items-center border-[0.5px]">
           <h1 className="text-md">Engagements</h1>
           <h1 className="text-2xl font-bold">7</h1>
@@ -54,7 +54,7 @@ export default function Page({ params }: any) {
           </div>
         </div>
       </div>
-      <div className="mx-8 mt-6 border-[0.5px] rounded-xl px-3 py-4 shadow-md">
+      <div className="mt-6 border-[0.5px] rounded-xl px-3 py-4 shadow-md">
         <Label className="font-bold ml-2">Locations</Label>
         <Table className="mt-4">
           <TableHeader>
@@ -76,10 +76,10 @@ export default function Page({ params }: any) {
         </Table>
       </div>
 
-      <div className="ml-0 md:ml-8 scale-75 md:scale-100 mt-12 shadow-md p-6 rounded-xl w-fit">
+      <div className="mt-12 shadow-md p-6 rounded-xl w-fit">
         <Label className="font-bold ml-3 text-lg">Devices</Label>
-        <div className="mt-4">
-        <PieChart/>
+        <div className="mt-4 md:w-[300px] md:h-[300px] w-[200px] h-[200px]">
+          <PieChart />
         </div>
       </div>
     </div>

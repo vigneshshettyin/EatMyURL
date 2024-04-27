@@ -23,7 +23,7 @@ export function LinkCardSpecific({
         });
       }
 
-    return <div className="flex mt-6 py-6 pr-4 mx-6 flex-col rounded-xl border-[0.5px] shadow-md">
+    return <div className="flex mt-6 py-6 pr-4 flex-col rounded-xl border-[0.5px] shadow-md">
     <div className="flex">
       <div className="flex flex-col ml-6 w-full">
         <div className="flex justify-between ">
