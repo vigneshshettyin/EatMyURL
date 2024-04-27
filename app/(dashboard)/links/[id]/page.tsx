@@ -22,7 +22,7 @@ export default function Page({ params }: any) {
   const router = useRouter();
 
   return (
-    <div className="pl-8 pr-12">
+    <div className="pl-6 md:pl-8 pr-2">
       <div
         className="flex cursor-pointer w-fit"
         onClick={() => router.push("/links")}
