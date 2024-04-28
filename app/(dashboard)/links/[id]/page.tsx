@@ -19,7 +19,7 @@ export default function Page({ params }: any) {
   const router = useRouter();
 
   return (
-    <div className="pl-6 md:pl-8 pr-2">
+    <div className="pl-5 md:pl-8 pr-2">
       <div
         className="flex cursor-pointer w-fit"
         onClick={() => router.push("/links")}
@@ -34,7 +34,7 @@ export default function Page({ params }: any) {
           longLink: "https://cp-algorithms.com/",
         }}
       />
-      <div className="flex md:flex-row flex-col mt-6 mr-8">
+      <div className="flex md:flex-row flex-col mt-6 mr-0">
         <div className="flex-1 flex justify-between shadow-md p-4 rounded-xl items-center border-[0.5px]">
           <h1 className="text-md">Engagements</h1>
           <h1 className="text-2xl font-bold">7</h1>
@@ -72,12 +72,13 @@ export default function Page({ params }: any) {
           </TableBody>
         </Table>
       </div>
-
-      <div className="mt-12 shadow-md p-6 rounded-xl w-fit">
+      <div className="flex justify-center md:justify-start">
+      <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px]">
         <Label className="font-bold ml-3 text-lg">Devices</Label>
-        <div className="mt-4 md:w-[300px] md:h-[300px] w-[200px] h-[200px]">
+        <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
           <PieChart />
         </div>
+      </div>
       </div>
     </div>
   );
