@@ -4,7 +4,7 @@ const redisUri: any = process.env.REDIS_URL;
 let redis: Redis;
 
 const getRedis = (): Redis => {
-  if (!!redis) {
+  if (!redis) {
     redis = new Redis(redisUri);
   }
   return redis;
