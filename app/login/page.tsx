@@ -36,7 +36,7 @@ const LoginPage = () => {
         toast({
           title: "Welcome back !!",
         });
-        router.push("/dashboard");
+        router.push("/home");
       }
 
       if (loading) {
@@ -103,7 +103,9 @@ const LoginPage = () => {
               Login
             </Button>
             <div className="flex justify-center">
-              <Button className="mt-4">
+              <Button className="mt-4" onClick={async ()=>{
+                await signIn("google")} 
+                }>
                 <KeyRound size={18}/>
                 <h1 className="ml-2">Sign in with google</h1>
               </Button>

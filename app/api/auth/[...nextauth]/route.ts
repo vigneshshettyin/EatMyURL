@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { AuthOptions } from "next-auth";
 import { getPrisma } from "@/lib/services/pg_connect";
-
+import GoogleProvider from "next-auth/providers/google";
 
 const prisma = getPrisma();
 
@@ -34,8 +34,12 @@ const authOptions: AuthOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
+    })
   ],
-
+  secret:process.env.NEXTAUTH_URL,
   pages: {
     signIn: "/login",
   },
