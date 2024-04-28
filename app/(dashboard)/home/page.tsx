@@ -11,8 +11,6 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-
-
 export default function HomePage() {
   const [progressValue,setProgressValue] = useState(33.33);
   const router = useRouter();
@@ -21,12 +19,6 @@ export default function HomePage() {
     second : false,
     third : false
   }
-
-  const RadialBarConfig: any = {
-    "--value": progressValue,
-    "--size": "2rem",
-    "--thickness": "5px",
-  };
 
   return (
     <div className="pt-8 pl-4 w-full pr-4">
@@ -101,11 +93,6 @@ export default function HomePage() {
             <h1 className="font-bold text-lg md:text-xl">Getting Started with EatMyUrl</h1>
             <div className="flex">
               <h1>{progressValue}%</h1>
-              <div
-                className="radial-progress"
-                style={RadialBarConfig}
-                role="progressbar"
-              ></div>
             </div>
           </div>
 
@@ -113,7 +100,7 @@ export default function HomePage() {
           <Accordion className="mt-3" type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center"> 
-              <input checked={checkboxConfig.first} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none" />
+              <input checked={checkboxConfig.first} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none" readOnly/>
                 <h1 className="ml-2 line-through">Make a short link or QR Code</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6 md:flex-row flex-col">
@@ -132,7 +119,7 @@ export default function HomePage() {
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center"> 
-              <input checked={checkboxConfig.second} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " />
+              <input checked={checkboxConfig.second} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " readOnly/>
                 <h1 className="ml-2">Click it, scan it, or share it.</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6 md:flex-row flex-col">
@@ -151,7 +138,7 @@ export default function HomePage() {
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center"> 
-              <input checked={checkboxConfig.third} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " />
+              <input checked={checkboxConfig.third} type="checkbox" className="checkbox checkbox-success checkbox-sm pointer-events-none " readOnly/>
                 <h1 className="ml-2">Check out EatMyUrl Analytics</h1>
                 </AccordionTrigger>
                 <AccordionContent className="flex px-6">
