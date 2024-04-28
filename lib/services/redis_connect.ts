@@ -1,11 +1,13 @@
-import Redis from 'ioredis'
-const redisUri : any = process.env.REDIS_URL;
+import Redis from "ioredis";
+const redisUri: any = process.env.REDIS_URL;
 
 let redis: Redis;
 
-export const getRedis = () => {
+const getRedis = (): Redis => {
   if (!redis) {
     redis = new Redis(redisUri);
   }
   return redis;
 };
+
+export default getRedis;

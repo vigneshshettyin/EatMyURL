@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { AuthOptions } from "next-auth";
-import { getPrisma } from "@/lib/services/pg_connect";
 import GoogleProvider from "next-auth/providers/google";
+import getPrisma from "@/lib/services/pg_connect";
 
 const prisma = getPrisma();
 
