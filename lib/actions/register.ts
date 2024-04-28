@@ -1,6 +1,6 @@
 "use server";
 
-import { getPrisma } from "../services/pg_connect";
+import getPrisma from "../services/pg_connect";
 
 const prisma = getPrisma();
 
