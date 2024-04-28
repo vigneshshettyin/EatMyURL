@@ -1,7 +1,8 @@
 "use server";
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import { getPrisma } from "../services/pg_connect";
+
+const prisma = getPrisma();
 
 export async function register(formData: FormData) {
   const password: any = formData.get("password");

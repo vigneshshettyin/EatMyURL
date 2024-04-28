@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
 import { AuthOptions } from "next-auth";
+import { getPrisma } from "@/lib/services/pg_connect";
 
-const prisma = new PrismaClient();
+
+const prisma = getPrisma();
 
 const authOptions: AuthOptions = {
   providers: [
