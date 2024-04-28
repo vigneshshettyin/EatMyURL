@@ -52,6 +52,21 @@ const LoginPage = () => {
       </div>
     );
 
+  const handleGoogleLogin = async () => {
+    const res: any = await signIn("google");
+    if (res.status == 200) {
+      toast({
+        title: "User logged in successfully !!",
+      });
+      router.push("/home");
+    } else {
+      toast({
+        title: "Wrong credentials !!",
+        variant: "destructive",
+      });
+    }
+  }
+
   return (
     <div className="flex w-full h-screen justify-center items-center px-4">
       <Card className="w-[400px]">
@@ -103,9 +118,7 @@ const LoginPage = () => {
               Login
             </Button>
             <div className="flex justify-center">
-              <Button className="mt-4" onClick={async ()=>{
-                await signIn("google")} 
-                }>
+              <Button className="mt-4" onClick={handleGoogleLogin}>
                 <KeyRound size={18}/>
                 <h1 className="ml-2">Sign in with google</h1>
               </Button>
