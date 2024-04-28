@@ -1,7 +1,7 @@
-const Redis = require("ioredis");
-const redisUri = process.env.REDIS_URL;
+import Redis from 'ioredis'
+const redisUri : any = process.env.REDIS_URL;
 
-let redis: any;
+let redis: Redis;
 
 export const getRedis = () => {
   if (!redis) {
