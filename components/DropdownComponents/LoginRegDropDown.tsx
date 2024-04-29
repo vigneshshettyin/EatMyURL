@@ -13,7 +13,7 @@ import {
 import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export function LoginRegDropDown({ pathname }: any) {
+export function LoginRegDropDown({ status }: any) {
   const router = useRouter();
 
   return (
@@ -28,7 +28,7 @@ export function LoginRegDropDown({ pathname }: any) {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            {!(pathname == "/dashboard") ? (
+            {!(status == "authenticated") ? (
               <div>
                 <DropdownMenuItem>
                   <LogInIcon className="mr-2 h-4 w-4" />

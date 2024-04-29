@@ -1,14 +1,12 @@
 "use client"
-
 import { BarChart2Icon, HomeIcon, LinkIcon, Plus, QrCodeIcon, Settings } from "lucide-react";
 import { Button } from "../ui/button";
 import { Label } from "@radix-ui/react-label";
 import { CreateNewDropDown } from "../DropdownComponents/CreateNewDropDown";
-import { useRouter } from "next/navigation";
+import Link from 'next/link';
 
 
 export function SideNavBar (){
-    const router = useRouter()
 
     return <div className="px-2 md:px-4 border-r-2 h-screen fixed left-0">
     <CreateNewDropDown><Button className="hidden md:block mt-12">Create New</Button></CreateNewDropDown>
@@ -18,20 +16,31 @@ export function SideNavBar (){
     {/* this is a seperator */}
     <div className="border-t-2 my-4"></div>
     <div className="flex flex-col items-center md:items-start">
-      <div onClick={()=>router.push('/home')} className="flex mt-3 cursor-pointer">
+
+      <Link href="/home">
+      <div className="flex mt-3 cursor-pointer">
         <HomeIcon />
         <Label className="hidden md:block ml-1 cursor-pointer">Home</Label>
       </div>
-      <div onClick={()=>router.push('/links')} className="flex mt-8 cursor-pointer">
+      </Link>
+
+      <Link href="/links">
+      <div className="flex mt-8 cursor-pointer">
         <LinkIcon />
         <Label className="ml-1 hidden md:block cursor-pointer">Links</Label>
       </div>
-      <div onClick={()=>router.push('/qrcodes')} className="flex mt-8 cursor-pointer">
+      </Link>
+
+      <Link href="/qrcodes">
+      <div className="flex mt-8 cursor-pointer">
         <QrCodeIcon />
         <Label className="ml-1 hidden md:block cursor-pointer">
           QR Codes
         </Label>
       </div>
+      </Link>
+
+
       <div className="flex mt-8 cursor-pointer">
         <BarChart2Icon />
         <Label className="ml-1 hidden md:block cursor-pointer">

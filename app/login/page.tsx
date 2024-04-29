@@ -25,25 +25,16 @@ const LoginPage = () => {
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const session = useSession();
-
+  
+  const { data } = useSession();
   useEffect(() => {
-    if (
-      session.status == "authenticated" ||
-      session.status == "unauthenticated"
-    ) {
-      if (session.status == "authenticated") {
-        toast({
-          title: "Welcome back !!",
-        });
-        router.push("/home");
-      }
-
-      if (loading) {
-        setLoading(false);
-      }
+    if (data) {
+      router.push("/home");
+      toast({ title: "Welcome back!" });
     }
-  }, [session.status]);
+  }, [data]);
+
+  useEffect(()=>setLoading(false),[])
 
   if (loading)
     return (
@@ -106,7 +97,7 @@ const LoginPage = () => {
                   toast({
                     title: "User logged in successfully !!",
                   });
-                  router.push("/dashboard");
+                  router.push("/home");
                 } else {
                   toast({
                     title: "Wrong credentials !!",
