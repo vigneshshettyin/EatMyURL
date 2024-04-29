@@ -1,5 +1,7 @@
+"use client"
+
 import { DatePickerWithRange } from "@/components/DialogComponents/DatePickerWithRange";
-import React from "react";
+import React from 'react'
 import { FilterDialog } from "@/components/DialogComponents/FilterDialog";
 import { LinkCard } from "@/components/CardComponents/LinkCard";
 import { LinkCardProps } from "@/interfaces/ui";
@@ -25,7 +27,8 @@ const data : LinkCardProps[] = [
   },
 ];
 
-export default function Page() {
+export default async function Page() {
+
   return (
     <div className="pt-10 pl-6 w-full pr-2">
       <h1 className="font-bold text-3xl ml-3">Links</h1>

@@ -19,6 +19,7 @@ export default function HomePage() {
     second : false,
     third : false
   }
+    
 
   return (
     <div className="pt-8 pl-4 w-full pr-4">
@@ -165,3 +166,4 @@ export default function HomePage() {
     </div>
   );
 }
+

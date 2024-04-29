@@ -22,7 +22,7 @@ const RegisterPage = () => {
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const session = useSession();
+
 
   const registerUser = async (formData: FormData) => {
     const res = await register(formData);
@@ -44,23 +44,15 @@ const RegisterPage = () => {
       });
     }
   };
-  useEffect(() => {
-    if (
-      session.status == "authenticated" ||
-      session.status == "unauthenticated"
-    ) {
-      if (session.status == "authenticated") {
-        toast({
-          title: "Welcome back !!",
-        });
-        router.push("/home");
-      }
 
-      if (loading) {
-        setLoading(false);
-      }
+  const { data } = useSession();
+  useEffect(() => {
+    setLoading(false)
+    if (data) {
+      router.push("/home");
+      toast({ title: "User already logged in" });
     }
-  }, [session.status]);
+  }, [data]);
 
   if (loading)
     return (
