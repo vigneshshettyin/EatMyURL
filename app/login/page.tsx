@@ -54,14 +54,14 @@ const LoginPage = () => {
 
   const handleGoogleLogin = async () => {
     const res: any = await signIn("google");
-    if (res.status == 200) {
+    if (res && res.status == 200) {
       toast({
         title: "User logged in successfully !!",
       });
       router.push("/home");
     } else {
       toast({
-        title: "Wrong credentials !!",
+        title: "Error while logging in!!",
         variant: "destructive",
       });
     }

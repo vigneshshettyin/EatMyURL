@@ -24,6 +24,26 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(true);
   const session = useSession();
 
+  const registerUser = async (formData: FormData) => {
+    const res = await register(formData);
+    if (res == 200) {
+      toast({
+        title: "User registered successfully !!",
+        description: "Please login to continue",
+      });
+      router.push("/login");
+    } else if (res == 403) {
+      toast({
+        title: "User already exists !!",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Error while user registration !!",
+        variant: "destructive",
+      });
+    }
+  };
   useEffect(() => {
     if (
       session.status == "authenticated" ||
@@ -33,7 +53,7 @@ const RegisterPage = () => {
         toast({
           title: "Welcome back !!",
         });
-        router.push("/dashboard");
+        router.push("/home");
       }
 
       if (loading) {
@@ -58,23 +78,7 @@ const RegisterPage = () => {
             Enter your details to get started
           </CardDescription>
         </CardHeader>
-        <form
-          action={async (formData) => {
-            const res = await register(formData);
-            if (res) {
-              toast({
-                title: "User registered successfully !!",
-                description: "Please login to continue",
-              });
-              router.push("/login");
-            } else {
-              toast({
-                title: "Error while user registration !!",
-                variant: "destructive",
-              });
-            }
-          }}
-        >
+        <form action={registerUser}>
           <CardContent>
             <Label>Email</Label>
             <Input
