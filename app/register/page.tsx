@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
 
+
 const RegisterPage = () => {
   const { toast } = useToast();
   const router = useRouter();

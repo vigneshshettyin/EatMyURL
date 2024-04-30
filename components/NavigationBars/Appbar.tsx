@@ -7,7 +7,8 @@ import { Button } from "../ui/button";
 import { LoginRegDropDown } from "../DropdownComponents/LoginRegDropDown";
 import { Card } from "../ui/card";
 import { useSession } from "next-auth/react"
-import { toast } from "../ui/use-toast";
+import Link from "next/link";
+import LoginRegDisplay from "../Auth/LoginRegDisplay";
 
 export function Appbar() {
 
@@ -23,32 +24,7 @@ export function Appbar() {
         </div>
         <div className="absolute right-6 flex">
           <LoginRegDropDown status={status} />
-          {
-            status == 'authenticated'?<div>
-            <Button
-              variant="outline"
-              className="mr-4 hidden md:inline-block"
-              onClick={() => signOut()}
-            >
-              Signout
-            </Button>
-          </div>:<div>
-              <Button
-                variant="outline"
-                onClick={() => signIn()}
-                className="mr-2 hidden md:inline-block"
-              >
-                Login
-              </Button>
-              <Button
-                variant="outline"
-                className="mr-4 hidden md:inline-block"
-              >
-                Register
-              </Button>
-            </div>
-          }
-            
+          <LoginRegDisplay/>
           <ModeToggle />
         </div>
       </div>

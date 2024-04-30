@@ -1,26 +1,10 @@
 "use client"
 import { SideNavBar } from "@/components/NavigationBars/SideNavBar";
-import { toast } from "@/components/ui/use-toast";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import withAuth from '@/components/Auth/WithAuth'
 
-export default function Layout({children}:{
+const Layout = ({children}:{
     children : React.ReactNode
-}){
-
-  const router = useRouter();
-
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push('/login')
-      toast({
-        title: 'You are not authenticated',
-        description: 'You need to be authenticated to access this page',
-        variant: 'destructive',
-      })
-    },
-    })
+})=>{
 
     return <div className="flex pb-4">
         <SideNavBar/>
@@ -30,3 +14,4 @@ export default function Layout({children}:{
     </div>
 }
 
+export default withAuth(Layout);
