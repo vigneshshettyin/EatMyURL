@@ -13,7 +13,7 @@ model user {
   password   String
   name       String?
   imageurl   String?
-  created_at DateTime
+  created_at DateTime?
   links      links[]
 }
 

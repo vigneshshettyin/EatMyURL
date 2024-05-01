@@ -16,6 +16,8 @@ export async function register(formData: FormData) {
     }
   })
 
+  console.log(user)
+
   if(user) return 403;
   
   // hashing the password
@@ -24,17 +26,20 @@ export async function register(formData: FormData) {
   // todo add this to UI as well
   // image url is hardcoded for now
   try {
-    await prisma.user.create({
+    let obj = await prisma.user.create({
       data: {
         password:passwordHash,
         email:email,
-        // name:'TODO',
-        // imageurl:'https://avatar.iran.liara.run/public'
+        name:'TODO',
+        imageurl:'https://avatar.iran.liara.run/public',
       },
     });
 
+    console.log(obj);
+
     return 200;
   } catch (e) {
+    console.log(e);
     return 500;
   }
 }
