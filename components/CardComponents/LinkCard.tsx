@@ -14,21 +14,20 @@ import {
 } from "@/components/ui/hover-card";
 import { Button } from "../ui/button";
 import { EditLinkDialog } from "../DialogComponents/EditLinkDialog";
-import { toast } from "../ui/use-toast";
+import { copyToClipboard } from "@/lib/utils";
 import { LinkShareDialog } from "../DialogComponents/LinkShareDialog";
+import { LinkType } from "@/interfaces/types";
+
+const months = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 export function LinkCard({
   link,
 }: {
-  link: { title: string; shortLink: string; longLink: string };
+  link: LinkType;
 }) {
-  function copyToClipboard() {
-    navigator.clipboard.writeText(link.shortLink);
-    toast({
-      title: "Copied the link to clipboard !!",
-    });
-  }
-
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
       <div className="flex">
@@ -41,7 +40,7 @@ export function LinkCard({
               {link.title}
             </h1>
             <div className="hidden md:block">
-              <Button onClick={copyToClipboard} variant="outline">
+              <Button onClick={()=>{copyToClipboard(link.shortLink)}} variant="outline">
                 <Copy size={15} className="mr-2" />
                 Copy
               </Button>
@@ -51,7 +50,7 @@ export function LinkCard({
                   Share
                 </Button>
               </LinkShareDialog>
-              <EditLinkDialog>
+              <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
                 <Button variant="outline" className="ml-2">
                   <Pencil size={15} className="mr-2" />
                   Edit
@@ -71,7 +70,7 @@ export function LinkCard({
             <div className="flex">
               <BarChart2 size={20} />
               <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-                1{" "}
+                {link.engagement}{" "}
                 <HoverCard>
                   <HoverCardTrigger>engagement</HoverCardTrigger>
                   <HoverCardContent>
@@ -82,13 +81,13 @@ export function LinkCard({
             </div>
             <div className="flex mt-2 md:mt-0">
               <Calendar className="ml-0 md:ml-4 " size={20} />
-              <h1 className="text-sm ml-2">April 21,2024</h1>
+              <h1 className="text-sm ml-2">{months[link.dateCreated.getMonth()]} {link.dateCreated.getDate()},{link.dateCreated.getFullYear()}</h1>
             </div>
           </div>
         </div>
       </div>
       <div className="mt-8 ml-8 md:hidden">
-        <Button onClick={copyToClipboard} variant="outline">
+        <Button onClick={()=>{copyToClipboard(link.shortLink)}} variant="outline">
           <Copy size={15} />
         </Button>
         <LinkShareDialog link={link}>
@@ -96,7 +95,7 @@ export function LinkCard({
             <Share2 size={15} />
           </Button>
         </LinkShareDialog>
-        <EditLinkDialog>
+        <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
           <Button className="ml-2" variant="outline">
             <Pencil size={15} />
           </Button>

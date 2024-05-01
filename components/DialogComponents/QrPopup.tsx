@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { QrCodeIcon } from "lucide-react";
-import Image from "next/image";
+import QRCode from "react-qr-code";
 
 export function QrPopup() {
   return (
@@ -27,12 +27,7 @@ export function QrPopup() {
             Get redirected to the current link by scanning the qr code
           </DialogDescription>
           <div className="flex justify-center">
-            <Image
-              className="rounded-xl w-[248px] h-[248px]"
-              src="https://s3.amazonaws.com/images.seroundtable.com/qrfree-kaywa-1379333209.png"
-              alt="QR Popup"
-              draggable={false}
-            />
+            <QRCode value="https://app.eurl.vshetty.dev" size={250} />
           </div>
           <DialogFooter>
             <DialogClose asChild>
