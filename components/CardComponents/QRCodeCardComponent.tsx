@@ -2,15 +2,17 @@ import { Label } from "@radix-ui/react-label";
 import { BarChart2, Calendar, CornerDownRightIcon, Download, Link, Pencil } from "lucide-react";
 import { DownloadQRDropDown } from "../DropdownComponents/DownloadQRDropDown";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 export function QRCodeCardComponent() {
   return (
     <div className="flex md:flex-row flex-col mt-6 p-6 rounded-xl border-[0.5px] shadow-md">
       <div className="flex justify-center md:justify-start">
-        <img
+        <Image
           className="w-36 h-32 border-2 rounded-xl"
           src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
-          alt=""
+          alt="Dummy QR Code"
+          draggable={false}
         />
       </div>
       <div className="flex flex-col ml-6 md:mt-0 mt-4 w-full">
