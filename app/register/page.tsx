@@ -12,28 +12,26 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { register } from "@/lib/actions/register";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
+import register from "@/lib/actions/register";
+import { toast } from "@/components/ui/use-toast";
+import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
 
 
+
 const RegisterPage = () => {
-  const { toast } = useToast();
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
-
   const registerUser = async (formData: FormData) => {
-    const res = await register(formData);
-    if (res == 200) {
+    const status = await register(formData);
+    if (status == 200) {
       toast({
         title: "User registered successfully !!",
         description: "Please login to continue",
       });
-      router.push("/login");
-    } else if (res == 403) {
+      redirect("/login");
+    } else if (status == 403) {
       toast({
         title: "User already exists !!",
         variant: "destructive",
@@ -50,10 +48,10 @@ const RegisterPage = () => {
   useEffect(() => {
     setLoading(false)
     if (data) {
-      router.push("/home");
       toast({ title: "User already logged in" });
+      redirect("/home");
     }
-  }, [data, router, toast]);
+  }, [data]);
 
   if (loading)
     return (
