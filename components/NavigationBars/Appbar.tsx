@@ -1,9 +1,6 @@
 "use client";
 import { Label } from "@/components/ui/label";
 import { ModeToggle } from "../DropdownComponents/ModeToggle";
-import { signOut, signIn } from "next-auth/react";
-
-import { Button } from "../ui/button";
 import { LoginRegDropDown } from "../DropdownComponents/LoginRegDropDown";
 import { Card } from "../ui/card";
 import { useSession } from "next-auth/react"
@@ -18,9 +15,11 @@ export function Appbar() {
     <Card className="sticky top-0 w-full pb-3 z-30">
       <div className="flex mt-3 px-6">
         <div className="flex mt-1">
+        <Link href="/">
           <Label className="text-xl font-bold cursor-pointer">
             EatMyUrl
           </Label>
+          </Link>
         </div>
         <div className="absolute right-6 flex">
           <LoginRegDropDown status={status} />

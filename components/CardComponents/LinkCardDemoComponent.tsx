@@ -2,8 +2,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
 import { Label } from "../ui/label";
 import { CopyIcon, QrCodeIcon, BarChart } from "lucide-react";
-import { toast } from "../ui/use-toast";
 import { QrPopup } from "../DialogComponents/QrPopup";
+import { copyToClipboard } from "@/lib/utils";
 
 export function LinkCardComponent() {
   return (
@@ -19,12 +19,7 @@ export function LinkCardComponent() {
             <div className="flex items-center">
               <Label className="text-lg text-blue-500">eurl.dev/new</Label>
               <CopyIcon
-                onClick={() => {
-                  navigator.clipboard.writeText("eurl.dev/new");
-                  toast({
-                    title: "Copied the link to clipboard !!",
-                  });
-                }}
+                onClick={()=>{copyToClipboard("eurl.dev/new")}}
                 className="ml-3 h-4 w-4 cursor-pointer hover:scale-110"
               />
               <QrPopup />

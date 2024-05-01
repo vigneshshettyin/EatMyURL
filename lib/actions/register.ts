@@ -38,7 +38,8 @@ const register = async (formData: FormData) => {
 
     return 200;
   } catch (e) {
-}
+    return 500
+  }
 }
 
 export default register;
