@@ -162,7 +162,7 @@ export default function Page(params : any) {
           <TableBody>
 
             {link.locations?.map((location)=>{
-                return <TableRow>
+                return <TableRow key={location.id}>
                 <TableCell className="font-medium">{location.id}</TableCell>
                 <TableCell>{location.country}</TableCell>
                 <TableCell className="text-right">{location.engagements}</TableCell>

@@ -29,6 +29,7 @@ export interface LinkType {
 
 
 export interface QRCodeType {
+  id:number;
   title?: string;
   shortLink: string;
   longLink: string;
