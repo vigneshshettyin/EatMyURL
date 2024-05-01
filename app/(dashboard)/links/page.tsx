@@ -27,7 +27,7 @@ const data : LinkCardProps[] = [
   },
 ];
 
-export default async function Page() {
+export default function Page() {
 
   return (
     <div className="pt-10 pl-6 w-full pr-2">
