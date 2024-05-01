@@ -28,8 +28,8 @@ export async function register(formData: FormData) {
       data: {
         password:passwordHash,
         email:email,
-        name:'TODO',
-        imageurl:'https://avatar.iran.liara.run/public'
+        // name:'TODO',
+        // imageurl:'https://avatar.iran.liara.run/public'
       },
     });
 
