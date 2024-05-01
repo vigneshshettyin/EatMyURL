@@ -21,11 +21,15 @@ export async function register(formData: FormData) {
   // hashing the password
   const passwordHash = await bcrypt.hash(password, 10);
 
+  // todo add this to UI as well
+  // image url is hardcoded for now
   try {
     await prisma.user.create({
       data: {
         password:passwordHash,
         email:email,
+        name:'TODO',
+        imageurl:'https://avatar.iran.liara.run/public'
       },
     });
 

@@ -53,7 +53,7 @@ const RegisterPage = () => {
       router.push("/home");
       toast({ title: "User already logged in" });
     }
-  }, [data]);
+  }, [data, router, toast]);
 
   if (loading)
     return (

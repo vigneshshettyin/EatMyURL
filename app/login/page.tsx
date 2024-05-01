@@ -32,7 +32,7 @@ const LoginPage = () => {
       router.push("/home");
       toast({ title: "Welcome back!" });
     }
-  }, [data]);
+  }, [data, router, toast]);
 
   useEffect(()=>setLoading(false),[])
 
