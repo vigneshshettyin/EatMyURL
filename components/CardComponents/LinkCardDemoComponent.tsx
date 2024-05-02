@@ -1,7 +1,7 @@
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
 import { Label } from "../ui/label";
-import { CopyIcon, QrCodeIcon, BarChart } from "lucide-react";
+import { CopyIcon, BarChart } from "lucide-react";
 import { QrPopup } from "../DialogComponents/QrPopup";
 import { copyToClipboard } from "@/lib/utils";
 
