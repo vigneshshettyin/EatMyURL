@@ -49,7 +49,8 @@
     "react-resizable-panels": "^2.0.16",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "ua-parser-js": "^1.0.37"
+    "ua-parser-js": "^1.0.37",
+    "zod": "^3.23.6"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
