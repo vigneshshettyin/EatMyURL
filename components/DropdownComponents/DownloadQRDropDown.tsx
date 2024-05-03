@@ -1,7 +1,8 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
-export function DownloadQRDropDown ({children}:{
-    children: React.ReactNode
+export function DownloadQRDropDown ({children,downloadQRCode}:{
+    children: React.ReactNode,
+    downloadQRCode: (format:string)=>void
 }){
     return <div>
         <DropdownMenu>
@@ -9,15 +10,15 @@ export function DownloadQRDropDown ({children}:{
       {children}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={()=>downloadQRCode("jpeg")}>
             <span>Download as JPEG</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={()=>downloadQRCode("png")}>
             <span>Download as PNG</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          {/* <DropdownMenuItem>
             <span>Download as SVG</span>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
     </div>
