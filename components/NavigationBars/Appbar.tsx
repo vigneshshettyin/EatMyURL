@@ -1,9 +1,7 @@
 "use client";
 import { Label } from "@/components/ui/label";
 import { ModeToggle } from "../DropdownComponents/ModeToggle";
-import { LoginRegDropDown } from "../DropdownComponents/LoginRegDropDown";
 import { Card } from "../ui/card";
-import { useSession } from "next-auth/react"
 import Link from "next/link";
 import LoginRegDisplay from "../Auth/LoginRegDisplay";
 import { Button } from "@/components/ui/button";
@@ -11,8 +9,6 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { SideNavbarMobile } from "./SideNavbarMobile";
 
 export function Appbar() {
-
-  const {status} = useSession()
 
   return (
     <Card className="sticky top-0 w-full pb-3 z-30">
@@ -28,7 +24,6 @@ export function Appbar() {
           <div className="mr-3 md:hidden block">
           <SideNavbarMobile><Button variant="outline"><HamburgerMenuIcon/></Button></SideNavbarMobile>
           </div>
-          <LoginRegDropDown status={status} />
           <LoginRegDisplay/>
           <ModeToggle />
         </div>
