@@ -23,13 +23,14 @@ const LoginRegDisplay = () => {
   if (loginBtnShow) {
     return (
       <div>
+        <Link href="/login">
         <Button
           variant="outline"
-          onClick={() => signIn()}
           className="mr-2 hidden md:inline-block"
         >
           Login
         </Button>
+        </Link>
         <Link href="/register">
           <Button variant="outline" className="mr-4 hidden md:inline-block">
             Register
