@@ -89,7 +89,7 @@ const dummyQRCodeData: QRCodeType[] = [
   
 export default function QRCodePage(){
 
-    return <div className="pr-6 pl-8 pt-8">
+    return <div className="pr-6 pl-4 md:pl-8 pt-8">
     <Label className="text-3xl font-bold">QR Codes</Label>
     {dummyQRCodeData.map(qr=><QRCodeCardComponent key={qr.id} qrcode={qr}/>)}
     </div>

@@ -7,8 +7,10 @@ const Layout = ({children}:{
 })=>{
 
     return <div className="flex pb-4">
+        <div className="md:block hidden">
         <SideNavBar/>
-        <div className="ml-[40px] md:ml-[150px] w-full mt-[34px]">
+        </div>
+        <div className="md:ml-[150px] w-full mt-[46px] md:pb-0 pb-4">
         {children}
         </div>
     </div>

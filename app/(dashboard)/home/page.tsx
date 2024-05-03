@@ -35,7 +35,7 @@ export default function HomePage() {
   );
 
   return (
-    <div className="pt-8 pl-4 w-full pr-4">
+    <div className="pt-8 pl-2 md:pl-4 w-full pr-4">
       <div>
         <div className="flex flex-col md:flex-row justify-between">
           <h1 className="text-2xl text-center md:text-left md:text-3xl font-bold ml-6">

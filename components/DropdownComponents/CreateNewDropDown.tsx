@@ -13,14 +13,13 @@ export function CreateNewDropDown ({children}:{
       <DropdownMenuTrigger asChild>
       {children}
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="right" className="w-56">
+      <DropdownMenuContent side="right">
         <DropdownMenuGroup>
           
           <Link href="/links/create">
           <DropdownMenuItem>
             <Link2Icon className="mr-2 h-4 w-4" />
             <span>Link</span>
-            <DropdownMenuShortcut>B</DropdownMenuShortcut>
           </DropdownMenuItem>
           </Link>
 
@@ -28,7 +27,6 @@ export function CreateNewDropDown ({children}:{
           <DropdownMenuItem>
             <QrCodeIcon className="mr-2 h-4 w-4" />
             <span>QR Code</span>
-            <DropdownMenuShortcut>Q</DropdownMenuShortcut>
           </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>

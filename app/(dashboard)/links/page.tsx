@@ -92,7 +92,7 @@ const dummyData: LinkType[] = [
 export default function Page() {
 
   return (
-    <div className="pt-10 pl-6 w-full pr-2">
+    <div className="pt-10 md:pl-6 pl-2 w-full pr-2">
       <h1 className="font-bold text-3xl ml-3">Links</h1>
       <div className="flex mt-6 md:flex-row flex-col">
         <div className="ml-2">
