@@ -14,6 +14,7 @@ import { QRCodeType } from "@/interfaces/types";
 import { QRCodeCanvas } from "qrcode.react";
 import { useRef } from "react";
 import { nanoid } from "nanoid";
+import { DownloadQRDropDown } from "../DropdownComponents/DownloadQRDropDown";
 
 const months = [
   "January",
@@ -33,14 +34,14 @@ const months = [
 export function QRCodeCardComponent({ qrcode }: { qrcode: QRCodeType }) {
   const qrCodeRef = useRef(null);
 
-  function downloadQRCode() {
+  function downloadQRCode(format:string) {
     const canvas = (qrCodeRef.current as any).firstElementChild;
     const pngUrl = (canvas as any)
-      .toDataURL("image/png")
-      .replace("image/png", "image/octet-stream");
+      .toDataURL("image/"+format)
+      .replace("image/"+format, "image/octet-stream");
     let downloadLink = document.createElement("a");
     downloadLink.href = pngUrl;
-    downloadLink.download = `${nanoid(5)}.png`;
+    downloadLink.download = `${nanoid(5)}.${format}`;
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -61,10 +62,11 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: QRCodeType }) {
             {qrcode.title}
           </Label>
           <div className="hidden md:flex">
-            <Button onClick={downloadQRCode} variant="outline">
+          <DownloadQRDropDown downloadQRCode={downloadQRCode}>
+            <Button variant="outline">
               <Download size={20} />
             </Button>
-
+          </DownloadQRDropDown>
             <Button variant="outline" className="ml-4">
               <Pencil size={20} />
             </Button>
@@ -99,9 +101,11 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: QRCodeType }) {
           </div>
         </div>
         <div className="flex md:hidden mt-6 justify-end pr-12">
-          <Button onClick={downloadQRCode} variant="outline">
+          <DownloadQRDropDown downloadQRCode={downloadQRCode}>
+          <Button variant="outline">
             <Download size={20} />
           </Button>
+          </DownloadQRDropDown>
           <Button variant="outline" className="ml-4">
             <Pencil size={20} />
           </Button>
