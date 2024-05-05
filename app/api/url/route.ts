@@ -2,43 +2,60 @@ import { base62_encode } from "@/lib/services/base62";
 import { urlSchema } from "@/lib/zod/url";
 import { NextRequest } from "next/server";
 
-// import getPrisma from "@/lib/services/pg_connect";
-// import getRedis from "@/lib/services/redis_connect";
+import getPrisma from "@/lib/services/pg_connect";
+import incrementCounter from "@/lib/services/counter";
+
+const validate_request = async (req: NextRequest) => {
+  try {
+    const form_data: FormData = await req.formData();
+    const long_url = form_data.get("long_url");
+
+    const errors = urlSchema.safeParse({
+      long_url,
+    });
+    return { long_url, status: errors.success, msg: errors.error };
+  } catch (e) {
+    return {
+      long_url: "",
+      status: false,
+    };
+  }
+};
 
 export async function POST(req: NextRequest) {
-  const form_data = await req.formData();
+  const prisma = getPrisma();
+  const { long_url, status, msg } = await validate_request(req);
 
-  const long_url = form_data.get("long_url");
-  const short_id_length: number = parseInt(
-    form_data.get("short_id_length") as string
-  );
+  if (!status) {
+    return Response.json(
+      {
+        error: "Invalid input",
+        moreinfo: msg,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        status: 400,
+      }
+    );
+  }
 
-  const errors = urlSchema.safeParse({
-    long_url,
-    short_id_length,
-  });
+  const short_id_length = await incrementCounter();
+  const short_id = base62_encode(short_id_length);
 
-  if (errors.success === false) {
-    return Response.json(errors.error, {
+  //TODO: Save the URL to the database
+
+  return Response.json(
+    {
+      long_url,
+      short_id,
+    },
+    {
       headers: {
         "Content-Type": "application/json",
       },
-      status: 400,
-    });
-  }
-
-  const short_id = base62_encode(short_id_length);
-
-  const resp = {
-    long_url,
-    short_id_length,
-    short_id,
-  };
-
-  return Response.json([resp], {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    status: 200,
-  });
+      status: 200,
+    }
+  );
 }
