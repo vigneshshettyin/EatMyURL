@@ -6,10 +6,13 @@ import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import { LinkCardSkeleton } from "@/components/CardComponents/LinkCardSkeleton";
 import { Card, CardContent } from "@/components/ui/card";
+import { Analytics } from "@vercel/analytics/react"
 
 export default function Home() {
   const router = useRouter();
   return (
+    <>
+    <Analytics/>
     <div className="flex flex-row justify-center mt-14 px-4 pb-4">
       <div className="flex flex-col items-center">
         <Label className="text-4xl md:text-5xl font-bold">
@@ -54,5 +57,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
