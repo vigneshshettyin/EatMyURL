@@ -1,17 +1,9 @@
 import { base62_encode } from "@/lib/services/base62";
+import { urlSchema } from "@/lib/zod/url";
 import { NextRequest } from "next/server";
 
 // import getPrisma from "@/lib/services/pg_connect";
 // import getRedis from "@/lib/services/redis_connect";
-
-import { z } from "zod";
-
-// write a validation schema for url
-
-const urlSchema = z.object({
-  long_url: z.string().url(),
-  short_id_length: z.number().int().positive(),
-});
 
 export async function POST(req: NextRequest) {
   const form_data = await req.formData();

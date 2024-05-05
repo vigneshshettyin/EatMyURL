@@ -4,20 +4,20 @@ import getPrisma from "@/lib/services/pg_connect";
 import getRedis from "@/lib/services/redis_connect";
 import getUA from "@/lib/services/ua";
 
-
 import { PgResponse } from "@/interfaces/connection";
 
 export async function GET(req: NextRequest) {
-  // const ip =
-  //   req.headers.get("x-real-ip") ||
-  //   req.headers.get("x-forwarded-for") ||
-  //   req.ip;
+  const ip =
+    req.headers.get("x-real-ip") ||
+    req.headers.get("x-forwarded-for") ||
+    req.ip;
 
   const vercel_location = {
-    city : req.geo?.city,
-    country : req.geo?.country,
-    region : req.geo?.region,
-  }
+    ip,
+    city: req.geo?.city,
+    country: req.geo?.country,
+    region: req.geo?.region,
+  };
 
   const redis = getRedis();
   const pg = getPrisma();
