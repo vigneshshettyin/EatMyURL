@@ -22,7 +22,7 @@ export default function Home() {
           EatMyUrl is an open source link management website
         </Label>
         <div className="mt-6">
-          <Button onClick={() => router.push("/login")}>Start for free</Button>
+          <Button onClick={() => router.push("/app/login")}>Start for free</Button>
           <Button variant="outline" className="ml-4">
             Get a demo
           </Button>
@@ -40,7 +40,7 @@ export default function Home() {
                     Want to claim your links, edit them,or view their{" "}
                     <Label className="underline font-bold">analytics</Label>?{" "}
                     <Label
-                      onClick={() => router.push("/register")}
+                      onClick={() => router.push("/app/register")}
                       className="underline font-bold cursor-pointer"
                     >
                       Create a free account on EatMyUrl

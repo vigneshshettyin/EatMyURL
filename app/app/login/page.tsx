@@ -29,7 +29,7 @@ const LoginPage = () => {
   const { data } = useSession();
   useEffect(() => {
     if (data) {
-      router.push("/home");
+      router.push("/app/home");
       toast({ title: "Welcome back!" });
     }
   }, [data, router, toast]);
@@ -49,7 +49,7 @@ const LoginPage = () => {
       toast({
         title: "User logged in successfully !!",
       });
-      router.push("/home");
+      router.push("/app/home");
     } else {
       toast({
         title: "Error while logging in!!",
@@ -97,7 +97,7 @@ const LoginPage = () => {
                   toast({
                     title: "User logged in successfully !!",
                   });
-                  router.push("/home");
+                  router.push("/app/home");
                 } else {
                   toast({
                     title: "Wrong credentials !!",

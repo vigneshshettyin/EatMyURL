@@ -30,7 +30,7 @@ const RegisterPage = () => {
         title: "User registered successfully !!",
         description: "Please login to continue",
       });
-      redirect("/login");
+      redirect("/app/login");
     } else if (status == 403) {
       toast({
         title: "User already exists !!",
@@ -49,7 +49,7 @@ const RegisterPage = () => {
     setLoading(false)
     if (data) {
       toast({ title: "User already logged in" });
-      redirect("/home");
+      redirect("/app/home");
     }
   }, [data]);
 

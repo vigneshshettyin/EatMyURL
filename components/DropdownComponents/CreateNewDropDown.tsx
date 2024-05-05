@@ -16,14 +16,14 @@ export function CreateNewDropDown ({children}:{
       <DropdownMenuContent side="right">
         <DropdownMenuGroup>
           
-          <Link href="/links/create">
+          <Link href="/app/links/create">
           <DropdownMenuItem>
             <Link2Icon className="mr-2 h-4 w-4" />
             <span>Link</span>
           </DropdownMenuItem>
           </Link>
 
-          <Link href="/qrcodes/create">
+          <Link href="/app/qrcodes/create">
           <DropdownMenuItem>
             <QrCodeIcon className="mr-2 h-4 w-4" />
             <span>QR Code</span>

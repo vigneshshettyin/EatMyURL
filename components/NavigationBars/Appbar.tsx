@@ -14,7 +14,7 @@ export function Appbar() {
     <Card className="sticky top-0 w-full pb-3 z-30">
       <div className="flex mt-3 px-6">
         <div className="flex mt-1">
-        <Link href="/">
+        <Link href="/app/">
           <Label className="text-xl font-bold cursor-pointer">
             EatMyUrl
           </Label>

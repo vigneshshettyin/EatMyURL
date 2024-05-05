@@ -50,7 +50,7 @@ export default function Page(params : any) {
 
   return (
     <div className="pl-5 md:pl-8 pr-2">
-      <Link href="/links">
+      <Link href="/app/links">
       <div
         className="flex cursor-pointer w-fit"
       >
