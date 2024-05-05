@@ -56,7 +56,7 @@ export default function HomePage() {
               </div>
               <div className="flex-1 flex justify-center items-center flex-col py-2 md:py-0">
                 <h1 className="font-bold text-sm text-center">Make it short</h1>
-                <Link href="/links">
+                <Link href="/app/links">
                   <Button
                     variant="outline"
                     size="sm"
@@ -77,7 +77,7 @@ export default function HomePage() {
                 <h1 className="font-bold text-sm text-center">
                   Create QR Codes
                 </h1>
-                <Link href="/qrcodes">
+                <Link href="/app/qrcodes">
                   <Button
                     variant="outline"
                     size="sm"
@@ -128,13 +128,13 @@ export default function HomePage() {
                 <h1 className="ml-2 ">Make a short link or QR Code</h1>
               </AccordionTrigger>
               <AccordionContent className="flex px-6 md:flex-row flex-col">
-                <Link href="/links/create">
+                <Link href="/app/links/create">
                   <Button size="sm" className="py-3 w-fit" variant="default">
                     <LinkIcon />
                     <h1 className="ml-1">Create a link</h1>
                   </Button>
                 </Link>
-                <Link href="/qrcodes/create">
+                <Link href="/app/qrcodes/create">
                   <Button
                     size="sm"
                     variant="default"
@@ -160,13 +160,13 @@ export default function HomePage() {
                 <h1 className="ml-2">Click it, scan it, or share it.</h1>
               </AccordionTrigger>
               <AccordionContent className="flex px-6 md:flex-row flex-col">
-                <Link href="/links">
+                <Link href="/app/links">
                   <Button size="sm" className="py-3 w-fit" variant="default">
                     <LinkIcon />
                     <h1 className="ml-1">View your links</h1>
                   </Button>
                 </Link>
-                <Link href="/qrcodes">
+                <Link href="/app/qrcodes">
                   <Button
                     size="sm"
                     variant="default"

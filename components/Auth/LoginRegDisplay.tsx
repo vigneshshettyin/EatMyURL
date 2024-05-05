@@ -23,7 +23,7 @@ const LoginRegDisplay = () => {
   if (loginBtnShow) {
     return (
       <div>
-        <Link href="/login">
+        <Link href="/app/login">
         <Button
           variant="outline"
           className="mr-2 hidden md:inline-block"
@@ -31,7 +31,7 @@ const LoginRegDisplay = () => {
           Login
         </Button>
         </Link>
-        <Link href="/register">
+        <Link href="/app/register">
           <Button variant="outline" className="mr-4 hidden md:inline-block">
             Register
           </Button>

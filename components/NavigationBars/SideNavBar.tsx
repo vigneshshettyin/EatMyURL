@@ -40,21 +40,21 @@ export function SideNavBar() {
           {/* this is a seperator */}
           <div className="border-t-2 my-4"></div>
           <div className="flex flex-col items-center md:items-start">
-            <Link href="/home">
+            <Link href="/app/home">
               <div className="flex mt-3 cursor-pointer">
                 <HomeIcon />
                 <Label className="ml-1 cursor-pointer">Home</Label>
               </div>
             </Link>
 
-            <Link href="/links">
+            <Link href="/app/links">
               <div className="flex mt-8 cursor-pointer">
                 <LinkIcon />
                 <Label className="ml-1 cursor-pointer">Links</Label>
               </div>
             </Link>
 
-            <Link href="/qrcodes">
+            <Link href="/app/qrcodes">
               <div className="flex mt-8 cursor-pointer">
                 <QrCodeIcon />
                 <Label className="ml-1 cursor-pointer">QR Codes</Label>
@@ -79,10 +79,10 @@ export function SideNavBar() {
         
         {show ? (
           <div className="flex mt-12 flex-col items-center md:items-start">
-            <Link href="/login">
+            <Link href="/app/login">
               <Button>Login</Button>
             </Link>
-            <Link href="/register">
+            <Link href="/app/register">
             <Button className="mt-4">Register</Button>
             </Link>
           </div>

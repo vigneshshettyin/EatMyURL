@@ -19,7 +19,7 @@ export default function WithAuth(Component : any){
                     description: 'You need to be authenticated to access this page',
                     variant: 'destructive',
                 })
-                redirect('/login')
+                redirect('/app/login')
             }
         },[status])
         
