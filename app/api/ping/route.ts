@@ -8,10 +8,16 @@ import getUA from "@/lib/services/ua";
 import { PgResponse } from "@/interfaces/connection";
 
 export async function GET(req: NextRequest) {
-  const ip =
-    req.headers.get("x-real-ip") ||
-    req.headers.get("x-forwarded-for") ||
-    req.ip;
+  // const ip =
+  //   req.headers.get("x-real-ip") ||
+  //   req.headers.get("x-forwarded-for") ||
+  //   req.ip;
+
+  const vercel_location = {
+    city : req.geo?.city,
+    country : req.geo?.country,
+    region : req.geo?.region,
+  }
 
   const redis = getRedis();
   const pg = getPrisma();
@@ -38,7 +44,7 @@ export async function GET(req: NextRequest) {
 
   const response: object = {
     userAgent,
-    ip,
+    vercel_location,
     redis: redis_result,
     postgres: pg_result[0].result,
   };
