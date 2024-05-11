@@ -10,3 +10,9 @@ export interface IUserSession {
 export interface ISessionType {
     user: IUserSession
 }
+
+export interface IUrlCreateReq {
+    long_url: any,
+    status: any,
+    msg: any
+}
