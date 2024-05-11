@@ -1,9 +1,10 @@
 "use server";
 
-import getPrisma from "../services/pg_connect";
-import bcrypt from "bcrypt";
 
-const prisma = getPrisma();
+import bcrypt from "bcrypt";
+import PrismaClientManager from "../services/pg_connect";
+
+const prisma = PrismaClientManager.getInstance().getPrismaClient();
 
 const register = async (formData: FormData) => {
   const password: any = formData.get("password");
