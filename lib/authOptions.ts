@@ -18,16 +18,16 @@ const authOptions: AuthOptions = {
           const email = credentials?.email || "";
           const password = credentials?.password || "";
   
-          const passwordHash = await bcrypt.hash(password, 10);
-  
           try {
             const user: any = await prisma.user.findFirst({
               where: {
                 email:email,
               },
             });
-  
-            const res = await bcrypt.compare(password, passwordHash)
+            
+            // comparing password hash in database and user entered plain text
+            // await bcrypt.compare(plainTextPassword, passwordHash)
+            const res = await bcrypt.compare(password, user.password)
   
             if(!res) return null
   
