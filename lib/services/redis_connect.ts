@@ -1,27 +1,44 @@
 import Redis from "ioredis";
-const RedisURI_01: any = `${process.env.REDIS_URL}/0`;
-const RedisURI_02: any = `${process.env.REDIS_URL}/1`;
 
+class RedisClientManager {
+  private static instance: RedisClientManager;
+  private redisClient: Redis;
+  private publicRedisClient: Redis;
 
-let redis: Redis;
-let public_redis : Redis;
-
-const getRedis = (): Redis => {
-  if (!redis) {
-    redis = new Redis(RedisURI_01);
+  private constructor() {
+    this.redisClient = new Redis(`${process.env.REDIS_URL}/0`);
+    this.publicRedisClient = new Redis(`${process.env.REDIS_URL}/1`);
   }
-  return redis;
-};
 
-const getPublicRedis = (): Redis => {
-  if (!public_redis) {
-    public_redis = new Redis(RedisURI_02);
+  public static getInstance(): RedisClientManager {
+    if (!RedisClientManager.instance) {
+      RedisClientManager.instance = new RedisClientManager();
+    }
+    return RedisClientManager.instance;
   }
-  return public_redis;
-};
 
-export default getRedis;
+  public getRedisClient(): Redis {
+    return this.redisClient;
+  }
 
-export {
-  getPublicRedis
+  public getPublicRedisClient(): Redis {
+    return this.publicRedisClient;
+  }
+
+  public async checkStatus() {
+    try {
+      const redis_status = await this.redisClient.ping();
+      const public_redis_status = await this.publicRedisClient.ping();
+      return redis_status === "PONG" && public_redis_status === "PONG";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  public async disconnect() {
+    await this.redisClient.disconnect();
+    await this.publicRedisClient.disconnect();
+  }
 }
+
+export default RedisClientManager;
