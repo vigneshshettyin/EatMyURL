@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt'
 
 const prisma = getPrisma();
 
-const authOptions: AuthOptions = {
+export const NEXT_AUTH_CONFIG : AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -35,9 +35,10 @@ const authOptions: AuthOptions = {
           return {
             id: user.id,
             email: user.email,
+            name: user.name,
           };
         } catch (e) {
-          return null;
+          return null
         }
       },
     }),
@@ -52,11 +53,17 @@ const authOptions: AuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token, user }) {
+      session.user = token as any;
+      return session;
+    },
   },
-};
+}
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(NEXT_AUTH_CONFIG);
 
 export const GET = handler;
 export const POST = handler;
