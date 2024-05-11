@@ -1,7 +1,11 @@
-import getRedis from "./redis_connect";
+import RedisClientManager from "./redis_connect";
+
 
 const incrementCounter = async () => {
-  const redis = getRedis();
+  
+  const redisInstance = RedisClientManager.getInstance();
+  const redis = redisInstance.getRedisClient();
+  
   let counter = (await redis.get("counter")) as number | null;
   if (!counter) {
     await redis.set("counter", 100000000);

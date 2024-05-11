@@ -1,16 +1,17 @@
 import { base62_encode } from "@/lib/services/base62";
 import { NextRequest } from "next/server";
 
-import getPrisma from "@/lib/services/pg_connect";
 import incrementCounter from "@/lib/services/counter";
 import { getServerSession } from "next-auth";
 
 import { ISessionType } from "@/interfaces/url";
-import { authOptions } from "@/lib/authOptions";
+import authOptions from "@/lib/authOptions";
 import ValidateURLCreateReq from "@/lib/validations/url_create";
+import PrismaClientManager from "@/lib/services/pg_connect";
 
 export async function POST(req: NextRequest) {
-  const prisma = getPrisma();
+  const posgresInstance = PrismaClientManager.getInstance();
+  const prisma = posgresInstance.getPrismaClient();
   const { long_url, status, msg } = await ValidateURLCreateReq(req);
   const session: ISessionType | null = await getServerSession(authOptions);
 

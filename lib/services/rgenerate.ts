@@ -1,4 +1,6 @@
-import { getPublicRedis } from "./redis_connect";
+import RedisClientManager from "./redis_connect";
+
+const redis = RedisClientManager.getInstance().getPublicRedisClient();
 
 const generateShortCode = (): string => {
   const allowedChars =
@@ -13,7 +15,6 @@ const generateShortCode = (): string => {
 };
 
 const invokeRedis = async (long_url: string): Promise<string> => {
-  const redis = getPublicRedis();
   const shortCode = generateShortCode();
   const exists = await redis.exists(shortCode);
   if (exists) {
@@ -24,12 +25,10 @@ const invokeRedis = async (long_url: string): Promise<string> => {
 };
 
 const getLongUrl = async (shortCode: string): Promise<string | null> => {
-  const redis = getPublicRedis();
   return await redis.get(shortCode);
 };
 
 const getRecords = async (short_code_list: string[]): Promise<any> => {
-  const redis = getPublicRedis();
   const records = await redis.mget(short_code_list);
   const recordsKeyValue = short_code_list.map((short_code, index) => {
     return { [short_code]: records[index] };
