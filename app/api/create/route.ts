@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 import getPrisma from "@/lib/services/pg_connect";
 import incrementCounter from "@/lib/services/counter";
 import { getServerSession } from "next-auth";
-import { NEXT_AUTH_CONFIG } from "../auth/[...nextauth]/route";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 import { ISessionType } from "@/interfaces/url";
 
@@ -68,7 +68,7 @@ const validate_request = async (req: NextRequest) => {
 export async function POST(req: NextRequest) {
   const prisma = getPrisma();
   const { long_url, status, msg } = await validate_request(req);
-  const session : ISessionType | null = await getServerSession(NEXT_AUTH_CONFIG)
+  const session : ISessionType | null = await getServerSession(authOptions)
 
   if (!status && !long_url) {
     return Response.json(

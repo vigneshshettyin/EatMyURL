@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt'
 
 const prisma = getPrisma();
 
-export const NEXT_AUTH_CONFIG : AuthOptions = {
+export const authOptions : AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -63,7 +63,7 @@ export const NEXT_AUTH_CONFIG : AuthOptions = {
   },
 }
 
-const handler = NextAuth(NEXT_AUTH_CONFIG);
+const handler = NextAuth(authOptions);
 
 export const GET = handler;
 export const POST = handler;
