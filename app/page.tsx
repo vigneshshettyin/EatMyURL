@@ -7,12 +7,31 @@ import { useRouter } from "next/navigation";
 import { LinkCardSkeleton } from "@/components/CardComponents/LinkCardSkeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Analytics } from "@vercel/analytics/react"
+import Script from "next/script";
+
+
 
 export default function Home() {
   const router = useRouter();
   return (
     <>
     <Analytics/>
+   <Script
+   id="HotJarAnalytics"
+   strategy="afterInteractive"
+   dangerouslySetInnerHTML={{
+      __html: `
+      (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:4978265,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+      `,
+   }}
+    />
     <div className="flex flex-row justify-center mt-14 px-4 pb-4">
       <div className="flex flex-col items-center">
         <Label className="text-4xl md:text-5xl font-bold">
