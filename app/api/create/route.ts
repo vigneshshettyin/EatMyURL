@@ -5,12 +5,12 @@ import incrementCounter from "@/lib/services/counter";
 import { getServerSession } from "next-auth";
 
 import { ISessionType } from "@/interfaces/url";
-import { authOptions } from "@/lib/authOptions";
+import authOptions from "@/lib/authOptions";
 import ValidateURLCreateReq from "@/lib/validations/url_create";
 import PrismaClientManager from "@/lib/services/pg_connect";
 
 export async function POST(req: NextRequest) {
-  const posgresInstance = PrismaClientManager.getInstance()
+  const posgresInstance = PrismaClientManager.getInstance();
   const prisma = posgresInstance.getPrismaClient();
   const { long_url, status, msg } = await ValidateURLCreateReq(req);
   const session: ISessionType | null = await getServerSession(authOptions);
