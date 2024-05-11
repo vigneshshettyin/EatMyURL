@@ -5,9 +5,9 @@ import { NextRequest } from "next/server";
 import getPrisma from "@/lib/services/pg_connect";
 import incrementCounter from "@/lib/services/counter";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
 
 import { ISessionType } from "@/interfaces/url";
+import { authOptions } from "@/lib/authOptions";
 
 
 const validate_request = async (req: NextRequest) => {
