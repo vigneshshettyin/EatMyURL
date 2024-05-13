@@ -1,39 +1,30 @@
+import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 import { checkIfShortCodePublic, getLongUrl } from "@/lib/services/rgenerate";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const short_code = path.replace("/", "");
+  const shortCode = path.replace("/", "");
 
-  if (!checkIfShortCodePublic(short_code)) {
-    return Response.json(
+  if (!checkIfShortCodePublic(shortCode)) {
+    return RESPONSE(
       {
         error: "Invalid input",
         moreinfo: "We are currently not supporting private short codes",
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 400,
-      }
+      HTTP_STATUS.BAD_REQUEST
     );
   }
 
-  const long_url = await getLongUrl(short_code);
+  const long_url = await getLongUrl(shortCode);
 
   if (!long_url) {
-    return Response.json(
+    return RESPONSE(
       {
         error: "Invalid input",
         moreinfo: "Short link generated is invalid or expired",
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 400,
-      }
+      HTTP_STATUS.BAD_REQUEST
     );
   }
 

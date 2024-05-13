@@ -55,9 +55,10 @@ export default function Home() {
               // This is a temporary solution to create a public url
               // This will be replaced with a proper form
               // This is just for demo purposes
+              const long_url = (e.target as HTMLInputElement).value
               if (e.key !== "Enter") return;
               let form = new FormData();
-              form.append("long_url", (e.target as HTMLInputElement).value);
+              form.append("long_url", long_url);
               const short_url = await createPublicUrl(form);
               console.log(short_url);
               alert(short_url);

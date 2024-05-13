@@ -20,16 +20,16 @@ export async function GET(req: NextRequest) {
   };
 
   const posgresInstance = PrismaClientManager.getInstance();
-  const postgres_status = await posgresInstance.checkStatus();
+  const postgresStatus = await posgresInstance.checkStatus();
 
   const redisInstance = RedisClientManager.getInstance();
-  const redis_status = await redisInstance.checkStatus();
+  const redisStatus = await redisInstance.checkStatus();
 
-  if (!postgres_status) {
+  if (!postgresStatus) {
     response_obj["infra"]["postgres"] = "ERROR!";
   }
 
-  if (!redis_status) {
+  if (!redisStatus) {
     response_obj["infra"]["redis"] = "ERROR!";
   }
 
