@@ -3,7 +3,7 @@ import { urlSchema } from "../zod/url";
 
 import { IUrlCreateReq } from "@/interfaces/url";
 
-const ValidateURLCreateReq = async (req: NextRequest) : Promise<IUrlCreateReq> => {
+const validateURLCreateReq = async (req: NextRequest) : Promise<IUrlCreateReq> => {
     try {
       const form_data: FormData = await req.formData();
       const long_url = form_data.get("long_url");
@@ -22,4 +22,4 @@ const ValidateURLCreateReq = async (req: NextRequest) : Promise<IUrlCreateReq> =
   };
 
 
-export default ValidateURLCreateReq;
+export default validateURLCreateReq;

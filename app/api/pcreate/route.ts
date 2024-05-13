@@ -1,50 +1,36 @@
 import { NextRequest } from "next/server";
-import ValidateURLCreateReq from "@/lib/validations/url_create";
+import validateURLCreateReq from "@/lib/validations/url_create";
 import { invokeRedis } from "@/lib/services/rgenerate";
+import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {
-  const { long_url, status, msg } = await ValidateURLCreateReq(req);
+  const { long_url, status, msg } = await validateURLCreateReq(req);
 
   if (!status) {
-    return Response.json(
+    return RESPONSE(
       {
         error: "Invalid input",
-        moreinfo: msg,
+        more_info: msg,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 400,
-      }
+      HTTP_STATUS.BAD_REQUEST
     );
   }
 
   try {
     const res = await invokeRedis(long_url);
-    return Response.json(
+    return RESPONSE(
       {
         short_url: `${req.headers.get("host")}/${res}`,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 200,
-      }
+      HTTP_STATUS.CREATED
     );
   } catch (e) {
-    return Response.json(
+    return RESPONSE(
       {
         error: "Internal Server Error",
-        moreinfo: JSON.stringify(e),
+        more_info: JSON.stringify(e),
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 500,
-      }
+      HTTP_STATUS.INTERNAL_SERVER_ERROR
     );
   }
 }

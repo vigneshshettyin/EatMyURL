@@ -1,35 +1,26 @@
 import { NextRequest } from "next/server";
 import { getRecords } from "@/lib/services/rgenerate";
+import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {
   const form_data: FormData = await req.formData();
-  const short_code_list = form_data.getAll("short_code_list") as string[];
+  const shortCodeList = form_data.getAll("short_code_list") as string[];
 
   try {
-    const records = await getRecords(short_code_list);
-    return Response.json(
+    const records = await getRecords(shortCodeList);
+    return RESPONSE(
       {
         records,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 200,
-      }
+      HTTP_STATUS.OK
     );
   } catch (e) {
-    return Response.json(
+    return RESPONSE(
       {
         error: "Internal Server Error",
-        moreinfo: JSON.stringify(e),
+        more_info: JSON.stringify(e),
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 500,
-      }
+      HTTP_STATUS.INTERNAL_SERVER_ERROR
     );
   }
 }

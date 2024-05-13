@@ -36,8 +36,8 @@ class RedisClientManager {
   }
 
   public async disconnect() {
-    await this.redisClient.disconnect();
-    await this.publicRedisClient.disconnect();
+    this.redisClient.disconnect();
+    this.publicRedisClient.disconnect();
   }
 }
 

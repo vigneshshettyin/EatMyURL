@@ -6,52 +6,43 @@ import { getServerSession } from "next-auth";
 
 import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
-import ValidateURLCreateReq from "@/lib/validations/url_create";
+import validateURLCreateReq from "@/lib/validations/url_create";
 import PrismaClientManager from "@/lib/services/pg_connect";
+import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {
   const posgresInstance = PrismaClientManager.getInstance();
   const prisma = posgresInstance.getPrismaClient();
-  const { long_url, status, msg } = await ValidateURLCreateReq(req);
+  const { long_url, status, msg } = await validateURLCreateReq(req);
   const session: ISessionType | null = await getServerSession(authOptions);
 
   if (!status) {
-    return Response.json(
+    return RESPONSE(
       {
         error: "Invalid input",
-        moreinfo: msg,
+        more_info: msg,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 400,
-      }
+      HTTP_STATUS.BAD_REQUEST
     );
   }
 
   if (!session?.user) {
-    return Response.json(
+    return RESPONSE(
       {
         error: "Unauthorized",
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 401,
-      }
+      HTTP_STATUS.UNAUTHORIZED
     );
   }
 
-  const short_id_length = await incrementCounter();
-  const short_id = base62_encode(short_id_length);
+  const shortIdLength = await incrementCounter();
+  const shortId = base62_encode(shortIdLength);
 
   try {
     await prisma.links.create({
       data: {
         long_url: long_url as string,
-        short_code: short_id,
+        short_code: shortId,
         created_at: new Date(),
         user: {
           connect: {
@@ -60,29 +51,19 @@ export async function POST(req: NextRequest) {
         },
       },
     });
-    return Response.json(
+    return RESPONSE(
       {
-        short_url: short_id,
+        short_url: shortId,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 201,
-      }
+      HTTP_STATUS.CREATED
     );
   } catch (e) {
-    return Response.json(
+    return RESPONSE(
       {
         error: "Internal Server Error",
-        msg: JSON.stringify(e),
+        moreinfo: JSON.stringify(e),
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 500,
-      }
+      HTTP_STATUS.INTERNAL_SERVER_ERROR
     );
   }
 }
