@@ -13,7 +13,9 @@ import { QrCodeIcon } from "lucide-react";
 import {QRCodeCanvas} from 'qrcode.react';
 
 
-export function QrPopup() {
+export function QrPopup({shortUrl}:{
+  shortUrl : string
+}) {
   return (
     <div>
       <Dialog>
@@ -27,8 +29,10 @@ export function QrPopup() {
           <DialogDescription>
             Get redirected to the current link by scanning the qr code
           </DialogDescription>
-          <div className="flex justify-center">
-          <QRCodeCanvas value="https://reactjs.org/" size={250} />
+          <div className="flex justify-center rounded-xl">
+            <div className="bg-white p-4 rounded-xl">
+          <QRCodeCanvas value={"eurl.vshetty.dev/"+shortUrl}size={250} />
+            </div>
           </div>
           <DialogFooter>
             <DialogClose asChild>

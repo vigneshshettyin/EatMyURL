@@ -14,14 +14,24 @@ const createPublicUrl = async (formData: FormData) => {
   });
 
   if (!errors.success) {
-    return HTTP_STATUS.BAD_REQUEST;
+    return {
+      shortUrl : "",
+      status: HTTP_STATUS.BAD_REQUEST
+    };
   }
 
   try {
     const res = await invokeRedis(longUrl);
-    return `${REDIRECT_URL}/${res}`;
+    return {
+      shortUrl : `${REDIRECT_URL}/${res}`,
+      status : HTTP_STATUS.OK
+    } 
+    ;
   } catch (e) {
-    return HTTP_STATUS.BAD_REQUEST;
+    return {
+      shortUrl : "",
+      status : HTTP_STATUS.INTERNAL_SERVER_ERROR
+    };
   }
 };
 
