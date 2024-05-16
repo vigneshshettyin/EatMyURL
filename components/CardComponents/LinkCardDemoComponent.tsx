@@ -23,7 +23,7 @@ export function LinkCardComponent({publicLink}:{
           </div>
           <div className="flex flex-col justify-center ml-4">
             <div className="flex items-center">
-              <Label onClick={()=>window.open(`${REDIRECT_URL}/${publicLink.shortUrl}`, "_blank")} className="cursor-pointer hover:underline text-lg text-blue-500">{`${REDIRECT_URL}/${publicLink.shortUrl}`}</Label>
+              <Label onClick={()=>window.open(`${REDIRECT_URL}/${publicLink.shortUrl}`, "_blank")} className="cursor-pointer hover:underline text-sm md:text-lg text-blue-500">{`${REDIRECT_URL}/${publicLink.shortUrl}`}</Label>
               <CopyIcon
                 onClick={()=>{copyToClipboard(`${REDIRECT_URL}/${publicLink.shortUrl}`)}}
                 className="ml-3 h-4 w-4 cursor-pointer hover:scale-110"
@@ -32,8 +32,8 @@ export function LinkCardComponent({publicLink}:{
               <BarChart className="ml-6 h-4 w-4" />
               <Label className="text-xs ml-1 text-gray-500">7.5K Clicks</Label>
             </div>
-            <Label className="text-sm text-gray-400">
-              {publicLink.longUrl}
+            <Label className="text-sm text-gray-400 text-wrap ">
+              {publicLink.longUrl.length > 30?`${publicLink.longUrl.slice(0,31)}...`:`${publicLink.longUrl}`}
             </Label>
           </div>
         </CardContent>
