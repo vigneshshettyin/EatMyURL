@@ -3,6 +3,7 @@ import { record } from "zod";
 import RedisClientManager from "./redis_connect";
 
 const redis = RedisClientManager.getInstance().getPublicRedisClient();
+const REDIRECT_URL = process.env.REDIRECT_URL;
 
 const generateShortCode = (): string => {
   const allowedChars =
@@ -19,6 +20,7 @@ const generateShortCode = (): string => {
 const invokeRedis = async (long_url: string): Promise<string> => {
   const shortCode = generateShortCode();
   const exists = await redis.exists(shortCode);
+  // checks if duplicate hashcode is generated then redo it
   if (exists) {
     return await invokeRedis(long_url);
   }

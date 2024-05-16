@@ -23,7 +23,7 @@ const createPublicUrl = async (formData: FormData) => {
   try {
     const res = await invokeRedis(longUrl);
     return {
-      shortUrl : `${REDIRECT_URL}/${res}`,
+      shortUrl : res,
       status : HTTP_STATUS.OK
     } 
     ;

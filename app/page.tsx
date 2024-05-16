@@ -34,7 +34,7 @@ export default function Home() {
       let data:string[] = JSON.parse(dataString)
       // creating link for the first time the link item will be null so avoiding that error
       if(!data) data = []
-      data.push(link.shortUrl.slice(1,link.shortUrl.length))
+      data.push(link.shortUrl)
       
       localStorage.setItem('links',JSON.stringify(data))
       setPublicLinks([...publicLinks,link])

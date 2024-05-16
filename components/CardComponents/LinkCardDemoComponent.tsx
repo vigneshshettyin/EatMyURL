@@ -6,9 +6,12 @@ import { QrPopup } from "../DialogComponents/QrPopup";
 import { copyToClipboard } from "@/lib/utils";
 import { publicLinkType } from "@/interfaces/types";
 
+const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+
 export function LinkCardComponent({publicLink}:{
   publicLink : publicLinkType
 }) {
+  
   return (
     <div className="mt-4">
       <Card>
@@ -20,9 +23,9 @@ export function LinkCardComponent({publicLink}:{
           </div>
           <div className="flex flex-col justify-center ml-4">
             <div className="flex items-center">
-              <Label className="text-lg text-blue-500">eurl.vshetty.dev/{publicLink.shortUrl}</Label>
+              <Label onClick={()=>window.open(`${REDIRECT_URL}/${publicLink.shortUrl}`, "_blank")} className="cursor-pointer hover:underline text-lg text-blue-500">{`${REDIRECT_URL}/${publicLink.shortUrl}`}</Label>
               <CopyIcon
-                onClick={()=>{copyToClipboard("eurl.vshetty.dev/" + publicLink.shortUrl)}}
+                onClick={()=>{copyToClipboard(`${REDIRECT_URL}/${publicLink.shortUrl}`)}}
                 className="ml-3 h-4 w-4 cursor-pointer hover:scale-110"
               />
               <QrPopup shortUrl={publicLink.shortUrl} />
