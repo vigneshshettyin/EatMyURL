@@ -97,7 +97,7 @@ export default function Home() {
               // updating the link card component after shortenin new link
               updateLocalStorage({shortUrl:response.shortUrl,longUrl:longurlInput})
             }}
-            placeholder="🔗 http://eatmyurl.vshetty.dev"
+            placeholder="🔗 http://eurl.vshetty.dev"
             className="mt-6"
           />
           <div className="mt-6">
