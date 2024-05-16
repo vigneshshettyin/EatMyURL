@@ -4,8 +4,6 @@ import { HTTP_STATUS } from "../constants";
 import { invokeRedis } from "../services/rgenerate";
 import { urlSchema } from "../zod/url";
 
-const REDIRECT_URL = process.env.REDIRECT_URL || "";
-
 const createPublicUrl = async (formData: FormData) => {
   const longUrl: any = formData.get("long_url");
 

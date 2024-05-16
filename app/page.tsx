@@ -103,7 +103,7 @@ export default function Home() {
           <div className="mt-6">
             {publicLinks.map((link)=><LinkCardComponent key={link.shortUrl} publicLink={link} />)}
             {loading?<div><LinkCardSkeleton /><LinkCardSkeleton /></div>:<div></div>}
-            <div className="mt-5">
+            <div className="mt-6   flex justify-center">
               <Card className="w-fit max-w-[500px] flex items-center">
                 <CardContent className="mt-4 flex">
                   <div className="flex flex-col justify-center">
