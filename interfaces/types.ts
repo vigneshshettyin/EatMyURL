@@ -54,3 +54,9 @@ export type createLink = {
 };
 
 export type createQR = Pick<createLink, "longUrl" | "title" | "shortLink">;
+
+export type publicLinkType =  {
+    longUrl : string;
+    shortUrl : string,
+    clicks? : string
+}

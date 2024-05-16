@@ -1,3 +1,5 @@
+
+import { record } from "zod";
 import RedisClientManager from "./redis_connect";
 
 const redis = RedisClientManager.getInstance().getPublicRedisClient();
@@ -31,11 +33,13 @@ const getLongUrl = async (shortCode: string): Promise<string | null> => {
 const getRecords = async (short_code_list: string[]): Promise<any> => {
   const records = await redis.mget(short_code_list);
   const recordsKeyValue = short_code_list.map((short_code, index) => {
-    return { [short_code]: records[index] };
+    return { shortUrl : short_code , longUrl: records[index] };
   });
-  return recordsKeyValue.filter((record) => {
-    return record[Object.keys(record)[0]] !== null;
+  
+  return recordsKeyValue.filter((record) => { 
+    return record.longUrl !== null;
   });
+  
 };
 
 const checkIfShortCodePublic = (shortCode: string): boolean => {
