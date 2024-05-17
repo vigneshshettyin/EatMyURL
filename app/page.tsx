@@ -8,7 +8,7 @@ import { LinkCardSkeleton } from "@/components/CardComponents/LinkCardSkeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
-import createPublicUrl from "@/lib/actions/create_public_url";
+import createPublicUrl from "@/lib/actions/createPublicUrl";
 import { toast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { publicLinkType } from "@/interfaces/types";
@@ -16,29 +16,43 @@ import parsePublicRecords from "@/lib/actions/parsePublicRecords";
 
 export default function Home() {
   const router = useRouter();
-  const [longurlInput,setLongurlInput] = useState("");
-  const [loading,setLoading] = useState(true)
-  const [publicLinks,setPublicLinks] = useState<publicLinkType[] | []>([])
+  const [longurlInput, setLongurlInput] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [publicLinks, setPublicLinks] = useState<publicLinkType[] | []>([]);
 
-  useEffect(()=>{
-        setLoading(true)
-        const dataString:any = localStorage.getItem('links')
-        parsePublicRecords(dataString).then((s)=>{
-            setPublicLinks(s);
-            setLoading(false)
-        })
-  },[])
+  useEffect(() => {
+    setLoading(true);
+    const dataString: any = localStorage.getItem("links");
+    parsePublicRecords(dataString).then((s) => {
+      setPublicLinks(s);
+      setLoading(false);
+    });
+  }, []);
 
-  function updateLocalStorage(link:publicLinkType){
-      const dataString:any = localStorage.getItem('links')
-      let data:string[] = JSON.parse(dataString)
-      // creating link for the first time the link item will be null so avoiding that error
-      if(!data) data = []
-      data.push(link.shortUrl)
-      
-      localStorage.setItem('links',JSON.stringify(data))
-      setPublicLinks([...publicLinks,link])
+  function updateLocalStorage(link: publicLinkType) {
+    const dataString: any = localStorage.getItem("links");
+    let data: string[] = JSON.parse(dataString);
+    if (!data) data = [];
+    data.push(link.shortUrl);
+
+    localStorage.setItem("links", JSON.stringify(data));
+    setPublicLinks([...publicLinks, link]);
   }
+
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const long_url = (e.target as HTMLInputElement).value;
+    if (e.key !== "Enter") return;
+    let form = new FormData();
+    form.append("long_url", long_url);
+    const response = await createPublicUrl(form);
+
+    toast({
+      title: "Short link generated successfully!!",
+      description: "The link is valid only for 2hrs !!",
+    });
+    setLongurlInput("");
+    updateLocalStorage({ shortUrl: response.shortUrl, longUrl: longurlInput });
+  };
 
   return (
     <>
@@ -78,31 +92,25 @@ export default function Home() {
               Get a demo
             </Button>
           </div>
-          <Input value={longurlInput} onChange={(e)=>setLongurlInput(e.target.value)}
-            onKeyDown={async (e) => {
-              // This is a temporary solution to create a public url
-              // This will be replaced with a proper form
-              // This is just for demo purposes
-              const long_url = (e.target as HTMLInputElement).value
-              if (e.key !== "Enter") return;
-              let form = new FormData();
-              form.append("long_url", long_url);
-              const response = await createPublicUrl(form);
-              
-              toast({
-                title:"Short link generated successfully!!",
-                description:"The link is valid only for 2hrs !!"
-              })
-              setLongurlInput("");
-              // updating the link card component after shortenin new link
-              updateLocalStorage({shortUrl:response.shortUrl,longUrl:longurlInput})
-            }}
+          <Input
+            value={longurlInput}
+            onChange={(e) => setLongurlInput(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="🔗 http://eurl.vshetty.dev"
             className="mt-6"
           />
           <div className="mt-6">
-            {publicLinks.map((link)=><LinkCardComponent key={link.shortUrl} publicLink={link} />)}
-            {loading?<div><LinkCardSkeleton /><LinkCardSkeleton /></div>:<div></div>}
+            {publicLinks.map((link) => (
+              <LinkCardComponent key={link.shortUrl} publicLink={link} />
+            ))}
+            {loading ? (
+              <div>
+                <LinkCardSkeleton />
+                <LinkCardSkeleton />
+              </div>
+            ) : (
+              <div></div>
+            )}
             <div className="mt-6   flex justify-center">
               <Card className="w-fit max-w-[500px] flex items-center">
                 <CardContent className="mt-4 flex">
