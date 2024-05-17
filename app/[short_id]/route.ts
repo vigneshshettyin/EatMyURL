@@ -1,5 +1,5 @@
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
-import { checkIfShortCodePublic, getLongUrl } from "@/lib/services/rgenerate";
+import { checkIfShortCodePublic, getLongUrl } from "@/lib/services/redisPublicgenerate";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

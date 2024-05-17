@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import validateURLCreateReq from "@/lib/validations/url_create";
-import { invokeRedis } from "@/lib/services/rgenerate";
+import { invokeRedis } from "@/lib/services/redisPublicgenerate";
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {

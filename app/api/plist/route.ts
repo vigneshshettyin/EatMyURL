@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { getRecords } from "@/lib/services/rgenerate";
+import { getRecords } from "@/lib/services/redisPublicgenerate";
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {
