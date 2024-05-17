@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import validateURLCreateReq from "@/lib/validations/url_create";
-import { invokeRedis } from "@/lib/services/redisPublicgenerate";
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
+import { invokeRedis } from "@/lib/services/redisPublicGenerate";
 
 export async function POST(req: NextRequest) {
   const { long_url, status, msg } = await validateURLCreateReq(req);

@@ -1,6 +1,8 @@
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
-import { checkIfShortCodePublic, getLongUrl } from "@/lib/services/redisPublicgenerate";
+import { checkIfShortCodePublic, getLongUrl } from "@/lib/services/redisPublicGenerate";
 import { NextRequest } from "next/server";
+
+checkIfShortCodePublic
 
 export async function GET(req: NextRequest) {
   const path = req.nextUrl.pathname;
