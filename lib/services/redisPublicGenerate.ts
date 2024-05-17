@@ -1,9 +1,6 @@
-
-import { record } from "zod";
-import RedisClientManager from "./redis_connect";
+import RedisClientManager from "./redisConnect";
 
 const redis = RedisClientManager.getInstance().getPublicRedisClient();
-const REDIRECT_URL = process.env.REDIRECT_URL;
 
 const generateShortCode = (): string => {
   const allowedChars =
@@ -20,7 +17,6 @@ const generateShortCode = (): string => {
 const invokeRedis = async (long_url: string): Promise<string> => {
   const shortCode = generateShortCode();
   const exists = await redis.exists(shortCode);
-  // checks if duplicate hashcode is generated then redo it
   if (exists) {
     return await invokeRedis(long_url);
   }
@@ -35,13 +31,12 @@ const getLongUrl = async (shortCode: string): Promise<string | null> => {
 const getRecords = async (short_code_list: string[]): Promise<any> => {
   const records = await redis.mget(short_code_list);
   const recordsKeyValue = short_code_list.map((short_code, index) => {
-    return { shortUrl : short_code , longUrl: records[index] };
+    return { shortUrl: short_code, longUrl: records[index] };
   });
-  
-  return recordsKeyValue.filter((record) => { 
+
+  return recordsKeyValue.filter((record) => {
     return record.longUrl !== null;
   });
-  
 };
 
 const checkIfShortCodePublic = (shortCode: string): boolean => {

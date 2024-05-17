@@ -1,4 +1,4 @@
-import RedisClientManager from "./redis_connect";
+import RedisClientManager from "./redisConnect";
 
 
 const incrementCounter = async () => {

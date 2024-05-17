@@ -1,7 +1,7 @@
 "use server"
 
 import { publicLinkType } from "@/interfaces/types"
-import { getRecords } from "../services/rgenerate"
+import { getRecords } from "../services/redisPublicGenerate"
 
 const parsePublicRecords = async (publicLinks : string) => {
     // if public links are not present return no records

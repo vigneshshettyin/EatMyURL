@@ -1,7 +1,7 @@
 "use server";
 
 import { HTTP_STATUS } from "../constants";
-import { invokeRedis } from "../services/rgenerate";
+import { invokeRedis } from "../services/redisPublicGenerate";
 import { urlSchema } from "../zod/url";
 
 const createPublicUrl = async (formData: FormData) => {

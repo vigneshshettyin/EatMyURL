@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 
-import PrismaClientManager from "@/lib/services/pg_connect";
+import PrismaClientManager from "@/lib/services/pgConnect";
 import RedisClientManager from "@/lib/services/redis_connect";
 
 import userAgentAnlytics from "@/lib/services/ua";

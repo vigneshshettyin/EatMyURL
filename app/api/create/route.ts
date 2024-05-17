@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
 import validateURLCreateReq from "@/lib/validations/url_create";
-import PrismaClientManager from "@/lib/services/pg_connect";
+import PrismaClientManager from "@/lib/services/pgConnect";
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {

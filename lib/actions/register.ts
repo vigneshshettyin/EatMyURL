@@ -2,7 +2,7 @@
 
 
 import bcrypt from "bcrypt";
-import PrismaClientManager from "../services/pg_connect";
+import PrismaClientManager from "../services/pgConnect";
 
 const prisma = PrismaClientManager.getInstance().getPrismaClient();
 
