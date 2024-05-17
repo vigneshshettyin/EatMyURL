@@ -10,7 +10,7 @@ const Layout = ({children}:{
         <div className="md:block hidden">
         <SideNavBar/>
         </div>
-        <div className="md:ml-[150px] w-full mt-[46px] md:pb-0 pb-4">
+        <div className="md:ml-[150px] w-full mt-12 md:pb-0 pb-4">
         {children}
         </div>
     </div>

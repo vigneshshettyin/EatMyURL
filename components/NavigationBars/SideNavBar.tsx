@@ -27,7 +27,7 @@ export function SideNavBar() {
   }, [status]);
 
   return (
-    <div className="md:px-4 md:border-r-2 border-0 h-screen md:fixed static md:left-0">
+    <div className="md:px-4 md:border-r-2 border-0 h-screen md:fixed static md:left-0 pt-12">
       {show ? (
         <div></div>
       ) : (

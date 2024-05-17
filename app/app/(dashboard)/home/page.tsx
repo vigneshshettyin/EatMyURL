@@ -200,7 +200,7 @@ export default function HomePage() {
             </AccordionItem>
           </Accordion>
         </div>
-        <div className="flex-1 flex flex-col border-2 rounded-xl p-4 shadow-md md:ml-12 mt-4 md:mt-0 justify-center">
+        <div className="flex-1 flex flex-col border-2 rounded-xl p-6 shadow-md md:ml-12 mt-4 md:mt-0 justify-center h-fit">
           <h1 className="font-bold text-xl">
             Replace “eurl.dev” with your brand.
           </h1>

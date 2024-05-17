@@ -11,10 +11,10 @@ import { SideNavbarMobile } from "./SideNavbarMobile";
 export function Appbar() {
 
   return (
-    <Card className="sticky top-0 w-full pb-3 z-30">
+    <div className="fixed top-0 w-full pb-3 z-30 bg-inherit border-b-2">
       <div className="flex mt-3 px-6">
         <div className="flex mt-1">
-        <Link href="/app/">
+        <Link href="/">
           <Label className="text-xl font-bold cursor-pointer">
             EatMyUrl
           </Label>
@@ -28,6 +28,6 @@ export function Appbar() {
           <ModeToggle />
         </div>
       </div>
-    </Card>
+    </div>
   );
 }
