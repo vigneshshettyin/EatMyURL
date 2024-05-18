@@ -8,31 +8,25 @@ import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
 import validateURLCreateReq from "@/lib/validations/url_create";
 import PrismaClientManager from "@/lib/services/pgConnect";
-import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
+import { HTTP_STATUS } from "@/lib/constants";
 
-export async function POST(req: NextRequest) {
+export async function createPrivateLink(formdata : FormData) {
+
   const posgresInstance = PrismaClientManager.getInstance();
   const prisma = posgresInstance.getPrismaClient();
-  const { long_url, status, msg } = await validateURLCreateReq(req);
+  const { title,long_url, status, msg } =  validateURLCreateReq(formdata);
   const session: ISessionType | null = await getServerSession(authOptions);
 
   if (!status) {
-    return RESPONSE(
-      {
-        error: "Invalid input",
-        more_info: msg,
-      },
-      HTTP_STATUS.BAD_REQUEST
-    );
+    return {
+        status: HTTP_STATUS.BAD_REQUEST
+      }
   }
 
   if (!session?.user) {
-    return RESPONSE(
-      {
-        error: "Unauthorized",
-      },
-      HTTP_STATUS.UNAUTHORIZED
-    );
+    return {
+        status: HTTP_STATUS.UNAUTHORIZED
+      }
   }
 
   const shortIdLength = await incrementCounter();
@@ -41,6 +35,7 @@ export async function POST(req: NextRequest) {
   try {
     await prisma.links.create({
       data: {
+        title : title as string,
         long_url: long_url as string,
         short_code: shortId,
         created_at: new Date(),
@@ -51,19 +46,15 @@ export async function POST(req: NextRequest) {
         },
       },
     });
-    return RESPONSE(
-      {
+    return {
         short_url: shortId,
-      },
-      HTTP_STATUS.CREATED
-    );
+        status: HTTP_STATUS.CREATED
+      }
+
   } catch (e) {
-    return RESPONSE(
-      {
-        error: "Internal Server Error",
-        moreinfo: JSON.stringify(e),
-      },
-      HTTP_STATUS.INTERNAL_SERVER_ERROR
-    );
+    return {
+        status: HTTP_STATUS.INTERNAL_SERVER_ERROR
+      }
+      
   }
 }

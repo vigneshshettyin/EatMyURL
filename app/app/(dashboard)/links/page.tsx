@@ -1,10 +1,9 @@
-"use client"
-
 import { DatePickerWithRange } from "@/components/DialogComponents/DatePickerWithRange";
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FilterDialog } from "@/components/DialogComponents/FilterDialog";
 import { LinkCard } from "@/components/CardComponents/LinkCard";
 import { LinkType } from "@/interfaces/types";
+import { getLinks } from "@/lib/actions/getLinksAction";
 
 const dummyData: LinkType[] = [
   {
@@ -89,7 +88,9 @@ const dummyData: LinkType[] = [
   }
 ];
 
-export default function Page() {
+export default async function Page() {
+
+  const LinkList = await getLinks();
 
   return (
     <div className="pt-10 md:pl-6 pl-2 w-full pr-2">
@@ -103,7 +104,7 @@ export default function Page() {
         </div>
       </div>
 
-      {dummyData.map((link) => (
+      {LinkList.links?.map((link) => (
         <LinkCard key={link.id} link={link} />
       ))}
     </div>

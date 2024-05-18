@@ -17,8 +17,11 @@ export function LinkShareDialog({children,link}:{
     link:any
 }) {
 
+  const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const shortLink:string = `${REDIRECT_URL}/${link.short_code}` 
+
   function copyToClipboard(){
-    navigator.clipboard.writeText(link.shortLink);
+    navigator.clipboard.writeText(shortLink);
     toast({
       title: "Copied the link to clipboard !!",
     });
@@ -38,7 +41,7 @@ export function LinkShareDialog({children,link}:{
         </DialogHeader>
         <div>
           <div className="flex">
-          <Input type="email" value={link.shortLink} disabled />
+          <Input type="email" value={shortLink} disabled />
           
           <Button className="ml-2" onClick={copyToClipboard} >
           <Copy size={20} className="md:hidden block"/>

@@ -26,8 +26,11 @@ const months = [
 export function LinkCard({
   link,
 }: {
-  link: LinkType;
+  link: any;
 }) {
+  const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const shortLink:string = `${REDIRECT_URL}/${link.short_code}` 
+
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
       <div className="flex">
@@ -40,7 +43,7 @@ export function LinkCard({
               {link.title}
             </h1>
             <div className="hidden md:block">
-              <Button onClick={()=>{copyToClipboard(link.shortLink)}} variant="outline">
+              <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
                 <Copy size={15} className="mr-2" />
                 Copy
               </Button>
@@ -50,7 +53,7 @@ export function LinkCard({
                   Share
                 </Button>
               </LinkShareDialog>
-              <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
+              <EditLinkDialog link={{title:link.title,shortLink:shortLink}}>
                 <Button variant="outline" className="ml-2">
                   <Pencil size={15} className="mr-2" />
                   Edit
@@ -59,11 +62,21 @@ export function LinkCard({
             </div>
           </div>
 
-          <h1 className="text-blue-400 mt-1 hover:underline cursor-pointer w-fit">
-            {link.shortLink}
+          <h1 onClick={()=>{
+            window.open(
+              shortLink,
+              "_blank"
+            )
+          }} className="text-blue-400 mt-1 hover:underline cursor-pointer w-fit">
+            {shortLink}
           </h1>
-          <h1 className="mt-2 text-sm hover:underline cursor-pointer w-fit">
-            {link.longLink}
+          <h1 onClick={()=>{
+            window.open(
+              link.long_url,
+              "_blank"
+            )
+          }} className="mt-2 text-sm hover:underline cursor-pointer w-fit">
+            {link.long_url}
           </h1>
 
           <div className="flex mt-6 md:flex-row flex-col">
@@ -81,13 +94,13 @@ export function LinkCard({
             </div>
             <div className="flex mt-2 md:mt-0">
               <Calendar className="ml-0 md:ml-4 " size={20} />
-              <h1 className="text-sm ml-2">{months[link.dateCreated.getMonth()]} {link.dateCreated.getDate()},{link.dateCreated.getFullYear()}</h1>
+              <h1 className="text-sm ml-2">{months[link.created_at.getMonth()]} {link.created_at.getDate()},{link.created_at.getFullYear()}</h1>
             </div>
           </div>
         </div>
       </div>
       <div className="mt-8 ml-8 md:hidden">
-        <Button onClick={()=>{copyToClipboard(link.shortLink)}} variant="outline">
+        <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
           <Copy size={15} />
         </Button>
         <LinkShareDialog link={link}>
@@ -95,7 +108,7 @@ export function LinkCard({
             <Share2 size={15} />
           </Button>
         </LinkShareDialog>
-        <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
+        <EditLinkDialog link={{title:link.title,shortLink:shortLink}}>
           <Button className="ml-2" variant="outline">
             <Pencil size={15} />
           </Button>

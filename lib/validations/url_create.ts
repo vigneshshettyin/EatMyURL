@@ -3,17 +3,20 @@ import { urlSchema } from "../zod/url";
 
 import { IUrlCreateReq } from "@/interfaces/url";
 
-const validateURLCreateReq = async (req: NextRequest) : Promise<IUrlCreateReq> => {
+const validateURLCreateReq =  (formdata: FormData) => {
     try {
-      const form_data: FormData = await req.formData();
-      const long_url = form_data.get("long_url");
-  
+      
+      const long_url = formdata.get("longUrl");
+      const title = formdata.get("title");
+      
+      // validation of title need to be done
       const errors = urlSchema.safeParse({
         long_url,
       });
-      return { long_url, status: errors.success, msg: errors.error };
+      return { title,long_url, status: errors.success, msg: errors.error };
     } catch (e) {
       return {
+        title: "",
         long_url: "",
         status: false,
         msg : JSON.stringify(e)
