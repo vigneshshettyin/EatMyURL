@@ -8,10 +8,8 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import { createLinkAction } from "@/lib/actions/createLinkAction";
 import { HTTP_STATUS } from "@/lib/constants";
-
 import { Lock } from "lucide-react";
 import { useState } from "react";
-import { render } from "react-dom";
 
 export default function CreatePage() {
   const [longUrl, setLongurl] = useState("");
