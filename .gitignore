@@ -6,6 +6,9 @@
 .pnp.js
 .yarn/install-state.gz
 
+# Kafka service dependencies
+/kafka/node_modules
+
 # testing
 /coverage
 
