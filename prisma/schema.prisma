@@ -24,4 +24,5 @@ model links {
   short_code String   @unique
   long_url   String
   created_at DateTime
+  title String?
 }
