@@ -27,7 +27,7 @@ export default function CreatePage() {
           action={(e) => {
             
             // issue - not updating in dom
-            setLoading(true);
+            // setLoading(true);
             
             createLinkAction(e).then((res) => {
               if (res.status == HTTP_STATUS.CREATED) {
@@ -50,7 +50,7 @@ export default function CreatePage() {
               setLongurl("");
               setTitle("");
               
-              setLoading(false);
+              // setLoading(false);
             });
           }}
         >
@@ -128,7 +128,7 @@ export default function CreatePage() {
 
             <div className="mt-16 flex justify-between">
               <div className="ml-4">
-                {loading ? <LoadingSpinner size={32} /> : <div></div>}
+                {/* {loading ? <LoadingSpinner size={32} /> : <div></div>} */}
               </div>
               <div className="">
                 <Button variant="ghost">Cancel</Button>
