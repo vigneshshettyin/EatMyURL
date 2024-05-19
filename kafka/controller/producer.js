@@ -6,10 +6,8 @@ class ProducerController {
   constructor() {
     this.producer = KafkaClient.connectProducer();
   }
-
-  async produce(req, res) {
+  async produce_logic(ip, browser, os, device, code) {
     try {
-      const { ip, browser, os, device, code } = req.body;
       const userLocation = await UserLocationService.getUserLocation(ip);
       const message = {
         code,
@@ -29,10 +27,9 @@ class ProducerController {
           },
         ],
       });
-      res.status(200).json({ message: "Message sent successfully" });
+      console.log(`Message sent: ${produceableMessage}`);
     } catch (error) {
       console.error(`Unable to send message: ${JSON.stringify(error)}`, error);
-      res.status(500).json({ message: "Unable to send message" });
     }
   }
 }

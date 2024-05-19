@@ -1,20 +1,18 @@
-const express = require('express');
+const express = require("express");
 
-const HomeController = require('./controller/home')
-const ProducerController = require('./controller/producer')
+const HomeController = require("./controller/home");
+const Producer = require("./controller/produceController");
 
-
-const app = express()
+const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
-app.get('/', HomeController.index)
+app.get("/", HomeController.index);
 
-app.post('/produce', ProducerController.produce)
-
+app.post("/produce", Producer.respond);
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
