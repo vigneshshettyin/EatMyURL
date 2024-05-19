@@ -4,7 +4,7 @@ WORKDIR /var/kafka
 
 COPY package.json ./
 
-COPY yarn.lock ./
+COPY package-lock.json ./
 
 RUN npm install
 
