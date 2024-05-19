@@ -2,7 +2,10 @@
 
 import { QRCodeCardComponent } from "@/components/CardComponents/QRCodeCardComponent";
 import { QRCodeType } from "@/interfaces/types";
+import { getLinks } from "@/lib/actions/getLinksAction";
 import { Label } from "@radix-ui/react-label";
+import { useEffect, useState } from "react";
+import Loading from "./loading";
 
 const dummyQRCodeData: QRCodeType[] = [
   {
@@ -89,8 +92,20 @@ const dummyQRCodeData: QRCodeType[] = [
   
 export default function QRCodePage(){
 
+    const [loading,setLoading] = useState(false);
+    const [links,setLinks] = useState<any>([])
+
+    useEffect(()=>{
+        setLoading(true)
+        getLinks().then((res)=>{
+            const linkList = res.links;
+            setLinks(linkList)
+            setLoading(false)
+        })
+    },[])
+
     return <div className="pr-6 pl-4 md:pl-8 pt-8">
     <Label className="text-3xl font-bold">QR Codes</Label>
-    {dummyQRCodeData.map(qr=><QRCodeCardComponent key={qr.id} qrcode={qr}/>)}
+    {loading?<Loading/>:<div>{links.map((qr:any)=><QRCodeCardComponent key={qr.id} qrcode={qr}/>)}</div>}
     </div>
 }
