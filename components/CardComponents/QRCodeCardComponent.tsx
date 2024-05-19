@@ -31,8 +31,10 @@ const months = [
   "December",
 ];
 
-export function QRCodeCardComponent({ qrcode }: { qrcode: QRCodeType }) {
+export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
   const qrCodeRef = useRef(null);
+  const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const shortLink = `${REDIRECT_URL}/${qrcode.short_code}`;
 
   function downloadQRCode(format:string) {
     const canvas = (qrCodeRef.current as any).firstElementChild;
@@ -76,27 +78,27 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: QRCodeType }) {
         <div className="flex mt-2 items-center">
           <CornerDownRightIcon size="16" />
           <Label className="hover:underline ml-2 text-sm cursor-pointer">
-            {qrcode.longLink}
+            {qrcode.long_url}
           </Label>
         </div>
         <div className="flex mt-6 md:flex-row flex-col">
           <div className="flex">
             <BarChart2 size={20} />
             <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-              {qrcode.scans} scans
+              2 scans
             </h1>
           </div>
           <div className="flex mt-2 md:mt-0">
             <Calendar className="ml-0 md:ml-4 " size={20} />
             <h1 className="text-sm ml-2">
-              {months[qrcode.dateCreated.getMonth()]}{" "}
-              {qrcode.dateCreated.getDate()},{qrcode.dateCreated.getFullYear()}
+              {months[qrcode.created_at.getMonth()]}{" "}
+              {qrcode.created_at.getDate()},{qrcode.created_at.getFullYear()}
             </h1>
           </div>
           <div className="flex mt-2 md:mt-0">
             <LinkIcon className="ml-0 md:ml-4 " size={20} />
             <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-              {qrcode.shortLink}
+              {shortLink}
             </h1>
           </div>
         </div>
