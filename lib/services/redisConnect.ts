@@ -4,10 +4,12 @@ class RedisClientManager {
   private static instance: RedisClientManager;
   private redisClient: Redis;
   private publicRedisClient: Redis;
+  private pubSubRedisClient: Redis;
 
   private constructor() {
     this.redisClient = new Redis(`${process.env.REDIS_URL}/0`);
     this.publicRedisClient = new Redis(`${process.env.REDIS_URL}/1`);
+    this.pubSubRedisClient = new Redis(`${process.env.REDIS_URL}/2`);
   }
 
   public static getInstance(): RedisClientManager {
@@ -15,6 +17,10 @@ class RedisClientManager {
       RedisClientManager.instance = new RedisClientManager();
     }
     return RedisClientManager.instance;
+  }
+
+  public getPubSubRedisClient(): Redis {
+    return this.pubSubRedisClient;
   }
 
   public getRedisClient(): Redis {

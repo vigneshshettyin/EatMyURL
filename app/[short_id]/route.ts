@@ -1,8 +1,10 @@
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
-import { checkIfShortCodePublic, getLongUrl } from "@/lib/services/redisPublicGenerate";
+import {
+  checkIfShortCodePublic,
+  getLongUrl,
+  publishUserAgent,
+} from "@/lib/services/redisPublicGenerate";
 import { NextRequest } from "next/server";
-
-checkIfShortCodePublic
 
 export async function GET(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -29,6 +31,8 @@ export async function GET(req: NextRequest) {
       HTTP_STATUS.BAD_REQUEST
     );
   }
+
+  await publishUserAgent(req, shortCode);
 
   return Response.redirect(long_url, 301);
 }

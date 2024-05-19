@@ -1,6 +1,9 @@
+import { NextRequest } from "next/server";
 import RedisClientManager from "./redisConnect";
+import userAgentAnlytics from "@/lib/services/ua";
 
 const redis = RedisClientManager.getInstance().getPublicRedisClient();
+const pubSubRedis = RedisClientManager.getInstance().getPubSubRedisClient();
 
 const generateShortCode = (): string => {
   const allowedChars =
@@ -43,4 +46,21 @@ const checkIfShortCodePublic = (shortCode: string): boolean => {
   return shortCode.startsWith("P-");
 };
 
-export { invokeRedis, getLongUrl, getRecords, checkIfShortCodePublic };
+const publishUserAgent = async (req: NextRequest, code: string) => {
+  const userAgent = userAgentAnlytics(req);
+  await pubSubRedis.publish(
+    "user_anlytics",
+    JSON.stringify({
+      code,
+      ...userAgent,
+    })
+  );
+};
+
+export {
+  invokeRedis,
+  getLongUrl,
+  getRecords,
+  checkIfShortCodePublic,
+  publishUserAgent,
+};
