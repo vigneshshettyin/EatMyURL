@@ -45,11 +45,16 @@ export default function Page(params : any) {
       Desktop: 720,
       Mobile: 420,
       Tablet: 60
+    },
+    refs:{
+      google: 20,
+      direc: 210,
+      "dub.co": 60
     }
   };
 
   return (
-    <div className="pl-5 md:pl-8 pr-2">
+    <div className="pl-5 md:pl-8 pr-2 pt-12">
       <Link href="/app/links">
       <div
         className="flex cursor-pointer w-fit"
@@ -175,14 +180,23 @@ export default function Page(params : any) {
 
       </div>
       <div className="flex justify-center md:justify-start">
+      
+      <div className="flex">
       <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px]">
         <Label className="font-bold ml-3 text-lg">Devices</Label>
         <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
-
           <PieChart devices={Object.keys(link.devices ?? {})} data={Object.values(link.devices ?? {})}/>
-
         </div>
       </div>
+      
+      <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px] md:ml-8 ml-0">
+        <Label className="font-bold ml-3 text-lg">Referer</Label>
+        <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
+          <PieChart devices={Object.keys(link.refs ?? {})} data={Object.values(link.refs ?? {})}/>
+        </div>
+      </div>  
+      </div>
+
       </div>
     </div>
   );

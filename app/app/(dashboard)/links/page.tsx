@@ -18,8 +18,8 @@ export default function Page() {
   const [loading,setLoading] = useState(true)
   const current_date = new Date()
   const [date, setDate] = React.useState<DateRange | undefined>({
-      from: new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()),
-      to: addDays(new Date(2024, 4, 24), 20),
+      to: new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()+1),
+      from: new Date(2024, 4, 18),
   })
 
   useEffect(()=>{

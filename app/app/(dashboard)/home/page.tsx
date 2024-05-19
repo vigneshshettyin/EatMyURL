@@ -125,23 +125,13 @@ export default function HomePage() {
                   className="checkbox checkbox-success checkbox-sm pointer-events-none"
                   readOnly
                 />
-                <h1 className="ml-2 ">Make a short link or QR Code</h1>
+                <h1 className="ml-2 ">Make a short link</h1>
               </AccordionTrigger>
               <AccordionContent className="flex px-6 md:flex-row flex-col">
                 <Link href="/app/links/create">
                   <Button size="sm" className="py-3 w-fit" variant="default">
                     <LinkIcon />
                     <h1 className="ml-1">Create a link</h1>
-                  </Button>
-                </Link>
-                <Link href="/app/qrcodes/create">
-                  <Button
-                    size="sm"
-                    variant="default"
-                    className="md:ml-2 py-3 mt-2 md:mt-0 w-fit"
-                  >
-                    <QrCode />
-                    <h1 className="ml-1">Create a QR Code</h1>
                   </Button>
                 </Link>
               </AccordionContent>

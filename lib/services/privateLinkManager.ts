@@ -1,5 +1,4 @@
 import { base62_encode } from "@/lib/services/base62";
-import { NextRequest } from "next/server";
 
 import incrementCounter from "@/lib/services/counter";
 import { getServerSession } from "next-auth";
@@ -14,7 +13,7 @@ export async function createPrivateLink(formdata : FormData) {
 
   const posgresInstance = PrismaClientManager.getInstance();
   const prisma = posgresInstance.getPrismaClient();
-  const { title,long_url, status, msg } =  validateURLCreateReq(formdata);
+  const { title,long_url, status } =  await validateURLCreateReq(formdata);
   const session: ISessionType | null = await getServerSession(authOptions);
 
   if (!status) {

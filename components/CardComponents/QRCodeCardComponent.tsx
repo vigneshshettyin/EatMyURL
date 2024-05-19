@@ -54,7 +54,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
       <div className="flex justify-center md:justify-start">
         <div className="p-4 bg-white rounded-2xl">
           <div ref={qrCodeRef}>
-            <QRCodeCanvas value="https://reactjs.org/" size={140} />
+            <QRCodeCanvas value={shortLink} size={140} />
           </div>
         </div>
       </div>
@@ -69,15 +69,17 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
               <Download size={20} />
             </Button>
           </DownloadQRDropDown>
-            <Button variant="outline" className="ml-4">
-              <Pencil size={20} />
-            </Button>
           </div>
         </div>
         <Label className="font-medium mt-2">Website</Label>
         <div className="flex mt-2 items-center">
           <CornerDownRightIcon size="16" />
-          <Label className="hover:underline ml-2 text-sm cursor-pointer">
+          <Label onClick={()=>{
+            window.open(
+              qrcode.long_url,
+              "_blank"
+            )
+          }} className="hover:underline ml-2 text-sm cursor-pointer">
             {qrcode.long_url}
           </Label>
         </div>
@@ -97,7 +99,12 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
           </div>
           <div className="flex mt-2 md:mt-0">
             <LinkIcon className="ml-0 md:ml-4 " size={20} />
-            <h1 className="text-sm ml-2 hover:underline cursor-pointer">
+            <h1 onClick={()=>{
+            window.open(
+              shortLink,
+              "_blank"
+            )
+          }} className="text-sm ml-2 hover:underline cursor-pointer">
               {shortLink}
             </h1>
           </div>
@@ -108,9 +115,6 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
             <Download size={20} />
           </Button>
           </DownloadQRDropDown>
-          <Button variant="outline" className="ml-4">
-            <Pencil size={20} />
-          </Button>
         </div>
       </div>
     </div>
