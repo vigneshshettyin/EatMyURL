@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pubsub": "npx nodemon --env-file=.env ./redis/sub.js",
-    "serve": "npx nodemon --env-file=.env ./index.js"
+    "serve": "npx nodemon --env-file=.env ./index.js",
+    "pubsub-kafka": "node --env-file=.env ./redis/sub.js"
   },
   "keywords": [],
   "author": "",
