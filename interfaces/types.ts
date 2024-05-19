@@ -12,7 +12,6 @@ export interface locationsDetails {
   percentage: number;
 }
 
-export type devicesDetails = Record<string, number>;
 
 export interface LinkType {
   id: number;
@@ -24,7 +23,8 @@ export interface LinkType {
   last7DaysEngage?: number;
   weeklyChange?: number;
   locations?: locationsDetails[];
-  devices?: devicesDetails;
+  devices?: Record<string, number>;
+  refs?: Record<string, number>
 }
 
 

@@ -53,7 +53,7 @@ export function LinkCard({
                   Share
                 </Button>
               </LinkShareDialog>
-              <EditLinkDialog link={{title:link.title,shortLink:shortLink}}>
+              <EditLinkDialog link={{title:link.title,shortLink:link.short_code}}>
                 <Button variant="outline" className="ml-2">
                   <Pencil size={15} className="mr-2" />
                   Edit
@@ -108,7 +108,7 @@ export function LinkCard({
             <Share2 size={15} />
           </Button>
         </LinkShareDialog>
-        <EditLinkDialog link={{title:link.title,shortLink:shortLink}}>
+        <EditLinkDialog link={{title:link.title,shortLink:link.short_code}}>
           <Button className="ml-2" variant="outline">
             <Pencil size={15} />
           </Button>

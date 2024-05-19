@@ -33,9 +33,9 @@ export function SideNavBar() {
       ) : (
         <div>
           <div className="flex justify-center">
-            <CreateNewDropDown>
-              <Button className="mt-12">Create New</Button>
-            </CreateNewDropDown>
+          <Link href='/app/links/create'>
+          <Button className="mt-12">Create New</Button>
+          </Link> 
           </div>
           {/* this is a seperator */}
           <div className="border-t-2 my-4"></div>

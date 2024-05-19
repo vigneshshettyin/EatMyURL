@@ -8,10 +8,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Copy, Facebook, Instagram, MessageCircleCodeIcon } from "lucide-react"
+import { Copy, Facebook, MessageCircleCodeIcon,LinkedinIcon } from "lucide-react"
 import React from "react"
 import { toast } from "../ui/use-toast"
-
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton
+} from "react-share";
+import { TwitterLogoIcon } from "@radix-ui/react-icons"
 export function LinkShareDialog({children,link}:{
     children : React.ReactNode,
     link:any
@@ -49,15 +55,26 @@ export function LinkShareDialog({children,link}:{
           </Button>
           </div>
         <div className="flex justify-center">
+        <WhatsappShareButton url={shortLink} title="EatMyUrl">
           <div className="flex cursor-pointer justify-center items-center h-14 w-14 mt-4 rounded-full border-2">
               <MessageCircleCodeIcon size={35}/>
           </div>
+          </WhatsappShareButton>
+          <LinkedinShareButton url={shortLink} title="Empower your links with EatMyURL's effortless shortening. Streamline sharing and make every link count. Try it now: ">
           <div className="flex ml-4 cursor-pointer justify-center items-center h-14 w-14 mt-4 rounded-full border-2">
-              <Instagram size={30}/>
+              <LinkedinIcon size={30}/>
           </div>
+          </LinkedinShareButton>
+          <FacebookShareButton url={shortLink} title="Empower your links with EatMyURL's effortless shortening. Streamline sharing and make every link count. Try it now: " >
           <div className="flex ml-4 cursor-pointer justify-center items-center h-14 w-14 mt-4 rounded-full border-2">
               <Facebook size={30}/>
           </div>
+          </FacebookShareButton>
+          <TwitterShareButton url={shortLink} title="Empower your links with EatMyURL's effortless shortening. Streamline sharing and make every link count. Try it now: ">
+          <div className="flex ml-4 cursor-pointer justify-center items-center h-14 w-14 mt-4 rounded-full border-2">
+              <TwitterLogoIcon />
+          </div>
+          </TwitterShareButton>
         </div>
         </div>
       </DialogContent>
