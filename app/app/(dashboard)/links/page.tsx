@@ -29,7 +29,7 @@ export default function Page() {
           const from:any = date?.from;
           const to:any = date?.to;
           const filterLinks = linkList?.filter((link:any)=>{
-              return link.created_at >=from && link.created_at <= to
+              return (!from || link.created_at >=from) && (!to || link.created_at <= to)
           })
           setFilteredLinks(filterLinks)
           setLoading(false)

@@ -50,6 +50,16 @@ export default function Page(params : any) {
       google: 20,
       direc: 210,
       "dub.co": 60
+    },
+    os:{
+      windows10:100,
+      windows11:48,
+      macOS:50
+    },
+    browser:{
+      chrome:45,
+      firefox:50,
+      safari:70
     }
   };
 
@@ -181,7 +191,7 @@ export default function Page(params : any) {
       </div>
       <div className="flex justify-center md:justify-start">
       
-      <div className="flex">
+      <div className="flex md:flex-row flex-col">
       <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px]">
         <Label className="font-bold ml-3 text-lg">Devices</Label>
         <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
@@ -190,13 +200,20 @@ export default function Page(params : any) {
       </div>
       
       <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px] md:ml-8 ml-0">
-        <Label className="font-bold ml-3 text-lg">Referer</Label>
+        <Label className="font-bold ml-3 text-lg">OS</Label>
         <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
-          <PieChart devices={Object.keys(link.refs ?? {})} data={Object.values(link.refs ?? {})}/>
+          <PieChart devices={Object.keys(link.os ?? {})} data={Object.values(link.os ?? {})}/>
         </div>
-      </div>  
       </div>
 
+      <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px] md:ml-8 ml-0">
+        <Label className="font-bold ml-3 text-lg">Browser</Label>
+        <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
+          <PieChart devices={Object.keys(link.browser ?? {})} data={Object.values(link.browser ?? {})}/>
+        </div>
+      </div>
+
+      </div>
       </div>
     </div>
   );

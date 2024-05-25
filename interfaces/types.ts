@@ -24,7 +24,9 @@ export interface LinkType {
   weeklyChange?: number;
   locations?: locationsDetails[];
   devices?: Record<string, number>;
-  refs?: Record<string, number>
+  refs?: Record<string, number>,
+  os?:Record<string, number>,
+  browser?:Record<string, number>,
 }
 
 
