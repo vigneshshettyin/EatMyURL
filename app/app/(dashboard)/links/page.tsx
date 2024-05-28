@@ -8,12 +8,14 @@ import { LinkCard } from "@/components/CardComponents/LinkCard";
 import { getLinks } from "@/lib/actions/getLinksAction";
 import { DateRange } from "react-day-picker";
 import Loading from "./loading";
+import { linkType } from "@/interfaces/types";
+
 
 
 export default function Page() {
 
-  const [filteredLinks,setFilteredLinks] = useState<any>([])
-  const [loading,setLoading] = useState(true)
+  const [filteredLinks,setFilteredLinks] = useState<linkType[] | undefined>([])
+  const [loading,setLoading] = useState<Boolean>(true)
   const current_date = new Date()
   const [date, setDate] = React.useState<DateRange | undefined>({
       to: new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()+1),
@@ -22,11 +24,11 @@ export default function Page() {
 
   useEffect(()=>{
       setLoading(true)
-      getLinks().then((res:any)=>{
-          const linkList = res.links;
-          const from:any = date?.from;
-          const to:any = date?.to;
-          const filterLinks = linkList?.filter((link:any)=>{
+      getLinks().then((res)=>{
+          const linkList:linkType[] | undefined = res.links;
+          const from: Date | undefined = date?.from;
+          const to: Date | undefined = date?.to;
+          const filterLinks: linkType[] | undefined = linkList?.filter((link)=>{
               return (!from || link.created_at >=from) && (!to || link.created_at <= to)
           })
           setFilteredLinks(filterLinks)
@@ -47,7 +49,7 @@ export default function Page() {
         </div>
       </div>
 
-      {loading?<Loading/>:<div>{filteredLinks?.map((link:any) => (
+      {loading?<Loading/>:<div>{filteredLinks?.map((link) => (
         <LinkCard key={link.id} link={link} />
       ))}</div>}
 

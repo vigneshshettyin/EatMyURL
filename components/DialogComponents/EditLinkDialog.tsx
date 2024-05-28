@@ -17,21 +17,22 @@ import { HTTP_STATUS } from "@/lib/constants";
 import { Lock } from "lucide-react";
 import { useState } from "react";
 import { toast } from "../ui/use-toast";
+import { linkType } from "@/interfaces/types";
 
 export function EditLinkDialog({ children,link,setShortcode,setParentTitle }: {
   children:React.ReactNode,
-  link: any,
-  setShortcode:any,
-  setParentTitle:any
+  link: linkType,
+  setShortcode:React.Dispatch<React.SetStateAction<string>>,
+  setParentTitle:React.Dispatch<React.SetStateAction<string | null>>
 }) {
-  const [title,setTitle] = useState(link.title)
-  const [shortLink,setShortLink] = useState(link.shortLink)
+  const [title,setTitle] = useState<string>(link.title || "")
+  const [shortLink,setShortLink] = useState(link.short_code)
 
   const updateLink = async () =>{
       const formdata = new FormData();
       formdata.append('title',title);
       formdata.append('short_code',shortLink)
-      formdata.append('linkId',link.id)
+      formdata.append('linkId',link.id.toString())
       const new_title = title;
       const new_short_code = shortLink;
 
