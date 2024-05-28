@@ -5,19 +5,32 @@ import {
   publishUserAgent,
 } from "@/lib/services/redisPublicGenerate";
 import { NextRequest } from "next/server";
+import PrismaClientManager from "@/lib/services/pgConnect";
 
 export async function GET(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const shortCode = path.replace("/", "");
 
   if (!checkIfShortCodePublic(shortCode)) {
-    return RESPONSE(
-      {
-        error: "Invalid input",
-        moreinfo: "We are currently not supporting private short codes",
-      },
-      HTTP_STATUS.BAD_REQUEST
-    );
+      // click analytics yet to be added
+      const prisma = PrismaClientManager.getInstance().getPrismaClient();
+      const link:any = await prisma.links.findFirst({
+        where:{
+          short_code:shortCode
+        }
+      })
+
+      if(!link){
+        return RESPONSE(
+          {
+            error: "Invalid input",
+            moreinfo: "Short link generated is invalid or expired",
+          },
+          HTTP_STATUS.BAD_REQUEST
+        );
+      }
+
+      return Response.redirect(link?.long_url,301)
   }
 
   const long_url = await getLongUrl(shortCode);

@@ -17,6 +17,7 @@ import { EditLinkDialog } from "../DialogComponents/EditLinkDialog";
 import { copyToClipboard } from "@/lib/utils";
 import { LinkShareDialog } from "../DialogComponents/LinkShareDialog";
 import { LinkType } from "@/interfaces/types";
+import { useState } from "react";
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -29,7 +30,9 @@ export function LinkCard({
   link: any;
 }) {
   const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
-  const shortLink:string = `${REDIRECT_URL}/${link.short_code}` 
+  const shortLink:string = `${REDIRECT_URL}/${link.short_code}`
+  const [shortCode,setShortcode] = useState(link.short_code); 
+  const [title,setTitle] = useState(link.title)
 
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
@@ -40,7 +43,7 @@ export function LinkCard({
         <div className="flex flex-col ml-6 w-full">
           <div className="flex justify-between ">
             <h1 className="text-lg font-bold hover:underline cursor-pointer">
-              {link.title}
+              {title}
             </h1>
             <div className="hidden md:block">
               <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
@@ -53,7 +56,7 @@ export function LinkCard({
                   Share
                 </Button>
               </LinkShareDialog>
-              <EditLinkDialog link={{title:link.title,shortLink:link.short_code}}>
+              <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={{title:link.title,shortLink:link.short_code,id:link.id}}>
                 <Button variant="outline" className="ml-2">
                   <Pencil size={15} className="mr-2" />
                   Edit
@@ -108,7 +111,7 @@ export function LinkCard({
             <Share2 size={15} />
           </Button>
         </LinkShareDialog>
-        <EditLinkDialog link={{title:link.title,shortLink:link.short_code}}>
+        <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={{title:link.title,shortLink:link.short_code,id:link.id}}>
           <Button className="ml-2" variant="outline">
             <Pencil size={15} />
           </Button>

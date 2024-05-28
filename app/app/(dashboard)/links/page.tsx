@@ -1,14 +1,12 @@
 "use client"
 
 import { DatePickerWithRange } from "@/components/DialogComponents/DatePickerWithRange";
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FilterDialog } from "@/components/DialogComponents/FilterDialog";
 import { LinkCard } from "@/components/CardComponents/LinkCard";
-import { LinkType } from "@/interfaces/types";
+
 import { getLinks } from "@/lib/actions/getLinksAction";
 import { DateRange } from "react-day-picker";
-import { addDays } from "date-fns";
-import { Divide } from "lucide-react";
 import Loading from "./loading";
 
 
