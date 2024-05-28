@@ -17,6 +17,7 @@ import { LinkShareDialog } from "@/components/DialogComponents/LinkShareDialog";
 import { EditLinkDialog } from "@/components/DialogComponents/EditLinkDialog";
 import { copyToClipboard } from "@/lib/utils";
 import { LinkType } from "@/interfaces/types";
+import { useState } from "react";
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -63,6 +64,9 @@ export default function Page(params : any) {
     }
   };
 
+  const [title,setTitle] = useState(link.title);
+  const [shortCode,setShortcode] = useState(link.shortLink)
+
   return (
     <div className="pl-5 md:pl-8 pr-2 pt-12">
       <Link href="/app/links">
@@ -81,7 +85,7 @@ export default function Page(params : any) {
       <div className="flex flex-col ml-6 w-full">
         <div className="flex justify-between ">
           <h1 className="text-xl font-bold">
-            {link.title}
+            {title}
           </h1>
           <div className="hidden md:block">
             <Button onClick={()=>{copyToClipboard(link.shortLink)}} variant="outline">
@@ -94,7 +98,7 @@ export default function Page(params : any) {
               Share
             </Button>
             </LinkShareDialog>
-            <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
+            <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={{title:link.title,shortLink:link.shortLink}}>
               <Button variant="outline" className="ml-2">
                 <Pencil size={15} className="mr-2" />
                 Edit
@@ -133,7 +137,7 @@ export default function Page(params : any) {
           <Share2 size={15} />
         </Button>
         </LinkShareDialog>
-        <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
+        <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={{title:link.title,shortLink:link.shortLink}}>
         <Button className="ml-2 " variant="outline">
           <Pencil size={15}/>
         </Button>
