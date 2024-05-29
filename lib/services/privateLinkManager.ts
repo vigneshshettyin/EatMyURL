@@ -8,9 +8,9 @@ import authOptions from "@/lib/authOptions";
 import validateURLCreateReq from "@/lib/validations/url_create";
 import PrismaClientManager from "@/lib/services/pgConnect";
 import { HTTP_STATUS } from "@/lib/constants";
+import { linkType } from "@/interfaces/types";
 
 const alphabetOnlySchema = z.string().regex(/^[a-zA-Z]+$/);
-
 
 export async function createPrivateLink(formdata : FormData) {
 
@@ -19,13 +19,13 @@ export async function createPrivateLink(formdata : FormData) {
   const { title,long_url, status } =  await validateURLCreateReq(formdata);
   const session: ISessionType | null = await getServerSession(authOptions);
 
-  let custom_short_code:any = formdata.get('short_code')
+  let custom_short_code:string = formdata.get('short_code') as string
 
   // if custom short code exists
   if(custom_short_code){
 
       // check if duplicate
-      const link = await prisma.links.findFirst({
+      const link: linkType | null = await prisma.links.findFirst({
         where: {
           short_code:custom_short_code
         }
@@ -57,7 +57,7 @@ export async function createPrivateLink(formdata : FormData) {
       }
   }
 
-  const shortIdLength = await incrementCounter();
+  const shortIdLength:number = await incrementCounter();
 
   if(!custom_short_code)
     custom_short_code = base62_encode(shortIdLength);
@@ -92,9 +92,9 @@ export async function createPrivateLink(formdata : FormData) {
 export async function updatePrivateLink(formdata : FormData){
     const prisma = PrismaClientManager.getInstance().getPrismaClient();
 
-    const title:any = formdata.get('title')
-    const shortcode:any = formdata.get('short_code')
-    const linkId:any = formdata.get('linkId')
+    const title: string = formdata.get('title') as string
+    const shortcode: string = formdata.get('short_code') as string
+    const linkId: number = Number.parseInt(formdata.get('linkId') as string)
 
     try{
       const link = await prisma.links.findFirst({
@@ -109,7 +109,7 @@ export async function updatePrivateLink(formdata : FormData){
 
       await prisma.links.update({
         where:{
-          id:Number.parseInt(linkId)
+          id: linkId
         },
         data:{
           title:title,
@@ -127,4 +127,31 @@ export async function updatePrivateLink(formdata : FormData){
         status: HTTP_STATUS.INTERNAL_SERVER_ERROR
       }
     }
+}
+
+export async function getTutorialStatus(){
+  const prisma = PrismaClientManager.getInstance().getPrismaClient();
+  const session: ISessionType | null = await getServerSession(authOptions);
+
+  const TutorialStatus = {
+      createLink : false,
+      clickLink : false,
+      checkAnalytics:false
+  }
+
+  if (!session?.user) {
+    return {
+        status: HTTP_STATUS.UNAUTHORIZED
+      }
+  }
+
+  const link:linkType | null = await prisma.links.findFirst({});
+
+  if(link){
+    TutorialStatus.createLink = true;
+  }
+
+  // If engagement then check
+  // If checked Analytics thenc check
+
 }

@@ -5,21 +5,20 @@ import { invokeRedis } from "../services/redisPublicGenerate";
 import { urlSchema } from "../zod/url";
 
 const createPublicUrl = async (formData: FormData) => {
-  const longUrl: any = formData.get("long_url");
+  const longUrl: string = formData.get("long_url") as string;
 
-  const errors = urlSchema.safeParse({
+  const validation = urlSchema.safeParse({
     long_url: longUrl,
   });
 
-  if (!errors.success) {
+  if (!validation.success) {
     return {
-      shortUrl : "",
       status: HTTP_STATUS.BAD_REQUEST
     };
   }
 
   try {
-    const res = await invokeRedis(longUrl);
+    const res:string = await invokeRedis(longUrl);
     return {
       shortUrl : res,
       status : HTTP_STATUS.OK
@@ -27,9 +26,8 @@ const createPublicUrl = async (formData: FormData) => {
     ;
   } catch (e) {
     return {
-      shortUrl : "",
       status : HTTP_STATUS.INTERNAL_SERVER_ERROR
-    };
+    }
   }
 };
 
