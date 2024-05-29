@@ -27,7 +27,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.5",
-    "@sentry/nextjs": "^7.112.2",
+    "@sentry/nextjs": "^7.113.0",
     "@types/ua-parser-js": "^0.7.39",
     "@vercel/analytics": "^1.2.2",
     "bcrypt": "^5.1.1",
