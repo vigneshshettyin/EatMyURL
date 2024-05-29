@@ -62,3 +62,12 @@ export type publicLinkType =  {
     shortUrl : string,
     clicks? : string
 }
+
+export type linkType = {
+  id:number,
+  user_id: number;
+  short_code: string;
+  long_url: string;
+  created_at: Date;
+  title: string | null;
+}

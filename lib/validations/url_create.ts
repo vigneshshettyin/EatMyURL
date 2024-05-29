@@ -23,7 +23,6 @@ const validateURLCreateReq = async (formdata: FormData) => {
 
     return { title, long_url, status: errors.success, msg: errors.error };
   } catch (e) {
-    console.log(e)
     return {
       title: "",
       long_url: "",

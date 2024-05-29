@@ -17,7 +17,6 @@ const register = async (formData: FormData) => {
     },
   });
 
-  console.log(user);
 
   if (user) return 403;
 

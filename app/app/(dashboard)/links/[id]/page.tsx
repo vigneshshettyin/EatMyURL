@@ -17,6 +17,7 @@ import { LinkShareDialog } from "@/components/DialogComponents/LinkShareDialog";
 import { EditLinkDialog } from "@/components/DialogComponents/EditLinkDialog";
 import { copyToClipboard } from "@/lib/utils";
 import { LinkType } from "@/interfaces/types";
+import { useState } from "react";
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -63,6 +64,20 @@ export default function Page(params : any) {
     }
   };
 
+  const fetchLink = {
+    id: 1,
+    user_id: 42,
+    short_code: 'e7b9f3',
+    long_url: 'https://example.com/e7b9f3a7-0a15-4b7d-8d62-0d5f1a52e73e',
+    created_at: new Date('2023-05-28T12:34:56Z'),
+    title: 'Sample Title'
+  }
+
+  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const [title,setTitle] = useState<string | null>(fetchLink.title);
+  const [shortCode,setShortcode] = useState<string>(fetchLink.short_code)
+  const shortLink:string = `${REDIRECT_URL}/${shortCode}`
+
   return (
     <div className="pl-5 md:pl-8 pr-2 pt-12">
       <Link href="/app/links">
@@ -81,20 +96,20 @@ export default function Page(params : any) {
       <div className="flex flex-col ml-6 w-full">
         <div className="flex justify-between ">
           <h1 className="text-xl font-bold">
-            {link.title}
+            {title}
           </h1>
           <div className="hidden md:block">
-            <Button onClick={()=>{copyToClipboard(link.shortLink)}} variant="outline">
+            <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
               <Copy size={15} className="mr-2" />
               Copy
             </Button>
-            <LinkShareDialog link={link}>
+            <LinkShareDialog link={fetchLink}>
             <Button variant="outline" className="ml-2">
               <Share2 size={15} className="mr-2" />
               Share
             </Button>
             </LinkShareDialog>
-            <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
+            <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={fetchLink}>
               <Button variant="outline" className="ml-2">
                 <Pencil size={15} className="mr-2" />
                 Edit
@@ -108,10 +123,10 @@ export default function Page(params : any) {
             </div>
             <div className="ml-4">
                 <h1 className="text-blue-400 mt-1 hover:underline cursor-pointer w-fit">
-                <a href={"https://"+link.shortLink}>{link.shortLink}</a>
+                <a href={shortLink}>{shortLink}</a>
                 </h1>
                 <h1 className="mt-2 text-sm hover:underline cursor-pointer w-fit">
-                <a href={link.longLink}>{link.longLink}</a>
+                <a href={fetchLink.long_url}>{fetchLink.long_url}</a>
                 </h1>
             </div>
         </div>
@@ -119,21 +134,21 @@ export default function Page(params : any) {
         <div className="flex mt-6 md:flex-row flex-col">
           <div className="flex mt-2 md:mt-0">
             <Calendar className="ml-0 md:ml-4 " size={20} />
-            <h1 className="text-sm ml-2">{months[link.dateCreated.getMonth()]} {link.dateCreated.getDate()} {link.dateCreated.getFullYear()}</h1>
+            <h1 className="text-sm ml-2">{months[fetchLink.created_at.getMonth()]} {fetchLink.created_at.getDate()} {fetchLink.created_at.getFullYear()}</h1>
           </div>
         </div>
       </div>
     </div>
     <div className="mt-8 ml-8 md:hidden">
-        <Button onClick={()=>{copyToClipboard(link.shortLink)}} variant="outline">
+        <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
           <Copy size={15} />
         </Button>
-        <LinkShareDialog link={link}>
+        <LinkShareDialog link={fetchLink}>
         <Button variant="outline" className="ml-2">
           <Share2 size={15} />
         </Button>
         </LinkShareDialog>
-        <EditLinkDialog link={{title:link.title,shortLink:link.shortLink}}>
+        <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={fetchLink}>
         <Button className="ml-2 " variant="outline">
           <Pencil size={15}/>
         </Button>

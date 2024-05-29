@@ -116,7 +116,7 @@ export default function CreatePage() {
                   <Label className="text-gray-400 ml-2">(Optional)</Label>
                 </div>
                 <Input
-                  name="shortLink"
+                  name="short_code"
                   value={shortLink}
                   onChange={(e) => setShortLink(e.target.value)}
                   className="mt-2 md:mt-0"

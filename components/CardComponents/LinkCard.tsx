@@ -16,7 +16,8 @@ import { Button } from "../ui/button";
 import { EditLinkDialog } from "../DialogComponents/EditLinkDialog";
 import { copyToClipboard } from "@/lib/utils";
 import { LinkShareDialog } from "../DialogComponents/LinkShareDialog";
-import { LinkType } from "@/interfaces/types";
+import { linkType } from "@/interfaces/types";
+import { useState } from "react";
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -26,10 +27,12 @@ const months = [
 export function LinkCard({
   link,
 }: {
-  link: any;
+  link: linkType;
 }) {
-  const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
-  const shortLink:string = `${REDIRECT_URL}/${link.short_code}` 
+  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const [shortCode,setShortcode] = useState<string>(link.short_code); 
+  const shortLink:string = `${REDIRECT_URL}/${shortCode}`
+  const [title,setTitle] = useState<string | null>(link.title)
 
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
@@ -40,7 +43,7 @@ export function LinkCard({
         <div className="flex flex-col ml-6 w-full">
           <div className="flex justify-between ">
             <h1 className="text-lg font-bold hover:underline cursor-pointer">
-              {link.title}
+              {title}
             </h1>
             <div className="hidden md:block">
               <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
@@ -53,7 +56,7 @@ export function LinkCard({
                   Share
                 </Button>
               </LinkShareDialog>
-              <EditLinkDialog link={{title:link.title,shortLink:link.short_code}}>
+              <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={link}>
                 <Button variant="outline" className="ml-2">
                   <Pencil size={15} className="mr-2" />
                   Edit
@@ -83,7 +86,7 @@ export function LinkCard({
             <div className="flex">
               <BarChart2 size={20} />
               <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-                {link.engagement}{" "}
+                1{" "}
                 <HoverCard>
                   <HoverCardTrigger>engagement</HoverCardTrigger>
                   <HoverCardContent>
@@ -108,7 +111,7 @@ export function LinkCard({
             <Share2 size={15} />
           </Button>
         </LinkShareDialog>
-        <EditLinkDialog link={{title:link.title,shortLink:link.short_code}}>
+        <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={link}>
           <Button className="ml-2" variant="outline">
             <Pencil size={15} />
           </Button>

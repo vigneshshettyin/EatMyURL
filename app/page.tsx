@@ -22,7 +22,7 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true);
-    const dataString: any = localStorage.getItem("links");
+    const dataString = localStorage.getItem("links") as string;
     parsePublicRecords(dataString).then((s) => {
       setPublicLinks(s);
       setLoading(false);
@@ -51,7 +51,7 @@ export default function Home() {
       description: "The link is valid only for 2hrs !!",
     });
     setLongurlInput("");
-    updateLocalStorage({ shortUrl: response.shortUrl, longUrl: longurlInput });
+    updateLocalStorage({ shortUrl: response.shortUrl as string, longUrl: longurlInput });
   };
 
   return (
