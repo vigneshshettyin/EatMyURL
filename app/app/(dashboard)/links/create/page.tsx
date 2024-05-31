@@ -78,21 +78,6 @@ export default function CreatePage() {
               />
             </div>
 
-            {/* <div>
-            <div className="flex mt-12">
-              <Label className="font-bold text-xl">QR Code</Label>
-              <Label className="ml-2 text-gray-400 text-xl">(optional)</Label>
-            </div>
-
-            <div className="mt-4 flex">
-              <Switch checked={requireQRCode} onClick={()=>setRequireQRCode(q=>!q)} />
-              <h1 className="ml-2 text-sm">
-                {" "}
-                Generate a QR Code to share anywhere people can see it{" "}
-              </h1>
-            </div>
-          </div> */}
-
             <div className="pr-4">
               <div className="mt-10">
                 <Label className="font-bold text-xl">Short Link</Label>
