@@ -1,20 +1,19 @@
 "use server"
 
-import { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
 import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
 import PrismaClientManager from "@/lib/services/pgConnect";
-import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
+import { HTTP_STATUS } from "@/lib/constants";
 
-export async function getLinks() {
+export async function getLinks(pageNumber: string) {
   const posgresInstance = PrismaClientManager.getInstance();
   const prisma = posgresInstance.getPrismaClient();
   const session: ISessionType | null = await getServerSession(authOptions);
   // const searchParams = req.nextUrl.searchParams;
 
-  const page_size = "10";
-  const page = "1";
+  const page_size = "5";
+  const page = pageNumber;
 
   if (!session?.user) {
     return {
@@ -37,6 +36,9 @@ export async function getLinks() {
           status:HTTP_STATUS.OK
         }
     }
+
+    const total_pages = Math.ceil(totalLinks/Number.parseInt(page_size))
+
     const links = await prisma.links.findMany({
       where: {
         user: {
@@ -49,6 +51,7 @@ export async function getLinks() {
     return {
         links,
         totalLinks,
+        total_pages,
         status: HTTP_STATUS.CREATED
       }
     } 

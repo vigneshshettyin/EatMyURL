@@ -47,7 +47,7 @@ export default function CreatePage() {
               }
               setLongurl("");
               setTitle("");
-              
+              setShortLink("");
               // setLoading(false);
             });
           }}
