@@ -1,3 +1,5 @@
+import { pageOrder } from "@/lib/constants";
+
 export interface gettingStartedStatus {
   createLink: boolean;
   clickLink: boolean;
@@ -70,4 +72,9 @@ export type linkType = {
   long_url: string;
   created_at: Date;
   title: string | null;
+}
+
+export type paginationType = {
+  value: number,
+  pageActive: pageOrder
 }

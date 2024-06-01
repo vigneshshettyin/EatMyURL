@@ -24,3 +24,15 @@ export const RESPONSE = (data: any, status: number) => {
     status: status,
   });
 };
+
+export enum paginateOperation {
+  NEXT,
+  PREV,
+  CLICK
+}
+
+export enum pageOrder {
+  ONE = 0,
+  TWO = 1,
+  THREE = 2
+}
