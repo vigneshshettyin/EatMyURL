@@ -73,7 +73,7 @@ export default function Page(params : any) {
     title: 'Sample Title'
   }
 
-  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.dev";
   const [title,setTitle] = useState<string | null>(fetchLink.title);
   const [shortCode,setShortcode] = useState<string>(fetchLink.short_code)
   const shortLink:string = `${REDIRECT_URL}/${shortCode}`

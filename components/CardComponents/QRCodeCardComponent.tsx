@@ -33,7 +33,7 @@ const months = [
 
 export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
   const qrCodeRef = useRef(null);
-  const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.dev";
   const shortLink = `${REDIRECT_URL}/${qrcode.short_code}`;
 
   function downloadQRCode(format:string) {

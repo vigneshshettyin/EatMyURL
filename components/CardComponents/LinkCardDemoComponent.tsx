@@ -6,7 +6,7 @@ import { QrPopup } from "../DialogComponents/QrPopup";
 import { copyToClipboard } from "@/lib/utils";
 import { publicLinkType } from "@/interfaces/types";
 
-const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.dev";
 
 export function LinkCardComponent({
   publicLink,

@@ -29,7 +29,7 @@ export function LinkCard({
 }: {
   link: linkType;
 }) {
-  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.dev";
   const [shortCode,setShortcode] = useState<string>(link.short_code); 
   const shortLink:string = `${REDIRECT_URL}/${shortCode}`
   const [title,setTitle] = useState<string | null>(link.title)
