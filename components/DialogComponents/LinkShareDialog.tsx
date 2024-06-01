@@ -25,7 +25,7 @@ export function LinkShareDialog({children,link}:{
     link: linkType
 }) {
 
-  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.vshetty.dev";
+  const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.dev";
   const shortLink:string = `${REDIRECT_URL}/${link.short_code}` 
 
   function copyToClipboard(){
