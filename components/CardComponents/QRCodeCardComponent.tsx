@@ -80,7 +80,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
               "_blank"
             )
           }} className="hover:underline ml-2 text-sm cursor-pointer">
-            {qrcode.long_url}
+            {qrcode.long_url.length >= 10?<>{qrcode.long_url.slice(0,30)}.....</>:<>{qrcode.long_url}</>}
           </Label>
         </div>
         <div className="flex mt-6 md:flex-row flex-col">

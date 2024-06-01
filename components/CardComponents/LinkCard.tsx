@@ -78,8 +78,8 @@ export function LinkCard({
               link.long_url,
               "_blank"
             )
-          }} className="mt-2 text-sm hover:underline cursor-pointer w-fit">
-            {link.long_url}
+          }} className="mt-2 text-sm hover:underline cursor-pointer">
+            {link.long_url.length >= 10?<>{link.long_url.slice(0,30)}.....</>:<>{link.long_url}</>}
           </h1>
 
           <div className="flex mt-6 md:flex-row flex-col">
