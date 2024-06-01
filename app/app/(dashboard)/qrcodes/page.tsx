@@ -103,58 +103,55 @@ export default function QRCodePage() {
             <QRCodeCardComponent key={qr.id} qrcode={qr} />
           ))}
 
-          <Pagination className="mt-14">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={() => pagination(0, paginateOperation.PREV)}
-                  href="#"
-                />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  onClick={() =>
-                    pagination(pageOrder.ONE, paginateOperation.CLICK)
-                  }
-                  isActive={paginator.pageActive == pageOrder.ONE}
-                  href="#"
-                >
-                  {paginator.value}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  onClick={() =>
-                    pagination(pageOrder.TWO, paginateOperation.CLICK)
-                  }
-                  isActive={paginator.pageActive == pageOrder.TWO}
-                  href="#"
-                >
-                  {paginator.value + 1}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  onClick={() =>
-                    pagination(pageOrder.THREE, paginateOperation.CLICK)
-                  }
-                  isActive={paginator.pageActive == pageOrder.THREE}
-                  href="#"
-                >
-                  {paginator.value + 2}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext
-                  onClick={() => pagination(0, paginateOperation.NEXT)}
-                  href="#"
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+{totalPages > 1? <Pagination className="mt-14">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => pagination(0, paginateOperation.PREV)}
+              href="#"
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink
+              onClick={() => pagination(pageOrder.ONE, paginateOperation.CLICK)}
+              isActive={paginator.pageActive == pageOrder.ONE}
+              href="#"
+            >
+              {paginator.value}
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink
+              onClick={() => pagination(pageOrder.TWO, paginateOperation.CLICK)}
+              isActive={paginator.pageActive == pageOrder.TWO}
+              href="#"
+            >
+              {paginator.value + 1}
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink
+              onClick={() =>
+                pagination(pageOrder.THREE, paginateOperation.CLICK)
+              }
+              isActive={paginator.pageActive == pageOrder.THREE}
+              href="#"
+            >
+              {paginator.value + 2}
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => pagination(0, paginateOperation.NEXT)}
+              href="#"
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>:<div></div>}
+
         </div>
       )}
     </div>

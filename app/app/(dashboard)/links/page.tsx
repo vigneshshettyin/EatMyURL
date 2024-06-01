@@ -140,7 +140,7 @@ export default function Page() {
         </div>
       )}
 
-      <Pagination className="mt-14">
+    {totalPages > 1? <Pagination className="mt-14">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
@@ -187,7 +187,8 @@ export default function Page() {
             />
           </PaginationItem>
         </PaginationContent>
-      </Pagination>
+      </Pagination>:<div></div>}
+      
     </div>
   );
 }

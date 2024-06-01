@@ -108,12 +108,12 @@ const LoginPage = () => {
             >
               Login
             </Button>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <Button className="mt-4" onClick={handleGoogleLogin}>
                 <KeyRound size={18}/>
                 <h1 className="ml-2">Sign in with google</h1>
               </Button>
-            </div>
+            </div> */}
             
           </div>
           
