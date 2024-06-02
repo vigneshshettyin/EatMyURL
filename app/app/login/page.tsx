@@ -17,7 +17,8 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
-import { KeyRound } from "lucide-react";
+import { Turnstile } from '@marsidev/react-turnstile'
+import { captchaVerify } from "@/lib/actions/captchaVerify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -25,6 +26,8 @@ const LoginPage = () => {
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [token,setToken] = useState<string>("")
+  const site_id = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
   
   const { data } = useSession();
   useEffect(() => {
@@ -42,21 +45,6 @@ const LoginPage = () => {
         <SkeletonCard />
       </div>
     );
-
-  const handleGoogleLogin = async () => {
-    const res: any = await signIn("google");
-    if (res && res.status == 200) {
-      toast({
-        title: "User logged in successfully !!",
-      });
-      router.push("/app/home");
-    } else {
-      toast({
-        title: "Error while logging in!!",
-        variant: "destructive",
-      });
-    }
-  }
 
   return (
     <div className="flex w-full h-screen justify-center items-center px-4">
@@ -85,13 +73,30 @@ const LoginPage = () => {
           />
         </CardContent>
         <CardFooter>
-          <div className="flex flex-col items-center w-full">
-            <Button className="w-32"
+        <div className="flex flex-col items-center w-full">
+          
+        <Turnstile onSuccess={(token) => {
+        setToken(token)
+      }} siteKey={site_id} />
+
+            <Button disabled={token==""} className="w-32 mt-4"
               onClick={async () => {
+                const verify = await captchaVerify(token);
+
+                if(verify == 403){
+                    toast({
+                      title:"Captcha invalid",
+                      description: "Please try again",
+                      variant:"destructive"
+                    })
+                    return;
+                }
+
                 const res: any = await signIn("credentials", {
                   email: email,
                   password: pass,
                   redirect: false,
+                  token:token
                 });
                 if (res.status == 200) {
                   toast({
@@ -107,16 +112,8 @@ const LoginPage = () => {
               }}
             >
               Login
-            </Button>
-            {/* <div className="flex justify-center">
-              <Button className="mt-4" onClick={handleGoogleLogin}>
-                <KeyRound size={18}/>
-                <h1 className="ml-2">Sign in with google</h1>
-              </Button>
-            </div> */}
-            
+            </Button> 
           </div>
-          
         </CardFooter>
       </Card>
     </div>

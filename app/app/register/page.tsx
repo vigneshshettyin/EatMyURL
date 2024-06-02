@@ -17,14 +17,30 @@ import { toast } from "@/components/ui/use-toast";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
+import { Turnstile } from "@marsidev/react-turnstile";
+import { captchaVerify } from "@/lib/actions/captchaVerify";
 
 
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(true);
+  const [token,setToken] = useState<string>("")
+  const site_id = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
 
   const registerUser = async (formData: FormData) => {
+    const verify = await captchaVerify(token);
+
+    if(verify == 403){
+        toast({
+          title:"Invalid Captcha",
+          description: "Please try again",
+          variant:"destructive"
+        })
+        return;
+    }
+
     const status = await register(formData);
+
     if (status == 200) {
       toast({
         title: "User registered successfully !!",
@@ -86,8 +102,11 @@ const RegisterPage = () => {
             />
           </CardContent>
           <CardFooter>
-            <div className="flex justify-center w-full">
-              <Button>Register</Button>
+            <div className="flex flex-col items-center w-full">
+            <Turnstile onSuccess={(token) => {
+              setToken(token)
+            }} siteKey={site_id} />
+              <Button className="mt-4" disabled={token == ""}>Register</Button>
             </div>
           </CardFooter>
         </form>
