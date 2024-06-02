@@ -2,7 +2,7 @@
 import { HTTP_STATUS } from "../constants";
 
 export async function captchaVerify (token:string) {
-    const SECRET_KEY = "0x4AAAAAAAbu8XnHHmSbg9kLI3T3HziPSuI"
+    const SECRET_KEY = process.env.CAPTCHA_SECRET_KEY || "";
 
     let formData = new FormData();
 	formData.append('secret', SECRET_KEY);

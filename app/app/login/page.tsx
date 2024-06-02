@@ -27,6 +27,7 @@ const LoginPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [token,setToken] = useState<string>("")
+  const site_id = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
   
   const { data } = useSession();
   useEffect(() => {
@@ -76,7 +77,7 @@ const LoginPage = () => {
           
         <Turnstile onSuccess={(token) => {
         setToken(token)
-      }} siteKey='0x4AAAAAAAbu8T-y1tAsroOZ' />
+      }} siteKey={site_id} />
 
             <Button disabled={token==""} className="w-32 mt-4"
               onClick={async () => {

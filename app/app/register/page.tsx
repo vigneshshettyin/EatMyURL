@@ -25,6 +25,7 @@ import { captchaVerify } from "@/lib/actions/captchaVerify";
 const RegisterPage = () => {
   const [loading, setLoading] = useState(true);
   const [token,setToken] = useState<string>("")
+  const site_id = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
 
   const registerUser = async (formData: FormData) => {
     const verify = await captchaVerify(token);
@@ -104,7 +105,7 @@ const RegisterPage = () => {
             <div className="flex flex-col items-center w-full">
             <Turnstile onSuccess={(token) => {
               setToken(token)
-            }} siteKey='0x4AAAAAAAbu8T-y1tAsroOZ' />
+            }} siteKey={site_id} />
               <Button className="mt-4" disabled={token == ""}>Register</Button>
             </div>
           </CardFooter>
