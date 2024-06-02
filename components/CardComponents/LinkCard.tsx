@@ -50,7 +50,7 @@ export function LinkCard({
                 <Copy size={15} className="mr-2" />
                 Copy
               </Button>
-              <LinkShareDialog link={link}>
+              <LinkShareDialog shortCode={shortCode} link={link}>
                 <Button variant="outline" className="ml-2">
                   <Share2 size={15} className="mr-2" />
                   Share
@@ -106,7 +106,7 @@ export function LinkCard({
         <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
           <Copy size={15} />
         </Button>
-        <LinkShareDialog link={link}>
+        <LinkShareDialog shortCode={shortCode} link={link}>
           <Button variant="outline" className="ml-2">
             <Share2 size={15} />
           </Button>

@@ -38,7 +38,14 @@ export default function CreatePage() {
                   description: "Please try again",
                   variant: "destructive",
                 });
-              } else {
+              }else if (res.status == HTTP_STATUS.CONFLICT) {
+                toast({
+                  title: "The short code has already been in use",
+                  description:"Please try different shortcode",
+                  variant:"destructive"
+                })
+              }
+              else{
                 toast({
                   title: "Error while shortening the link",
                   description: "Please try again",

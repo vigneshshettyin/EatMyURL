@@ -103,7 +103,7 @@ export default function Page(params : any) {
               <Copy size={15} className="mr-2" />
               Copy
             </Button>
-            <LinkShareDialog link={fetchLink}>
+            <LinkShareDialog shortCode={shortCode} link={fetchLink}>
             <Button variant="outline" className="ml-2">
               <Share2 size={15} className="mr-2" />
               Share
@@ -143,7 +143,7 @@ export default function Page(params : any) {
         <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
           <Copy size={15} />
         </Button>
-        <LinkShareDialog link={fetchLink}>
+        <LinkShareDialog shortCode={shortCode} link={fetchLink}>
         <Button variant="outline" className="ml-2">
           <Share2 size={15} />
         </Button>

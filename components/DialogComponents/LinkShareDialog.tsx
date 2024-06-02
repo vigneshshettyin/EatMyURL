@@ -20,13 +20,14 @@ import {
 import { TwitterLogoIcon } from "@radix-ui/react-icons"
 import { linkType } from "@/interfaces/types"
 
-export function LinkShareDialog({children,link}:{
+export function LinkShareDialog({children,link,shortCode}:{
     children : React.ReactNode,
-    link: linkType
+    link: linkType,
+    shortCode: string
 }) {
 
   const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.dev";
-  const shortLink:string = `${REDIRECT_URL}/${link.short_code}` 
+  const shortLink:string = `${REDIRECT_URL}/${shortCode}` 
 
   function copyToClipboard(){
     navigator.clipboard.writeText(shortLink);
