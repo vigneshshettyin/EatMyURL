@@ -48,24 +48,8 @@ const checkIfShortCodePublic = (shortCode: string): boolean => {
 
 const publishUserAgent = async (req: NextRequest, code: string) => {
   const userAgent = userAgentAnlytics(req);
-  const tmp_test_data = {
-city : req.geo!.city,
-country : req.geo!.country,
-region : req.geo!.region,
-lat : req.geo!.latitude,
-long :req.geo!.longitude
-  }
-
-  await pubSubRedis.lpush(
-    "user_location",
-    JSON.stringify({
-      code,
-      ...tmp_test_data,
-    })
-  );
-
-  await pubSubRedis.lpush(
-    "user_analytics",
+  await pubSubRedis.publish(
+    "user_anlytics",
     JSON.stringify({
       code,
       ...userAgent,
