@@ -60,10 +60,12 @@ CREATE TABLE click_analytics (
     `device` LowCardinality(String),
     `country` LowCardinality(String),
     `region` String,
-    `city` String
+    `city` String,
+    `timestamp` Date DEFAULT toDate(now())
 )
 ENGINE = MergeTree()
-ORDER BY (code, browser, os, device, country);
+PARTITION BY toYYYYMM(timestamp)
+ORDER BY (code, timestamp, browser, os, device, country);
 
 -- Create a Materialized View named 'click_analytics_consumer' to transfer data from the Kafka table to the ClickHouse table
 -- The view selects all columns from 'eurl_kafka' and inserts them into the 'click_analytics' table
