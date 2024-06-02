@@ -27,6 +27,28 @@ const invokeRedis = async (long_url: string): Promise<string> => {
   return shortCode;
 };
 
+const setPrivateShortCode = async (
+  shortCode: string,
+  longUrl: string
+): Promise<string> => {
+  await redis.set(shortCode, longUrl, "EX", 604800);
+  return shortCode;
+};
+
+const updatePrivateShortCode = async (
+  oldShortCode: string,
+  newShortCode: string,
+  longUrl: string
+): Promise<string> => {
+  const checkIfUrlExists = await redis.get(oldShortCode);
+  if (checkIfUrlExists) {
+    await redis.del(oldShortCode);
+    return await setPrivateShortCode(newShortCode, longUrl);
+  } else {
+    return await setPrivateShortCode(newShortCode, longUrl);
+  }
+};
+
 const getLongUrl = async (shortCode: string): Promise<string | null> => {
   return await redis.get(shortCode);
 };
@@ -63,4 +85,6 @@ export {
   getRecords,
   checkIfShortCodePublic,
   publishUserAgent,
+  setPrivateShortCode,
+  updatePrivateShortCode
 };
