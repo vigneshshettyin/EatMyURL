@@ -70,7 +70,8 @@ const checkIfShortCodePublic = (shortCode: string): boolean => {
 
 const publishUserAgent = async (req: NextRequest, code: string) => {
   const userAgent = userAgentAnlytics(req);
-  await pubSubRedis.publish(
+
+  await pubSubRedis.lpush(
     "user_anlytics",
     JSON.stringify({
       code,
