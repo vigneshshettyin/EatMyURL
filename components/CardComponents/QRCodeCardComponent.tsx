@@ -50,7 +50,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
   }
 
   return (
-    <div className="flex md:flex-row flex-col mt-6 p-6 rounded-xl border-[0.5px] shadow-md">
+    <div className="flex md:flex-row flex-col mt-8 p-6 rounded-xl border-[0.5px] shadow-md">
       <div className="flex justify-center md:justify-start">
         <div className="p-4 bg-white rounded-2xl">
           <div ref={qrCodeRef}>
@@ -60,7 +60,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
       </div>
       <div className="flex flex-col ml-6 md:mt-0 mt-4 w-full">
         <div className="flex justify-between pr-8">
-          <Label className="text-2xl font-bold cursor-pointer hover:underline">
+          <Label className="text-2xl md:w-[90%] w-full break-all font-bold cursor-pointer hover:underline">
             {qrcode.title}
           </Label>
           <div className="hidden md:flex">

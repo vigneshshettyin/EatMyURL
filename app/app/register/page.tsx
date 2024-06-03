@@ -19,6 +19,8 @@ import { useSession } from "next-auth/react";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { captchaVerify } from "@/lib/actions/captchaVerify";
+import { LoadingSpinner } from "@/components/LoadingComponents/LoadingSpinner";
+import { HTTP_STATUS } from "@/lib/constants";
 
 
 
@@ -27,9 +29,13 @@ const RegisterPage = () => {
   const [token,setToken] = useState<string>("")
   const site_id = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
 
-  const registerUser = async (formData: FormData) => {
-    const verify = await captchaVerify(token);
+  const [confirmLoading,setConfirmLoading] = useState(false)
 
+  const registerUser = async (formData: FormData) => {
+    // Issue :- Component is not rendering after the below setState
+    setConfirmLoading(true)
+
+    const verify = await captchaVerify(token);
     if(verify == 403){
         toast({
           title:"Invalid Captcha",
@@ -39,15 +45,28 @@ const RegisterPage = () => {
         return;
     }
 
-    const status = await register(formData);
-
-    if (status == 200) {
+    const status:number = await register(formData);
+    
+    if (status == HTTP_STATUS.OK) {
       toast({
         title: "User registered successfully !!",
         description: "Please login to continue",
       });
       redirect("/app/login");
-    } else if (status == 403) {
+    } else if ( status == HTTP_STATUS.BAD_REQUEST){
+      toast({
+        title: "Invalid Inputs !!",
+        description: "Enter valid email / Password should contains atleast 6 characters",
+        variant:"destructive"
+      });
+    } 
+    else if ( status == HTTP_STATUS.NOT_FOUND){
+      toast({
+        title: "Please enter all fields",
+        variant:"destructive"
+      });
+    } 
+    else if (status == HTTP_STATUS.UNAUTHORIZED) {
       toast({
         title: "User already exists !!",
         variant: "destructive",
@@ -58,6 +77,8 @@ const RegisterPage = () => {
         variant: "destructive",
       });
     }
+
+    setConfirmLoading(false)
   };
 
   const { data } = useSession();
@@ -75,7 +96,7 @@ const RegisterPage = () => {
         <SkeletonCard />
       </div>
     );
-
+  
   return (
     <div className="flex w-full h-screen justify-center items-center px-4">
       <Card className="w-[400px]">
@@ -87,6 +108,12 @@ const RegisterPage = () => {
         </CardHeader>
         <form action={registerUser}>
           <CardContent>
+          <Label>Name</Label>
+            <Input
+              name="name"
+              className="mb-4"
+              placeholder="Enter your name"
+            />
             <Label>Email</Label>
             <Input
               name="email"
@@ -107,6 +134,7 @@ const RegisterPage = () => {
               setToken(token)
             }} siteKey={site_id} />
               <Button className="mt-4" disabled={token == ""}>Register</Button>
+              {confirmLoading?<LoadingSpinner className="mt-4" size={26}/>:<div></div>}
             </div>
           </CardFooter>
         </form>

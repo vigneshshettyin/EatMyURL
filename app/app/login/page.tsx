@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
 import { Turnstile } from '@marsidev/react-turnstile'
 import { captchaVerify } from "@/lib/actions/captchaVerify";
+import { LoadingSpinner } from "@/components/LoadingComponents/LoadingSpinner";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -28,6 +29,8 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(true);
   const [token,setToken] = useState<string>("")
   const site_id = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
+
+  const [confirmLoading,setConfirmLoading] = useState(false)
   
   const { data } = useSession();
   useEffect(() => {
@@ -81,6 +84,7 @@ const LoginPage = () => {
 
             <Button disabled={token==""} className="w-32 mt-4"
               onClick={async () => {
+                setConfirmLoading(true);
                 const verify = await captchaVerify(token);
 
                 if(verify == 403){
@@ -98,6 +102,7 @@ const LoginPage = () => {
                   redirect: false,
                   token:token
                 });
+                setConfirmLoading(false);
                 if (res.status == 200) {
                   toast({
                     title: "User logged in successfully !!",
@@ -113,6 +118,7 @@ const LoginPage = () => {
             >
               Login
             </Button> 
+            {confirmLoading?<LoadingSpinner className="mt-4" size={26}/>:<div></div>}
           </div>
         </CardFooter>
       </Card>
