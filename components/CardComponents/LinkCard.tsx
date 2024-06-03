@@ -41,8 +41,8 @@ export function LinkCard({
           <LinkIcon className="h-4 w-4 md:h-6 md:w-6" />
         </div>
         <div className="flex flex-col ml-6 w-full">
-          <div className="flex justify-between ">
-            <h1 className="text-lg font-bold hover:underline cursor-pointer">
+          <div className="flex justify-between">
+            <h1 className="text-lg md:w-[70%] w-full break-all font-bold hover:underline cursor-pointer">
               {title}
             </h1>
             <div className="hidden md:block">
@@ -57,7 +57,7 @@ export function LinkCard({
                 </Button>
               </LinkShareDialog>
               <EditLinkDialog setShortcode={setShortcode} setParentTitle={setTitle} link={link}>
-                <Button variant="outline" className="ml-2">
+                <Button variant="outline" className="ml-3">
                   <Pencil size={15} className="mr-2" />
                   Edit
                 </Button>
