@@ -24,6 +24,12 @@ export async function createPrivateLink(formdata: FormData) {
 
   let custom_short_code: string = formdata.get("short_code") as string;
 
+  if(long_url?.toString().includes("eurl.dev")){
+      return {
+        status: HTTP_STATUS.NOT_ACCEPTABLE,
+      }
+  }
+
   // if custom short code exists
   if (custom_short_code) {
     // check if duplicate
