@@ -32,7 +32,13 @@ export default function CreatePage() {
                 toast({
                   title: "Link shortened successfully !!",
                 });
-              } else if (res.status == HTTP_STATUS.BAD_REQUEST) {
+              } else if(res.status == HTTP_STATUS.NOT_ACCEPTABLE){
+                  toast({
+                    title: "This url cannot be shortened",
+                    variant: "destructive"
+                  })
+              } 
+              else if (res.status == HTTP_STATUS.BAD_REQUEST) {
                 toast({
                   title: "Invalid Inputs !!",
                   description: "Please try again",
