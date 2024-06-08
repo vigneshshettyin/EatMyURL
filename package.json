@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rimraf kafka-clickhouse && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
@@ -52,6 +52,7 @@
     "react-dom": "^18.3.1",
     "react-resizable-panels": "^2.0.19",
     "react-share": "^5.1.0",
+    "rimraf": "^5.0.7",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "^1.0.37",
