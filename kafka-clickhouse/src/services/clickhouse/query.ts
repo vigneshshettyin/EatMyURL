@@ -14,7 +14,7 @@ const getAnalyticsByAspect = async (
                 FROM eurl_data.click_analytics
                 WHERE code = '${code}'`;
   if (startDate && endDate) {
-    query += ` AND timestamp >= '${startDate.toISOString()}' AND timestamp <= '${endDate.toISOString()}'`;
+    query += ` AND timestamp >= '${startDate}' AND timestamp <= '${endDate}'`;
   }
   query += ` GROUP BY ${aspect}`;
 
@@ -36,7 +36,7 @@ const getTotalRequests = async (
                   FROM eurl_data.click_analytics
                   WHERE code = '${code}'`;
   if (startDate && endDate) {
-    query += ` AND timestamp >= '${startDate.toISOString()}' AND timestamp <= '${endDate.toISOString()}'`;
+    query += ` AND timestamp >= '${startDate}' AND timestamp <= '${endDate}'`;
   }
 
   const resultSet = await client.query({
@@ -58,7 +58,7 @@ const getWeeklyTrend = async (
                     FROM eurl_data.click_analytics
                     WHERE code = '${code}'`;
   if (startDate && endDate) {
-    query += ` AND timestamp >= '${startDate.toISOString()}' AND timestamp <= '${endDate.toISOString()}'`;
+    query += ` AND timestamp >= '${startDate}' AND timestamp <= '${endDate}'`;
   }
   query += ` GROUP BY week_start
                ORDER BY week_start`;
