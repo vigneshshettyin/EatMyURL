@@ -24,7 +24,7 @@
   },
   "scripts": {
     "dev": "nodemon --env-file=.env build/src/main.js",
-    "kafka:worker": "nodemon --env-file=.env build/src/services/redis/subscriber.js",
+    "kafka:worker": "nodemon --env-file=.env build/src/services/redis/worker.js",
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
     "prebuild": "npm run lint",

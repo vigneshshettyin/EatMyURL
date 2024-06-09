@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 
 import { secretKeyValidator } from './middleware.js';
 import router from './router.js';
+import log from './services/redis/worker.js'
 
 const app: Application = express();
 
@@ -15,7 +16,11 @@ app.get('/', async (_req, res) => {
   });
 });
 
+
+
 app.use('/api', router);
+
+console.log(log());
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

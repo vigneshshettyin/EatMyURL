@@ -1,6 +1,7 @@
 import { Redis } from 'ioredis';
 import {UserDeviceInfo} from './types.js'
 
+
 // Create a Redis client instance
 const redis = new Redis(process.env.REDIS_URI);
 

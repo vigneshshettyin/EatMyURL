@@ -1,3 +1,5 @@
+// worker.js
+import { parentPort } from 'worker_threads';
 import RedisQueue from './connection.js';
 import KafkaProducer from '../kafka/producer.js';
 
@@ -33,3 +35,11 @@ console.log('Queue processor started. Waiting for messages...');
 processQueue().catch((error) => {
   console.error('Error starting queue processor:', error);
 });
+
+if (parentPort) {
+  parentPort.on('message', (message) => {
+    if (message === 'stop') {
+      running = false;
+    }
+  });
+}
