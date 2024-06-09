@@ -7,9 +7,9 @@ COPY package-lock.json ./
 
 RUN npm install
 
-RUN npm run build
-
 COPY . .
+
+RUN npm run build
 
 # Add a health check to verify the application is running
 # HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
