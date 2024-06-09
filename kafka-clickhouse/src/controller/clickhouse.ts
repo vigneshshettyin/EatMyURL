@@ -75,4 +75,6 @@ class ClickhouseResponseController {
   }
 }
 
-export default new ClickhouseResponseController();
+const instance = new ClickhouseResponseController();
+
+export default instance;
