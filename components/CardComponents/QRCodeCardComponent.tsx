@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 
 import { Button } from "../ui/button";
-import { QRCodeType } from "@/interfaces/types";
 import { QRCodeCanvas } from "qrcode.react";
 import { useRef } from "react";
 import { nanoid } from "nanoid";
@@ -38,6 +37,12 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
   const shortLink = `${REDIRECT_URL}/${qrcode.short_code}`;
   const router = useRouter();
 
+  function encodeId(inputId:number) {
+    const inputStr = inputId.toString();
+    const encodedStr = Buffer.from(inputStr).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+    return encodedStr;
+  }
+
   function downloadQRCode(format:string) {
     const canvas = (qrCodeRef.current as any).firstElementChild;
     const pngUrl = (canvas as any)
@@ -62,7 +67,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
       </div>
       <div className="flex flex-col ml-6 md:mt-0 mt-4 w-full">
         <div className="flex justify-between pr-8">
-          <Label onClick={()=>router.push(`/app/links/${qrcode.id}`)} className="text-2xl md:w-[90%] w-full break-all font-bold cursor-pointer hover:underline">
+          <Label onClick={()=>router.push(`/app/links/${encodeId(qrcode.id)}`)} className="text-2xl md:w-[90%] w-full break-all font-bold cursor-pointer hover:underline">
             {qrcode.title}
           </Label>
           <div className="hidden md:flex">
