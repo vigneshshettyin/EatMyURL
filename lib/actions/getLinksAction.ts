@@ -5,6 +5,7 @@ import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
 import PrismaClientManager from "@/lib/services/pgConnect";
 import { HTTP_STATUS } from "@/lib/constants";
+import { getEngagements } from "../services/getEngagements";
 
 export async function getLinks(pageNumber: string) {
   const posgresInstance = PrismaClientManager.getInstance();
@@ -48,8 +49,11 @@ export async function getLinks(pageNumber: string) {
       skip: (parseInt(page) - 1) * parseInt(page_size),
       take: parseInt(page_size),
     });
+
+    const engaged_links = await getEngagements(links);
+
     return {
-        links,
+        links:engaged_links,
         totalLinks,
         total_pages,
         status: HTTP_STATUS.CREATED
@@ -61,3 +65,31 @@ export async function getLinks(pageNumber: string) {
     }
   }
 }
+
+export async function getLinkDetails(linkId:string){
+  const session: ISessionType | null = await getServerSession(authOptions);
+  const prisma = PrismaClientManager.getInstance().getPrismaClient();
+
+  if (!session?.user) {
+    return {
+        link : {},
+        status: HTTP_STATUS.UNAUTHORIZED
+    }
+  }
+
+  const link = await prisma.links.findFirst({
+      where:{
+        id : Number.parseInt(linkId),
+        user_id : parseInt(session.user.sub)
+      }
+  })
+
+  if(!link){
+      return {
+        link : {},
+        status: HTTP_STATUS.NOT_FOUND
+      }
+  }
+
+  return {status:HTTP_STATUS.OK,link};
+} 

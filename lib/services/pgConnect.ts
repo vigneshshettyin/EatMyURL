@@ -1,15 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
-let i = 0
-
 class PrismaClientManager {
   private static instance: PrismaClientManager;
   private prismaClient: PrismaClient;
 
   private constructor() {
-    console.log("new instance of prisma is created!!")
-    console.log(i)
-    i += 1
     this.prismaClient = new PrismaClient();
   }
 

@@ -104,6 +104,7 @@ export async function updatePrivateLink(formdata: FormData) {
   const linkId: number = Number.parseInt(formdata.get("linkId") as string);
 
   try {
+    // Check for duplicates
     const link = await prisma.links.findFirst({
       where: {
         short_code: shortcode,
@@ -114,6 +115,13 @@ export async function updatePrivateLink(formdata: FormData) {
       return { status: HTTP_STATUS.CONFLICT };
     }
 
+    // Link retrieved to update in redis
+    const curr_link = await prisma.links.findFirst({
+      where : {
+        id:linkId
+      }
+    })
+
     await prisma.links.update({
       where: {
         id: linkId,
@@ -123,40 +131,17 @@ export async function updatePrivateLink(formdata: FormData) {
         short_code: shortcode,
       },
     });
-    await updatePrivateShortCode(link!.short_code, shortcode, link!.long_url);
+
+    await updatePrivateShortCode(curr_link?.short_code as string, shortcode, curr_link?.long_url as string);
 
     return {
       status: HTTP_STATUS.OK,
     };
   } catch (e) {
+
+    console.log(e)
     return {
       status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
     };
   }
-}
-
-export async function getTutorialStatus() {
-  const prisma = PrismaClientManager.getInstance().getPrismaClient();
-  const session: ISessionType | null = await getServerSession(authOptions);
-
-  const TutorialStatus = {
-    createLink: false,
-    clickLink: false,
-    checkAnalytics: false,
-  };
-
-  if (!session?.user) {
-    return {
-      status: HTTP_STATUS.UNAUTHORIZED,
-    };
-  }
-
-  const link: linkType | null = await prisma.links.findFirst({});
-
-  if (link) {
-    TutorialStatus.createLink = true;
-  }
-
-  // If engagement then check
-  // If checked Analytics thenc check
 }

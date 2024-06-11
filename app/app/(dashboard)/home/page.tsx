@@ -16,23 +16,29 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { gettingStartedStatus } from "@/interfaces/types";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getTutorialStatus } from "@/lib/actions/getStatusAction";
+import { HTTP_STATUS } from "@/lib/constants";
+import { useRouter } from "next/navigation";
+import Loading from "./loading";
+import { toast } from "@/components/ui/use-toast";
 
 export default function HomePage() {
-  const checkboxConfig: gettingStartedStatus = {
-    clickLink: true,
-    createLink: true,
-    checkAnalytics: false,
-  };
 
-  checkboxConfig.progressValue = Math.round(
-    ((Number(checkboxConfig.clickLink) +
-      Number(checkboxConfig.createLink) +
-      Number(checkboxConfig.checkAnalytics)) /
-      3) *
-      100
-  );
+  const [linkId,setlinkId] = useState(-1)
+  const [loading,setLoading] = useState(false)
+  const router = useRouter()
+
+  useEffect(()=>{
+      setLoading(true)
+      getTutorialStatus().then((res)=>{
+        setlinkId(res.linkId)
+        setLoading(false)
+      })
+  },[])
+  
+  if(loading) return <Loading/>
 
   return (
     <div className="pt-8 pl-2 md:pl-4 w-full pr-4">
@@ -96,7 +102,18 @@ export default function HomePage() {
               </div>
               <div className="flex-1 flex justify-center items-center flex-col py-2 md:py-0">
                 <h1 className="font-bold text-sm">View Analytics</h1>
-                <Button variant="outline" size="sm" className="text-sm mt-2">
+                <Button onClick={()=>{
+                  if(linkId != -1){
+                    router.push(`/app/links/${linkId}`)
+                  }
+                  else{
+                    toast({
+                      title:"Create a link",
+                      description:"Create atleast one link to continue"
+                    })
+                    router.push('/app/links/create')
+                  }
+                }} variant="outline" size="sm" className="text-sm mt-2">
                   Go to Analysis
                 </Button>
               </div>
@@ -112,20 +129,17 @@ export default function HomePage() {
               Getting Started with EatMyUrl
             </h1>
             <div className="flex">
-              <h1>{checkboxConfig.progressValue}%</h1>
+              
             </div>
           </div>
 
           <Accordion className="mt-3" type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center">
-                <input
-                  checked={checkboxConfig.createLink}
-                  type="checkbox"
-                  className="checkbox checkbox-success checkbox-sm pointer-events-none"
-                  readOnly
-                />
-                <h1 className="ml-2 ">Make a short link</h1>
+              <div className="w-4 h-4 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#3c7cec" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+              </div>
+               <h1 className="ml-2 ">Make a short link</h1>
               </AccordionTrigger>
               <AccordionContent className="flex px-6 md:flex-row flex-col">
                 <Link href="/app/links/create">
@@ -141,12 +155,9 @@ export default function HomePage() {
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center">
-                <input
-                  checked={checkboxConfig.clickLink}
-                  type="checkbox"
-                  className="checkbox checkbox-success checkbox-sm pointer-events-none "
-                  readOnly
-                />
+              <div className="w-4 h-4 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#3c7cec" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+              </div>
                 <h1 className="ml-2">Click it, scan it, or share it.</h1>
               </AccordionTrigger>
               <AccordionContent className="flex px-6 md:flex-row flex-col">
@@ -173,16 +184,24 @@ export default function HomePage() {
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger className="flex items-center">
-                <input
-                  checked={checkboxConfig.checkAnalytics}
-                  type="checkbox"
-                  className="checkbox checkbox-success checkbox-sm pointer-events-none "
-                  readOnly
-                />
+              <div className="w-4 h-4 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#3c7cec" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+              </div>
                 <h1 className="ml-2">Check out EatMyUrl Analytics</h1>
               </AccordionTrigger>
               <AccordionContent className="flex px-6">
-                <Button size="sm" className="py-3" variant="default">
+                <Button onClick={()=>{
+                  if(linkId != -1){
+                    router.push(`/app/links/${linkId}`)
+                  }
+                  else{
+                    toast({
+                      title:"Create a link",
+                      description:"Create atleast one link to continue"
+                    })
+                    router.push('/app/links/create')
+                  }
+                }} size="sm" className="py-3" variant="default">
                   <BarChart />
                   View Analytics
                 </Button>
@@ -192,14 +211,13 @@ export default function HomePage() {
         </div>
         <div className="flex-1 flex flex-col border-2 rounded-xl p-6 shadow-md md:ml-12 mt-4 md:mt-0 justify-center h-fit">
           <h1 className="font-bold text-xl">
-            Replace “eurl.dev” with your brand.
+            Custom ShortCodes
           </h1>
           <h1 className="mt-3 text-gray-500">
-            Get a custom domain to create links that represent you. Add your own
-            short domain or choose a complimentary one when you upgrade.
+            Get a custom shortened url only on EatMyUrl. Its brief and easy to remember.
           </h1>
-          <Button className="mt-4 w-36" variant="destructive">
-            View our plans
+          <Button onClick={()=>router.push('/app/links/create')} className="mt-4 w-36" variant='default'>
+            Create a link
           </Button>
         </div>
       </div>

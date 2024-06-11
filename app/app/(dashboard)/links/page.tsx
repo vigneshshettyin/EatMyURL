@@ -1,7 +1,7 @@
 "use client";
 
 import { DatePickerWithRange } from "@/components/DialogComponents/DatePickerWithRange";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FilterDialog } from "@/components/DialogComponents/FilterDialog";
 import { LinkCard } from "@/components/CardComponents/LinkCard";
 
@@ -20,11 +20,14 @@ import {
 } from "@/components/ui/pagination";
 import { toast } from "@/components/ui/use-toast";
 import { pageOrder, paginateOperation } from "@/lib/constants";
+import { EmptyLoading } from "@/components/LoadingComponents/EmptyLoading";
 
 export default function Page() {
   const [filteredLinks, setFilteredLinks] = useState<linkType[] | undefined>(
     []
   );
+  const linksRef = useRef<HTMLDivElement | null>(null)
+
   const [loading, setLoading] = useState<Boolean>(true);
   const current_date = new Date();
   const [date, setDate] = React.useState<DateRange | undefined>({
@@ -92,6 +95,9 @@ export default function Page() {
         return { ...c, pageActive: page };
       });
     }
+    linksRef.current?.scrollIntoView({
+      behavior:'smooth'
+    })
   };
 
   useEffect(() => {
@@ -107,7 +113,6 @@ export default function Page() {
             (!from || link.created_at >= from) && (!to || link.created_at <= to)
           );
         });
-
         setFilteredLinks(filterLinks);
         setLoading(false);
       }
@@ -115,7 +120,7 @@ export default function Page() {
   }, [date, paginator]);
 
   return (
-    <div className="pt-10 md:pl-6 pl-2 w-full pr-2">
+    <div ref={linksRef} className="pt-10 md:pl-6 pl-2 w-full pr-2">
       <h1 className="font-bold text-3xl ml-3">Links</h1>
       <div className="flex mt-6 md:flex-row flex-col">
         <div className="ml-2">
@@ -125,19 +130,17 @@ export default function Page() {
             current_date={current_date}
           />
         </div>
-        <div className="mt-3 md:mt-0 ml-0 md:ml-4">
-          <FilterDialog />
-        </div>
       </div>
 
       {loading ? (
         <Loading />
       ) : (
+        filteredLinks?.length != 0?
         <div>
           {filteredLinks?.map((link) => (
             <LinkCard key={link.id} link={link} />
           ))}
-        </div>
+        </div>:<div><EmptyLoading/></div>
       )}
 
     {totalPages > 1? <Pagination className="mt-14">

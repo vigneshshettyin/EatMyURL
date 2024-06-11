@@ -19,6 +19,10 @@ const validateURLCreateReq = async (formdata: FormData) => {
         const $ = cheerio.load(html);
         const newTitle = $('title').text();
         title = newTitle;
+
+        if(title?.toString().length == 0){
+            title = "New Link"
+        }
     }
 
     return { title, long_url, status: errors.success, msg: errors.error };
