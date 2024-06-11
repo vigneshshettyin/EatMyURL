@@ -129,14 +129,11 @@ export default function Page({params}:{
         <h1 className="ml-2 text-sm font-medium">Back to list</h1>
       </div>
       
-
-
-
       <div className="flex mt-6 py-6 pr-4 flex-col rounded-xl border-[0.5px] shadow-md">
     <div className="flex">
       <div className="flex flex-col ml-6 w-full">
         <div className="flex justify-between ">
-          <h1 className="text-xl font-bold w-[70%]">
+          <h1 className="text-xl font-bold md:w-[70%] w-[95%] break-all">
             {title}
           </h1>
           <div className="hidden md:block">
@@ -177,7 +174,7 @@ export default function Page({params}:{
                   "_blank"
                 )
           }} className="mt-2 text-sm hover:underline cursor-pointer w-fit">
-                {fetchLink.long_url}
+                {fetchLink.long_url.length > 32?fetchLink.long_url.slice(0,32)+'....':fetchLink.long_url}
                 </h1>
             </div>
         </div>
