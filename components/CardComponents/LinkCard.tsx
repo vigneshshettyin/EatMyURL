@@ -18,6 +18,7 @@ import { copyToClipboard } from "@/lib/utils";
 import { LinkShareDialog } from "../DialogComponents/LinkShareDialog";
 import { linkType } from "@/interfaces/types";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -33,6 +34,7 @@ export function LinkCard({
   const [shortCode,setShortcode] = useState<string>(link.short_code); 
   const shortLink:string = `${REDIRECT_URL}/${shortCode}`
   const [title,setTitle] = useState<string | null>(link.title)
+  const router = useRouter();
 
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
@@ -42,7 +44,7 @@ export function LinkCard({
         </div>
         <div className="flex flex-col ml-6 w-full">
           <div className="flex justify-between">
-            <h1 className="text-lg md:w-[70%] w-full break-all font-bold hover:underline cursor-pointer">
+            <h1 onClick={()=>router.push(`/app/links/${link.id}`)} className="text-lg md:w-[70%] w-full break-all font-bold hover:underline cursor-pointer">
               {title}
             </h1>
             <div className="hidden md:block">
@@ -86,7 +88,7 @@ export function LinkCard({
             <div className="flex">
               <BarChart2 size={20} />
               <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-                1{" "}
+                {link.engagements}{" "}
                 <HoverCard>
                   <HoverCardTrigger>engagement</HoverCardTrigger>
                   <HoverCardContent>

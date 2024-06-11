@@ -16,41 +16,36 @@ import { Button } from "@/components/ui/button";
 import { LinkShareDialog } from "@/components/DialogComponents/LinkShareDialog";
 import { EditLinkDialog } from "@/components/DialogComponents/EditLinkDialog";
 import { copyToClipboard } from "@/lib/utils";
-import { LinkType } from "@/interfaces/types";
-import { useState } from "react";
+import { LinkType, linkType } from "@/interfaces/types";
+import { useEffect, useState } from "react";
+import {getAnalyticsAction} from "@/lib/actions/getAnalyticsAction";
+import { getLinkDetails } from "@/lib/actions/getLinksAction";
+import AuthenticatingComponent from "@/components/LoadingComponents/AuthenticatingComponent";
+import { HTTP_STATUS } from "@/lib/constants";
+import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { LinkPageLoading } from "@/components/LoadingComponents/LinkPageLoading";
+import { NoDataLoading } from "@/components/LoadingComponents/NoDataLoading";
 
 const months = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-export default function Page(params : any) {
-  const id = params.id; // id to make request to the server
+export default function Page({params}:{
+  params: {
+    id:string
+  }
+}) {
 
-  const link: LinkType = {
-    id: 1,
-    title: "Tech Trends Webinar",
-    shortLink: "tech-trends-webinar",
-    longLink: "https://example.com/tech-trends-webinar",
+  const [link,setLink] = useState({
     engagement: 1200,
-    dateCreated: new Date(),
     last7DaysEngage: 900,
     weeklyChange: -25,
-    locations: [
-      { id: 1, country: "United States", engagements: 600, percentage: 50 },
-      { id: 2, country: "United Kingdom", engagements: 300, percentage: 25 },
-      { id: 3, country: "Canada", engagements: 180, percentage: 15 },
-      { id: 4, country: "Australia", engagements: 120, percentage: 10 }
-    ],
     devices: {
       Desktop: 720,
       Mobile: 420,
       Tablet: 60
-    },
-    refs:{
-      google: 20,
-      direc: 210,
-      "dub.co": 60
     },
     os:{
       windows10:100,
@@ -61,33 +56,79 @@ export default function Page(params : any) {
       chrome:45,
       firefox:50,
       safari:70
-    }
-  };
+    },
+    locations: [
+    { id: 1, country: "United States", engagements: 600, percentage: 50 },
+    { id: 2, country: "United Kingdom", engagements: 300, percentage: 25 },
+    { id: 3, country: "Canada", engagements: 180, percentage: 15 },
+    { id: 4, country: "Australia", engagements: 120, percentage: 10 }
+    ]
+  })
 
-  const fetchLink = {
+  const [NoDataSet,setNoDataSet] = useState(Object.keys(link.devices).length)
+
+  const [fetchLink,setfetchLink] = useState<linkType>({
     id: 1,
     user_id: 42,
     short_code: 'e7b9f3',
     long_url: 'https://example.com/e7b9f3a7-0a15-4b7d-8d62-0d5f1a52e73e',
     created_at: new Date('2023-05-28T12:34:56Z'),
     title: 'Sample Title'
-  }
+  })
+  const router = useRouter();
 
+  useEffect(()=>{
+      setLoading(true)
+      getLinkDetails(params.id).then((res)=>{
+          if(res.status == HTTP_STATUS.NOT_FOUND){
+              toast({
+                title: "Link not found"
+              })
+              router.push('/app/links')
+              return;
+          }
+
+          if(res.link){
+            //@ts-ignore
+            setfetchLink(res.link) 
+            //@ts-ignore
+            setTitle(res.link.title)
+            //@ts-ignore
+            setShortcode(res.link.short_code)
+          }
+          //@ts-ignore
+          getAnalyticsAction(res.link.short_code).then((e)=>{
+            
+            //@ts-ignore
+            setLink(e)
+            setNoDataSet(Object.keys(e.devices).length)
+            setLoading(false)
+          })
+         
+      })
+
+  },[])
+
+  const [loading,setLoading] = useState(false)
   const REDIRECT_URL:string = process.env.REDIRECT_URL || "https://eurl.dev";
   const [title,setTitle] = useState<string | null>(fetchLink.title);
   const [shortCode,setShortcode] = useState<string>(fetchLink.short_code)
   const shortLink:string = `${REDIRECT_URL}/${shortCode}`
 
+  if(loading){
+    return <LinkPageLoading/>
+  }
+
   return (
     <div className="pl-5 md:pl-8 pr-2 pt-12">
-      <Link href="/app/links">
+      
       <div
-        className="flex cursor-pointer w-fit"
+        className="flex cursor-pointer w-fit" onClick={()=>router.push('/app/links')}
       >
         <ArrowLeft size={20} />
         <h1 className="ml-2 text-sm font-medium">Back to list</h1>
       </div>
-      </Link>
+      
 
 
 
@@ -95,7 +136,7 @@ export default function Page(params : any) {
     <div className="flex">
       <div className="flex flex-col ml-6 w-full">
         <div className="flex justify-between ">
-          <h1 className="text-xl font-bold">
+          <h1 className="text-xl font-bold w-[70%]">
             {title}
           </h1>
           <div className="hidden md:block">
@@ -117,16 +158,26 @@ export default function Page(params : any) {
             </EditLinkDialog>
           </div>
         </div>
-        <div className="flex">
-            <div className="h-8 w-8 md:h-12 md:w-12 border-[0.5px] shadow-md rounded-full flex justify-center items-center">
+        <div className="flex mt-3">
+            <div className="h-8  w-8 md:h-12 md:w-12 border-[0.5px] shadow-md rounded-full flex justify-center items-center">
             <LinkIcon className="h-4 w-4 md:h-6 md:w-6" />
             </div>
             <div className="ml-4">
-                <h1 className="text-blue-400 mt-1 hover:underline cursor-pointer w-fit">
-                <a href={shortLink}>{shortLink}</a>
+                <h1 onClick={()=>{
+                window.open(
+                  shortLink,
+                  "_blank"
+                )
+          }} className="text-blue-400 mt-1 hover:underline cursor-pointer w-fit">
+                {shortLink}
                 </h1>
-                <h1 className="mt-2 text-sm hover:underline cursor-pointer w-fit">
-                <a href={fetchLink.long_url}>{fetchLink.long_url}</a>
+                <h1 onClick={()=>{
+                window.open(
+                  fetchLink.long_url,
+                  "_blank"
+                )
+          }} className="mt-2 text-sm hover:underline cursor-pointer w-fit">
+                {fetchLink.long_url}
                 </h1>
             </div>
         </div>
@@ -191,7 +242,7 @@ export default function Page(params : any) {
           </TableHeader>
           <TableBody>
 
-            {link.locations?.map((location)=>{
+            {link.locations.map((location:any)=>{
                 return <TableRow key={location.id}>
                 <TableCell className="font-medium">{location.id}</TableCell>
                 <TableCell>{location.country}</TableCell>
@@ -208,23 +259,25 @@ export default function Page(params : any) {
       
       <div className="flex md:flex-row flex-col">
       <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px]">
+
         <Label className="font-bold ml-3 text-lg">Devices</Label>
-        <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
-          <PieChart devices={Object.keys(link.devices ?? {})} data={Object.values(link.devices ?? {})}/>
+        <div className="mt-6 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
+        {NoDataSet == 1?<div><NoDataLoading/></div>:<PieChart devices={Object.keys(link.devices ?? {})} data={Object.values(link.devices ?? {})}/>}
         </div>
+
       </div>
       
       <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px] md:ml-8 ml-0">
         <Label className="font-bold ml-3 text-lg">OS</Label>
         <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
-          <PieChart devices={Object.keys(link.os ?? {})} data={Object.values(link.os ?? {})}/>
+        {NoDataSet == 1?<div><NoDataLoading/></div>:<PieChart devices={Object.keys(link.os ?? {})} data={Object.values(link.os ?? {})}/>}
         </div>
       </div>
 
       <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px] md:ml-8 ml-0">
         <Label className="font-bold ml-3 text-lg">Browser</Label>
         <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
-          <PieChart devices={Object.keys(link.browser ?? {})} data={Object.values(link.browser ?? {})}/>
+        {NoDataSet == 1?<div><NoDataLoading/></div>:<PieChart devices={Object.keys(link.browser ?? {})} data={Object.values(link.browser ?? {})}/>}  
         </div>
       </div>
 

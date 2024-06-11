@@ -4,7 +4,7 @@ import { QRCodeCardComponent } from "@/components/CardComponents/QRCodeCardCompo
 import { QRCodeType, linkType, paginationType } from "@/interfaces/types";
 import { getLinks } from "@/lib/actions/getLinksAction";
 import { Label } from "@radix-ui/react-label";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loading from "./loading";
 import { pageOrder, paginateOperation } from "@/lib/constants";
 import { toast } from "@/components/ui/use-toast";
@@ -17,11 +17,12 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { EmptyLoading } from "@/components/LoadingComponents/EmptyLoading";
 
 export default function QRCodePage() {
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(true);
   const [links, setLinks] = useState<linkType[] | undefined>([]);
-
+  const linksRef = useRef<HTMLDivElement | null>(null)
   const [totalPages, setTotalPages] = useState(0);
 
   const [paginator, setPaginator] = useState<paginationType>({
@@ -78,6 +79,11 @@ export default function QRCodePage() {
         return { ...c, pageActive: page };
       });
     }
+
+    linksRef.current?.scrollIntoView({
+      behavior:'smooth'
+    })
+
   };
 
   useEffect(() => {
@@ -93,16 +99,18 @@ export default function QRCodePage() {
   }, [paginator]);
 
   return (
-    <div className="pr-6 pl-4 md:pl-8 pt-8">
+    <div ref={linksRef} className="pr-6 pl-4 md:pl-8 pt-8">
       <Label className="text-3xl font-bold">QR Codes</Label>
       {loading ? (
         <Loading />
       ) : (
         <div>
-          {links?.map((qr) => (
+        {links?.map((qr) => ( 
             <QRCodeCardComponent key={qr.id} qrcode={qr} />
           ))}
-
+        
+        {links?.length == 0 && !loading ?<EmptyLoading/>:<></>}
+        
 {totalPages > 1? <Pagination className="mt-14">
         <PaginationContent>
           <PaginationItem>

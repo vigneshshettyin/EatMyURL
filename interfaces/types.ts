@@ -16,15 +16,15 @@ export interface locationsDetails {
 
 
 export interface LinkType {
-  id: number;
-  title: string;
-  shortLink: string;
-  longLink: string;
-  engagement: number;
-  dateCreated: Date;
+  id?: number;
+  title?: string;
+  shortLink?: string;
+  longLink?: string;
+  engagement?: number;
+  dateCreated?: Date;
   last7DaysEngage?: number;
   weeklyChange?: number;
-  locations?: locationsDetails[];
+  locations?: any;
   devices?: Record<string, number>;
   refs?: Record<string, number>,
   os?:Record<string, number>,
@@ -72,6 +72,7 @@ export type linkType = {
   long_url: string;
   created_at: Date;
   title: string | null;
+  engagements?: number
 }
 
 export type paginationType = {

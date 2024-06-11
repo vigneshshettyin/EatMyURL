@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "../ui/use-toast";
 import AuthenticatingComponent from "../LoadingComponents/AuthenticatingComponent";
+import { LinkLoading } from "../LoadingComponents/LinkLoading";
 
 export default function WithAuth(Component : any){
     return function WithAuth(props:any){
@@ -26,6 +27,6 @@ export default function WithAuth(Component : any){
         if(show) 
             return <Component {...props}/>
         else
-            return <AuthenticatingComponent/>
+            return <LinkLoading/>
     }
 }

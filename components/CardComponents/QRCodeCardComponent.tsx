@@ -15,6 +15,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import { useRef } from "react";
 import { nanoid } from "nanoid";
 import { DownloadQRDropDown } from "../DropdownComponents/DownloadQRDropDown";
+import { useRouter } from "next/navigation";
 
 const months = [
   "January",
@@ -35,6 +36,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
   const qrCodeRef = useRef(null);
   const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.dev";
   const shortLink = `${REDIRECT_URL}/${qrcode.short_code}`;
+  const router = useRouter();
 
   function downloadQRCode(format:string) {
     const canvas = (qrCodeRef.current as any).firstElementChild;
@@ -60,7 +62,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
       </div>
       <div className="flex flex-col ml-6 md:mt-0 mt-4 w-full">
         <div className="flex justify-between pr-8">
-          <Label className="text-2xl md:w-[90%] w-full break-all font-bold cursor-pointer hover:underline">
+          <Label onClick={()=>router.push(`/app/links/${qrcode.id}`)} className="text-2xl md:w-[90%] w-full break-all font-bold cursor-pointer hover:underline">
             {qrcode.title}
           </Label>
           <div className="hidden md:flex">
@@ -85,13 +87,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
         </div>
         <div className="flex mt-6 md:flex-row flex-col">
           <div className="flex">
-            <BarChart2 size={20} />
-            <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-              2 scans
-            </h1>
-          </div>
-          <div className="flex mt-2 md:mt-0">
-            <Calendar className="ml-0 md:ml-4 " size={20} />
+            <Calendar size={20} />
             <h1 className="text-sm ml-2">
               {months[qrcode.created_at.getMonth()]}{" "}
               {qrcode.created_at.getDate()},{qrcode.created_at.getFullYear()}

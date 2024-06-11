@@ -1,3 +1,4 @@
+"use client"
 import {
   Sheet,
   SheetClose,
@@ -5,22 +6,25 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { SideNavBar } from "./SideNavBar"
+import { useState } from "react"
 
 export function SideNavbarMobile ({children}:{
     children:React.ReactNode
 }){
+      const [isOpen,setIsOpen] = useState(false);
+
       return (
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             {children}
           </SheetTrigger>
+          <SheetClose asChild>
           <SheetContent>
-            <SheetClose asChild>
-              <div>
+              <div onClick={()=>setIsOpen(false)}>
             <SideNavBar/>
               </div>
-            </SheetClose>
           </SheetContent>
+          </SheetClose>
         </Sheet>
       )
     }

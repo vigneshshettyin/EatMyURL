@@ -61,10 +61,6 @@ export function SideNavBar() {
               </div>
             </Link>
 
-            <div className="flex mt-8 cursor-pointer">
-              <BarChart2Icon />
-              <Label className="ml-1 cursor-pointer">Analytics</Label>
-            </div>
           </div>
           <div className="border-t-2 my-6"></div>
           <div className="flex mt-4 justify-center md:justify-start cursor-pointer">
