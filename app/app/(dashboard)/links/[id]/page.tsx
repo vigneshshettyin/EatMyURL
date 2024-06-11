@@ -38,6 +38,12 @@ export default function Page({params}:{
   }
 }) {
 
+  function decodeId(encodedStr:string) {
+    const paddedEncodedStr = encodedStr.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((encodedStr.length + 3) % 4);
+    const decodedStr = Buffer.from(paddedEncodedStr, 'base64').toString('utf-8');
+    return parseInt(decodedStr, 10);
+}
+
   const [link,setLink] = useState({
     engagement: 1200,
     last7DaysEngage: 900,
@@ -79,7 +85,7 @@ export default function Page({params}:{
 
   useEffect(()=>{
       setLoading(true)
-      getLinkDetails(params.id).then((res)=>{
+      getLinkDetails(decodeId(params.id).toString()).then((res)=>{
           if(res.status == HTTP_STATUS.NOT_FOUND){
               toast({
                 title: "Link not found"

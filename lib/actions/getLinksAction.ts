@@ -77,6 +77,19 @@ export async function getLinkDetails(linkId:string){
     }
   }
 
+  const regex = /^\d+$/;
+
+  function isValidNumber(str:string) {
+    return regex.test(str);
+  }
+
+  if(!isValidNumber(linkId)){
+    return {
+      link : {},
+      status: HTTP_STATUS.NOT_FOUND
+    }
+  }
+
   const link = await prisma.links.findFirst({
       where:{
         id : Number.parseInt(linkId),

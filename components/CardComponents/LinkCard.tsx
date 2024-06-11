@@ -36,6 +36,13 @@ export function LinkCard({
   const [title,setTitle] = useState<string | null>(link.title)
   const router = useRouter();
 
+function encodeId(inputId:number) {
+    const inputStr = inputId.toString();
+    const encodedStr = Buffer.from(inputStr).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+    return encodedStr;
+  }
+  
+
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
       <div className="flex">
@@ -44,7 +51,7 @@ export function LinkCard({
         </div>
         <div className="flex flex-col ml-6 w-full">
           <div className="flex justify-between">
-            <h1 onClick={()=>router.push(`/app/links/${link.id}`)} className="text-lg md:w-[70%] w-full break-all font-bold hover:underline cursor-pointer">
+            <h1 onClick={()=>router.push(`/app/links/${encodeId(link.id)}`)} className="text-lg md:w-[70%] w-full break-all font-bold hover:underline cursor-pointer">
               {title}
             </h1>
             <div className="hidden md:block">
