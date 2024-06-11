@@ -214,7 +214,7 @@ export default function HomePage() {
             Custom ShortCodes
           </h1>
           <h1 className="mt-3 text-gray-500">
-            Get a custom shortened url only on EatMyUrl. It's brief and easy to remember.
+            Get a custom shortened url only on EatMyUrl. Its brief and easy to remember.
           </h1>
           <Button onClick={()=>router.push('/app/links/create')} className="mt-4 w-36" variant='default'>
             Create a link
