@@ -30,6 +30,12 @@ export default function HomePage() {
   const [loading,setLoading] = useState(false)
   const router = useRouter()
 
+  function encodeId(inputId:number) {
+    const inputStr = inputId.toString();
+    const encodedStr = Buffer.from(inputStr).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+    return encodedStr;
+  }
+
   useEffect(()=>{
       setLoading(true)
       getTutorialStatus().then((res)=>{
@@ -104,7 +110,7 @@ export default function HomePage() {
                 <h1 className="font-bold text-sm">View Analytics</h1>
                 <Button onClick={()=>{
                   if(linkId != -1){
-                    router.push(`/app/links/${linkId}`)
+                    router.push(`/app/links/${encodeId(linkId)}`)
                   }
                   else{
                     toast({
@@ -192,7 +198,7 @@ export default function HomePage() {
               <AccordionContent className="flex px-6">
                 <Button onClick={()=>{
                   if(linkId != -1){
-                    router.push(`/app/links/${linkId}`)
+                    router.push(`/app/links/${encodeId(linkId)}`)
                   }
                   else{
                     toast({
