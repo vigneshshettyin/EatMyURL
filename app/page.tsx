@@ -13,6 +13,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { publicLinkType } from "@/interfaces/types";
 import parsePublicRecords from "@/lib/actions/parsePublicRecords";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
   const router = useRouter();
@@ -41,14 +42,14 @@ export default function Home() {
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const long_url = (e.target as HTMLInputElement).value;
-    if (e.key !== "Enter") return;
+    if (e.key!== "Enter") return;
     let form = new FormData();
     form.append("long_url", long_url);
     const response = await createPublicUrl(form);
 
     toast({
       title: "Short link generated successfully!!",
-      description: "The link is valid only for 2hrs !!",
+      description: "The link is valid only for 2hrs!!",
     });
     setLongurlInput("");
     updateLocalStorage({ shortUrl: response.shortUrl as string, longUrl: longurlInput });
@@ -76,7 +77,7 @@ export default function Home() {
       <div className="flex flex-row justify-center mt-24 px-4 pb-4">
         <div className="flex flex-col items-center">
           <Label className="text-4xl md:text-5xl font-bold">
-            Short Links with
+            Short Links
           </Label>
           <Label className="text-4xl md:text-5xl font-bold text-yellow-500 mt-4 text-center">
             With SuperPowers
@@ -103,7 +104,7 @@ export default function Home() {
             {publicLinks.map((link) => (
               <LinkCardComponent key={link.shortUrl} publicLink={link} />
             ))}
-            {loading ? (
+            {loading? (
               <div>
                 <LinkCardSkeleton />
                 <LinkCardSkeleton />
@@ -116,7 +117,7 @@ export default function Home() {
                 <CardContent className="mt-4 flex">
                   <div className="flex flex-col justify-center">
                     <Label className="leading-5 py-0 text-gray-500">
-                      Want to claim your links, edit them,or view their{" "}
+                     Want to claim your links, edit them,or view their{" "}
                       <Label className="underline font-bold">analytics</Label>?{" "}
                       <Label
                         onClick={() => router.push("/app/register")}
@@ -133,6 +134,19 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <footer className="h-12 flex justify-center items-center fixed bottom-0 w-full">
+        <div onClick={()=>{window.open(
+                  "https://github.com/vigneshshettyin/EatMyURL",
+                  "_blank"
+                )}} className="flex cursor-pointer">
+        <div className="flex items-center">
+        <GitHubLogoIcon/>
+        </div>
+        <p className="text-gray-500 text-sm ml-2">
+           Github
+        </p>
+        </div>
+      </footer>
     </>
   );
 }
