@@ -96,7 +96,7 @@ export default function Home() {
             value={longurlInput}
             onChange={(e) => setLongurlInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="🔗 http://eurl.dev"
+            placeholder="🔗 https://eurl.dev"
             className="mt-6"
           />
           <div className="mt-6">
