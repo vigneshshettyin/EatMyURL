@@ -54,11 +54,11 @@ export async function getAnalyticsAction(shortcode:string){
 
     // converting it to required format needed by the page
     const browser:any = {}
-    browser['others'] = 0
+    browser['Others'] = 0
     if(browserData.data.length != 0){
         for(let i=0;i<browserData.data.length;i++){
             if(browserData.data[i].browser == ''){
-                browser['others'] += browserData.data[i].record_count
+                browser['Others'] += browserData.data[i].record_count
             }
             else
                 browser[browserData.data[i].browser] = browserData.data[i].record_count;
@@ -66,11 +66,11 @@ export async function getAnalyticsAction(shortcode:string){
     }
 
     const os:any = {}
-    os['others'] = 0
+    os['Others'] = 0
     if(osData.data.length != 0){
         for(let i=0;i<osData.data.length;i++){
             if(osData.data[i].os==''){
-                os['others'] += osData.data[i].record_count
+                os['Others'] += osData.data[i].record_count
             }
             else
                 os[osData.data[i].os] = osData.data[i].record_count;
@@ -78,11 +78,11 @@ export async function getAnalyticsAction(shortcode:string){
     }
 
     const devices:any = {}
-    devices['others'] = 0
+    devices['Others'] = 0
     if(deviceData.data.length != 0){
         for(let i=0;i<deviceData.data.length;i++){
             if(deviceData.data[i].device == ''){
-                devices['others'] += deviceData.data[i].record_count
+                devices['Others'] += deviceData.data[i].record_count
             }
             else
                 devices[deviceData.data[i].device] = deviceData.data[i].record_count;
@@ -148,8 +148,10 @@ export async function getAnalyticsAction(shortcode:string){
         weeklyChange = last7DaysEngage/(engagement-last7DaysEngage)*100;
     }
     else{
-        weeklyChange = 0
+        weeklyChange = 100
     }
+
+    weeklyChange = Number.parseFloat(weeklyChange.toFixed(2))
 
     return {
         browser,

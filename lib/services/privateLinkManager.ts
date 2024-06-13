@@ -71,7 +71,7 @@ export async function createPrivateLink(formdata: FormData) {
   if (!custom_short_code) custom_short_code = base62_encode(shortIdLength);
 
   try {
-    await prisma.links.create({
+    const link = await prisma.links.create({
       data: {
         title: title as string,
         long_url: long_url as string,
@@ -86,7 +86,7 @@ export async function createPrivateLink(formdata: FormData) {
     });
     await setPrivateShortCode(custom_short_code, long_url as string);
     return {
-      short_url: custom_short_code,
+      linkId: link.id,
       status: HTTP_STATUS.CREATED,
     };
   } catch (e) {

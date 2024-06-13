@@ -23,6 +23,7 @@ import { HTTP_STATUS } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import Loading from "./loading";
 import { toast } from "@/components/ui/use-toast";
+import encodeId from "@/lib/services/encodeId";
 
 export default function HomePage() {
 
@@ -30,11 +31,6 @@ export default function HomePage() {
   const [loading,setLoading] = useState(false)
   const router = useRouter()
 
-  function encodeId(inputId:number) {
-    const inputStr = inputId.toString();
-    const encodedStr = Buffer.from(inputStr).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-    return encodedStr;
-  }
 
   useEffect(()=>{
       setLoading(true)

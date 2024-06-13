@@ -19,6 +19,7 @@ import { LinkShareDialog } from "../DialogComponents/LinkShareDialog";
 import { linkType } from "@/interfaces/types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import encodeId from "@/lib/services/encodeId";
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -35,13 +36,6 @@ export function LinkCard({
   const shortLink:string = `${REDIRECT_URL}/${shortCode}`
   const [title,setTitle] = useState<string | null>(link.title)
   const router = useRouter();
-
-function encodeId(inputId:number) {
-    const inputStr = inputId.toString();
-    const encodedStr = Buffer.from(inputStr).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-    return encodedStr;
-  }
-  
 
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
