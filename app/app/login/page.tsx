@@ -74,14 +74,15 @@ const LoginPage = () => {
             className="mb-4"
             placeholder="Enter your password"
           />
+          
         </CardContent>
         <CardFooter>
         <div className="flex flex-col items-center w-full">
-          
+
         <Turnstile onSuccess={(token) => {
         setToken(token)
       }} siteKey={site_id} />
-
+      
             <Button disabled={token==""} className="w-32 mt-4"
               onClick={async () => {
                 setConfirmLoading(true);
@@ -118,6 +119,10 @@ const LoginPage = () => {
             >
               Login
             </Button> 
+            <div className="flex mt-5">
+            <Label className="text-gray-500">Don't have an account?</Label>
+            <Label onClick={()=>router.push('/app/register')} className="cursor-pointer underline ml-1 text-gray-500">Register</Label>
+            </div>
             {confirmLoading?<LoadingSpinner className="mt-4" size={26}/>:<div></div>}
           </div>
         </CardFooter>

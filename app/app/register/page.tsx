@@ -21,6 +21,7 @@ import { Turnstile } from "@marsidev/react-turnstile";
 import { captchaVerify } from "@/lib/actions/captchaVerify";
 import { LoadingSpinner } from "@/components/LoadingComponents/LoadingSpinner";
 import { HTTP_STATUS } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 
 
 
@@ -28,7 +29,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(true);
   const [token,setToken] = useState<string>("")
   const site_id = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
-
+  const router = useRouter();
   const [confirmLoading,setConfirmLoading] = useState(false)
 
   const registerUser = async (formData: FormData) => {
@@ -134,6 +135,10 @@ const RegisterPage = () => {
               setToken(token)
             }} siteKey={site_id} />
               <Button className="mt-4" disabled={token == ""}>Register</Button>
+              <div className="flex mt-5">
+            <Label className="text-gray-500">Already have an account?</Label>
+            <Label onClick={()=>router.push('/app/login')} className="cursor-pointer underline ml-1 text-gray-500">Login</Label>
+            </div>
               {confirmLoading?<LoadingSpinner className="mt-4" size={26}/>:<div></div>}
             </div>
           </CardFooter>

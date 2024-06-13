@@ -76,9 +76,10 @@ export function SideNavBar() {
       <div className="md:hidden block">
         
         {show ? (
-          <div className="flex mt-12 flex-col items-center md:items-start">
+          <div className="flex mt-6 flex-col items-center md:items-start">
+            <Label className="font-bold text-xl">EatMyUrl</Label>
             <Link href="/app/login">
-              <Button>Login</Button>
+              <Button className="mt-8">Login</Button>
             </Link>
             <Link href="/app/register">
             <Button className="mt-4">Register</Button>
