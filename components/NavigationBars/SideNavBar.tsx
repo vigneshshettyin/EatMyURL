@@ -17,10 +17,12 @@ import { CreateNewDropDown } from "../DropdownComponents/CreateNewDropDown";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function SideNavBar() {
   const { status } = useSession();
   const [show, setShow] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (status == "authenticated" && show) setShow(false);
@@ -63,7 +65,7 @@ export function SideNavBar() {
 
           </div>
           <div className="border-t-2 my-6"></div>
-          <div className="flex mt-4 justify-center md:justify-start cursor-pointer">
+          <div onClick={()=>router.push('/app/settings')} className="flex mt-4 justify-center md:justify-start cursor-pointer">
             <Settings />
             <Label className="ml-1 cursor-pointer">Settings</Label>
           </div>

@@ -8,15 +8,17 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import { createLinkAction } from "@/lib/actions/createLinkAction";
 import { HTTP_STATUS } from "@/lib/constants";
+import encodeId from "@/lib/services/encodeId";
 import { Lock } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CreatePage() {
+  const router  = useRouter();
   const [longUrl, setLongurl] = useState("");
   const [title, setTitle] = useState("");
   const [shortLink, setShortLink] = useState("");
-  const [loading, setLoading] = useState(false);
-  // const [requireQRCode, setRequireQRCode] = useState(false);
+
 
   return (
     <div>
@@ -24,14 +26,13 @@ export default function CreatePage() {
         <form
           action={(e) => {
             
-            // issue - not updating in dom
-            // setLoading(true);
-            
             createLinkAction(e).then((res) => {
               if (res.status == HTTP_STATUS.CREATED) {
                 toast({
                   title: "Link shortened successfully !!",
                 });
+
+              router.push(`/app/links/${encodeId(res.linkId as number)}`)
               } else if(res.status == HTTP_STATUS.NOT_ACCEPTABLE){
                   toast({
                     title: "This url cannot be shortened",
@@ -61,7 +62,7 @@ export default function CreatePage() {
               setLongurl("");
               setTitle("");
               setShortLink("");
-              // setLoading(false);
+              
             });
           }}
         >

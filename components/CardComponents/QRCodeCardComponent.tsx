@@ -15,6 +15,7 @@ import { useRef } from "react";
 import { nanoid } from "nanoid";
 import { DownloadQRDropDown } from "../DropdownComponents/DownloadQRDropDown";
 import { useRouter } from "next/navigation";
+import encodeId from "@/lib/services/encodeId";
 
 const months = [
   "January",
@@ -36,12 +37,6 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
   const REDIRECT_URL = process.env.REDIRECT_URL || "https://eurl.dev";
   const shortLink = `${REDIRECT_URL}/${qrcode.short_code}`;
   const router = useRouter();
-
-  function encodeId(inputId:number) {
-    const inputStr = inputId.toString();
-    const encodedStr = Buffer.from(inputStr).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-    return encodedStr;
-  }
 
   function downloadQRCode(format:string) {
     const canvas = (qrCodeRef.current as any).firstElementChild;
