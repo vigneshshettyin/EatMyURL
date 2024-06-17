@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { publicLinkType } from "@/interfaces/types";
 import parsePublicRecords from "@/lib/actions/parsePublicRecords";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { HTTP_STATUS } from "@/lib/constants";
 
 export default function Home() {
   const router = useRouter();
@@ -46,6 +47,21 @@ export default function Home() {
     let form = new FormData();
     form.append("long_url", long_url);
     const response = await createPublicUrl(form);
+
+    if(response.status == HTTP_STATUS.BAD_REQUEST){
+      toast({
+        title: "URL is not valid",
+        variant:"destructive"
+      });
+      setLongurlInput("");
+      return;
+    } else if(response.status == HTTP_STATUS.INTERNAL_SERVER_ERROR){
+      toast({
+        title: "Error while shortening the link",
+        variant:"destructive"
+      });
+      return;
+    }
 
     toast({
       title: "Short link generated successfully!!",
@@ -101,17 +117,7 @@ export default function Home() {
             className="mt-6"
           />
           <div className="mt-6">
-            {publicLinks.map((link) => (
-              <LinkCardComponent key={link.shortUrl} publicLink={link} />
-            ))}
-            {loading? (
-              <div>
-                <LinkCardSkeleton />
-                <LinkCardSkeleton />
-              </div>
-            ) : (
-              <div></div>
-            )}
+          {publicLinks.map((link)=><LinkCardComponent key={link.shortUrl} publicLink={link} />)}
             <div className="mt-6   flex justify-center">
               <Card className="w-fit max-w-[500px] flex items-center">
                 <CardContent className="mt-4 flex">
