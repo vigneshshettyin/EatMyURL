@@ -142,7 +142,7 @@ export default function Home() {
       </div>
       <footer className="h-12 flex justify-center items-center fixed bottom-0 w-full">
         <div onClick={()=>{window.open(
-                  "https://github.com/vigneshshettyin/EatMyURL",
+                  "https://eurl.dev/eurl",
                   "_blank"
                 )}} className="flex cursor-pointer">
         <div className="flex items-center">
