@@ -149,7 +149,7 @@ export default function Home() {
         <GitHubLogoIcon/>
         </div>
         <p className="text-gray-500 text-sm ml-2">
-           Github
+           GitHub
         </p>
         </div>
       </footer>
