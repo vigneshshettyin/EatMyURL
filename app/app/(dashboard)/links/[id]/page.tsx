@@ -355,8 +355,10 @@ export default function Page({
               )}
             </div>
           </div>
-
-          <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px] md:ml-8 ml-0">
+        </div>
+      </div>
+      <div className="flex justify-center md:justify-start"> 
+      <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px]">
             <Label className="font-bold ml-3 text-lg">City</Label>
             <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
               {NoDataSet == 1 ? (
@@ -370,8 +372,7 @@ export default function Page({
                 />
               )}
             </div>
-          </div>
-        </div>
+      </div>
       </div>
     </div>
   );

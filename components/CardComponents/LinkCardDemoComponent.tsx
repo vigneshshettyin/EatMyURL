@@ -42,10 +42,6 @@ export function LinkCardComponent({
                   className="ml-3 h-4 w-4 cursor-pointer hover:scale-110"
                 />
                 <QrPopup shortUrl={publicLink.shortUrl} />
-                <BarChart className="ml-6 h-4 w-4" />
-                <Label className="text-xs ml-1 text-gray-500">
-                  7.5K Clicks
-                </Label>
               </div>
 
             </div>
@@ -56,7 +52,7 @@ export function LinkCardComponent({
                 : `${publicLink.longUrl}`}
             </Label>
             
-            <div className="md:hidden flex mt-4">
+            <div className="md:hidden space-x-1 flex mt-4">
                 <CopyIcon
                   onClick={() => {
                     copyToClipboard(`${REDIRECT_URL}/${publicLink.shortUrl}`);
@@ -64,10 +60,6 @@ export function LinkCardComponent({
                   className="h-4 w-4 cursor-pointer hover:scale-110"
                 />
                 <QrPopup shortUrl={publicLink.shortUrl} />
-                <BarChart className="ml-6 h-4 w-4" />
-                <Label className="text-xs ml-1 text-gray-500">
-                  7.5K Clicks
-                </Label>
               </div>
           </div>
         </CardContent>
