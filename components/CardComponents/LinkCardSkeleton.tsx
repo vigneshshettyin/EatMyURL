@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function LinkCardSkeleton() {
   return (
-    <div className="w-full md:w-[450px]">
+    <div className="w-[350px] md:w-[450px]">
     <div className="flex items-center space-x-4 mt-5 border-[0.5px] px-4 py-6 rounded-xl border-gray-500 shadow-md">
       <Skeleton className="h-12 w-12 rounded-full" />
       <div className="space-y-2">

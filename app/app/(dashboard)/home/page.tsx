@@ -30,7 +30,7 @@ import encodeId from "@/lib/services/encodeId";
 export default function HomePage() {
 
   const [linkId,setlinkId] = useState(-1)
-  const [loading,setLoading] = useState(false)
+  const [loading,setLoading] = useState(true)
   const router = useRouter()
 
 
