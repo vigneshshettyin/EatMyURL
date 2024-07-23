@@ -40,15 +40,15 @@ export function LinkCard({
   return (
     <div className="flex mt-6 p-6 flex-col rounded-xl border-[0.5px] shadow-md">
       <div className="flex">
-        <div className="h-8 w-8 md:h-12 md:w-12 border-[0.5px] shadow-md rounded-full flex justify-center items-center">
-          <LinkIcon className="h-4 w-4 md:h-6 md:w-6" />
+        <div className="h-8 w-8 lg:h-12 lg:w-12 border-[0.5px] shadow-md rounded-full flex justify-center items-center">
+          <LinkIcon className="h-4 w-4 lg:h-6 lg:w-6" />
         </div>
         <div className="flex flex-col ml-6 w-full">
           <div className="flex justify-between">
-            <h1 onClick={()=>router.push(`/app/links/${encodeId(link.id)}`)} className="text-lg md:w-[70%] w-full break-all font-bold hover:underline cursor-pointer">
+            <h1 onClick={()=>router.push(`/app/links/${encodeId(link.id)}`)} className="text-lg lg:w-[53%] w-full break-all font-bold hover:underline cursor-pointer">
               {title}
             </h1>
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
                 <Copy size={15} className="mr-2" />
                 Copy
@@ -85,7 +85,7 @@ export function LinkCard({
             {link.long_url.length >= 10?<>{link.long_url.slice(0,30)}.....</>:<>{link.long_url}</>}
           </h1>
 
-          <div className="flex mt-6 md:flex-row flex-col">
+          <div className="flex mt-6 lg:flex-row flex-col">
             <div className="flex">
               <BarChart2 size={20} />
               <h1 className="text-sm ml-2 hover:underline cursor-pointer">
@@ -98,14 +98,14 @@ export function LinkCard({
                 </HoverCard>
               </h1>
             </div>
-            <div className="flex mt-2 md:mt-0">
-              <Calendar className="ml-0 md:ml-4 " size={20} />
+            <div className="flex mt-2 lg:mt-0">
+              <Calendar className="ml-0 lg:ml-4 " size={20} />
               <h1 className="text-sm ml-2">{months[link.created_at.getMonth()]} {link.created_at.getDate()},{link.created_at.getFullYear()}</h1>
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-8 ml-8 md:hidden">
+      <div className="mt-8 ml-8 lg:hidden">
         <Button onClick={()=>{copyToClipboard(shortLink)}} variant="outline">
           <Copy size={15} />
         </Button>

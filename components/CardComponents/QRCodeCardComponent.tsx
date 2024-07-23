@@ -52,20 +52,20 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
   }
 
   return (
-    <div className="flex md:flex-row flex-col mt-8 p-6 rounded-xl border-[0.5px] shadow-md">
-      <div className="flex justify-center md:justify-start">
+    <div className="flex lg:flex-row flex-col mt-8 p-6 rounded-xl border-[0.5px] shadow-md">
+      <div className="flex justify-center lg:justify-start">
         <div className="p-4 bg-white rounded-2xl">
           <div ref={qrCodeRef}>
             <QRCodeCanvas value={shortLink} size={140} />
           </div>
         </div>
       </div>
-      <div className="flex flex-col ml-6 md:mt-0 mt-4 w-full">
+      <div className="flex flex-col ml-6 lg:mt-0 mt-4 w-full">
         <div className="flex justify-between pr-8">
-          <Label onClick={()=>router.push(`/app/links/${encodeId(qrcode.id)}`)} className="text-2xl md:w-[90%] w-full break-all font-bold cursor-pointer hover:underline">
+          <Label onClick={()=>router.push(`/app/links/${encodeId(qrcode.id)}`)} className="text-2xl lg:w-[85%] w-full break-all font-bold cursor-pointer hover:underline">
             {qrcode.title}
           </Label>
-          <div className="hidden md:flex">
+          <div className="hidden lg:flex">
           <DownloadQRDropDown downloadQRCode={downloadQRCode}>
             <Button variant="outline">
               <Download size={20} />
@@ -85,7 +85,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
             {qrcode.long_url.length >= 10?<>{qrcode.long_url.slice(0,30)}.....</>:<>{qrcode.long_url}</>}
           </Label>
         </div>
-        <div className="flex mt-6 md:flex-row flex-col">
+        <div className="flex mt-6 lg:flex-row flex-col">
           <div className="flex">
             <Calendar size={20} />
             <h1 className="text-sm ml-2">
@@ -93,8 +93,8 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
               {qrcode.created_at.getDate()},{qrcode.created_at.getFullYear()}
             </h1>
           </div>
-          <div className="flex mt-2 md:mt-0">
-            <LinkIcon className="ml-0 md:ml-4 " size={20} />
+          <div className="flex mt-2 lg:mt-0">
+            <LinkIcon className="ml-0 lg:ml-4 " size={20} />
             <h1 onClick={()=>{
             window.open(
               shortLink,
@@ -105,7 +105,7 @@ export function QRCodeCardComponent({ qrcode }: { qrcode: any }) {
             </h1>
           </div>
         </div>
-        <div className="flex md:hidden mt-6 justify-end pr-12">
+        <div className="flex lg:hidden mt-6 justify-end pr-12">
           <DownloadQRDropDown downloadQRCode={downloadQRCode}>
           <Button variant="outline">
             <Download size={20} />

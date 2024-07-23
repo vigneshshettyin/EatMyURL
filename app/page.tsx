@@ -95,8 +95,8 @@ export default function Home() {
       />
       <div className="flex flex-row justify-center mt-24 px-4 pb-4">
         <div className="flex flex-col items-center">
-          <Label className="text-3xl md:text-5xl font-bold">Short Links</Label>
-          <Label className="text-3xl md:text-5xl font-bold text-yellow-500 mt-4 text-center">
+          <Label className="text-3xl lg:text-5xl font-bold">Short Links</Label>
+          <Label className="text-3xl lg:text-5xl font-bold text-yellow-500 mt-4 text-center">
             With SuperPowers
           </Label>
           <Label className="text-lg mt-5 text-center">
