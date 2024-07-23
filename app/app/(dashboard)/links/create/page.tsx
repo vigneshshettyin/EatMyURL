@@ -1,10 +1,8 @@
 "use client";
 
-import { LoadingSpinner } from "@/components/LoadingComponents/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/use-toast";
 import { createLinkAction } from "@/lib/actions/createLinkAction";
 import { HTTP_STATUS } from "@/lib/constants";
@@ -125,7 +123,6 @@ export default function CreatePage() {
 
             <div className="mt-16 flex justify-between">
               <div className="ml-4">
-                {/* {loading ? <LoadingSpinner size={32} /> : <div></div>} */}
               </div>
               <div className="">
                 <Button variant="ghost">Cancel</Button>

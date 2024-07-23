@@ -2,7 +2,6 @@
 
 import { DatePickerWithRange } from "@/components/DialogComponents/DatePickerWithRange";
 import React, { useEffect, useRef, useState } from "react";
-import { FilterDialog } from "@/components/DialogComponents/FilterDialog";
 import { LinkCard } from "@/components/CardComponents/LinkCard";
 
 import { getLinks } from "@/lib/actions/getLinksAction";
@@ -121,9 +120,9 @@ export default function Page() {
   }, [date, paginator]);
 
   return (
-    <div ref={linksRef} className="pt-10 md:pl-6 pl-2 w-full pr-2">
+    <div ref={linksRef} className="pt-10 lg:pl-6 pl-2 w-full pr-2">
       <h1 className="font-bold text-3xl ml-3">Links</h1>
-      <div className="flex mt-6 md:flex-row flex-col">
+      <div className="flex mt-6 lg:flex-row flex-col">
         <div className="ml-2">
           <DatePickerWithRange
             date={date}

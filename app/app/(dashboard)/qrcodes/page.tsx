@@ -99,7 +99,7 @@ export default function QRCodePage() {
   }, [paginator]);
 
   return (
-    <div ref={linksRef} className="pr-6 pl-4 md:pl-8 pt-8">
+    <div ref={linksRef} className="pr-6 pl-4 lg:pl-8 pt-8">
       <Label className="text-3xl font-bold">QR Codes</Label>
       {loading ? (
         <Loading />

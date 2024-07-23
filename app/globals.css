@@ -4,8 +4,9 @@
 
   @layer components{
     .screen-full{
-      overflow-y: scroll;
+      overflow-y: auto;
       height: 100vh;
+      scrollbar-width: none;
       padding-bottom: 100px;
     }
   }
