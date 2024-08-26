@@ -54,7 +54,7 @@
     "react-dom": "^18.3.1",
     "react-resizable-panels": "^2.0.20",
     "react-share": "^5.1.0",
-    "rimraf": "^5.0.8",
+    "rimraf": "^5.0.10",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "^1.0.38",
