@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Appbar } from "@/components/NavigationBars/Appbar";
 import type { Metadata } from "next";
 import { Providers } from "./providers";
+import CookieConsent from "@/components/ui/banner";
 
 const inter = Inter({ subsets: ["latin"] });
 inter.className += " overflow-y-hidden";
@@ -30,6 +31,7 @@ export default function RootLayout({
           <Appbar />
           <div className="screen-full">{children}</div>
           <Toaster />
+          <CookieConsent variant="small"/>
         </Providers>
       </body>
     </html>
