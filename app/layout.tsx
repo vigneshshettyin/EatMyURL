@@ -31,7 +31,6 @@ export default function RootLayout({
           <Appbar />
           <div className="screen-full">{children}</div>
           <Toaster />
-          <CookieConsent variant="small"/>
         </Providers>
       </body>
     </html>
