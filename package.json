@@ -55,6 +55,7 @@
     "react-resizable-panels": "^2.0.22",
     "react-share": "^5.1.0",
     "rimraf": "^5.0.10",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "^1.0.38",

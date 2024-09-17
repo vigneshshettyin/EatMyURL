@@ -7,7 +7,7 @@ import { Label } from "@radix-ui/react-label";
 import { useEffect, useRef, useState } from "react";
 import Loading from "./loading";
 import { pageOrder, paginateOperation } from "@/lib/constants";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import {
   Pagination,
   PaginationContent,
@@ -36,10 +36,7 @@ export default function QRCodePage() {
       (paginator.pageActive + paginator.value + 1 > totalPages &&
         action == paginateOperation.NEXT)
     ) {
-      toast({
-        title: "End of the links",
-        description: "That's all we have",
-      });
+      toast.info("End of the links");
       return;
     }
 

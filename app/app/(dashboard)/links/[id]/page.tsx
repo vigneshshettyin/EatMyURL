@@ -28,9 +28,8 @@ import { LinkType, linkType } from "@/interfaces/types";
 import { useEffect, useState } from "react";
 import { getAnalyticsAction } from "@/lib/actions/getAnalyticsAction";
 import { getLinkDetails } from "@/lib/actions/getLinksAction";
-import AuthenticatingComponent from "@/components/LoadingComponents/AuthenticatingComponent";
 import { HTTP_STATUS } from "@/lib/constants";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { LinkPageLoading } from "@/components/LoadingComponents/LinkPageLoading";
 import { NoDataLoading } from "@/components/LoadingComponents/NoDataLoading";
@@ -116,9 +115,7 @@ export default function Page({
     setLoading(true);
     getLinkDetails(decodeId(params.id).toString()).then((res) => {
       if (res.status == HTTP_STATUS.NOT_FOUND) {
-        toast({
-          title: "Link not found",
-        });
+        toast.error("Link not found");
         router.push("/app/links");
         return;
       }

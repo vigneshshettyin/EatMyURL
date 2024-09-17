@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import createPublicUrl from "@/lib/actions/createPublicUrl";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner"
 import { useEffect, useState } from "react";
 import { publicLinkType } from "@/interfaces/types";
 import parsePublicRecords from "@/lib/actions/parsePublicRecords";
@@ -49,24 +49,15 @@ export default function Home() {
     const response = await createPublicUrl(form);
 
     if (response.status == HTTP_STATUS.BAD_REQUEST) {
-      toast({
-        title: "URL is not valid",
-        variant: "destructive",
-      });
+      toast.error("URL is not valid");
       setLongurlInput("");
       return;
     } else if (response.status == HTTP_STATUS.INTERNAL_SERVER_ERROR) {
-      toast({
-        title: "Error while shortening the link",
-        variant: "destructive",
-      });
+      toast.error("Error while shortening the link");
       return;
     }
 
-    toast({
-      title: "Short link generated successfully!!",
-      description: "The link is valid only for 2hrs!!",
-    });
+    toast.success("Short link generated successfully!!");
     setLongurlInput("");
     updateLocalStorage({
       shortUrl: response.shortUrl as string,
