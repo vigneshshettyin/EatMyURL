@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import createPublicUrl from "@/lib/actions/createPublicUrl";
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { publicLinkType } from "@/interfaces/types";
 import parsePublicRecords from "@/lib/actions/parsePublicRecords";
@@ -91,7 +91,7 @@ export default function Home() {
             With SuperPowers
           </Label>
           <Label className="text-lg mt-5 text-center">
-            EatMyUrl is an open source link management website
+            EatMyURL is an open source link management app!
           </Label>
           <div className="mt-6">
             <Button onClick={() => router.push("/app/login")}>
@@ -109,13 +109,13 @@ export default function Home() {
             className="mt-6"
           />
           {loading ? (
-              <div className="mt-4">
-                <LinkCardSkeleton />
-                <LinkCardSkeleton />
-              </div>
-            ) : (
-              <div></div>
-            )}
+            <div className="mt-4">
+              <LinkCardSkeleton />
+              <LinkCardSkeleton />
+            </div>
+          ) : (
+            <div></div>
+          )}
           <div className="mt-6">
             {publicLinks.map((link) => (
               <LinkCardComponent key={link.shortUrl} publicLink={link} />
@@ -142,7 +142,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Card className="h-12 rounded-none flex justify-center items-center fixed bottom-0 w-full">
+      <Card className="h-12 rounded-none flex flex-row justify-around items-center fixed bottom-0 w-full">
         <div
           onClick={() => {
             window.open("https://eurl.dev/eurl", "_blank");
@@ -154,6 +154,21 @@ export default function Home() {
           </div>
           <p className="text-gray-500 text-sm ml-2">GitHub</p>
         </div>
+        <a
+          target="_blank"
+          className="group flex max-w-fit items-center space-x-2 rounded-md border border-gray-200 bg-white px-3 py-2 transition-colors hover:bg-gray-100"
+          href="https://status.vshetty.dev"
+        >
+          <div className="relative h-3 w-3">
+            <div className="absolute inset-0 m-auto h-3 w-3 animate-ping items-center justify-center rounded-full group-hover:animate-none bg-green-500"></div>
+            <div className="absolute inset-0 z-10 m-auto h-3 w-3 rounded-full bg-green-500"></div>
+          </div>
+          <p className="text-sm font-medium text-gray-800">
+            Status:{" "}
+            <span className="text-green-500 group-hover:text-gray-800"/>
+              Operational
+          </p>
+        </a>
       </Card>
     </>
   );
