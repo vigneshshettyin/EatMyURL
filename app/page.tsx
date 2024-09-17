@@ -157,7 +157,7 @@ export default function Home() {
         <a
           target="_blank"
           className="group flex max-w-fit items-center space-x-2 rounded-md border border-gray-200 bg-white px-3 py-2 transition-colors hover:bg-gray-100"
-          href="https://status.vshetty.dev"
+          href="https://status.eurl.dev"
         >
           <div className="relative h-3 w-3">
             <div className="absolute inset-0 m-auto h-3 w-3 animate-ping items-center justify-center rounded-full group-hover:animate-none bg-green-500"></div>
