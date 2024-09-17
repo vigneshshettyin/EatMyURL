@@ -16,7 +16,7 @@ import { updateLinkAction } from "@/lib/actions/updateLinkAction";
 import { HTTP_STATUS } from "@/lib/constants";
 import { Lock } from "lucide-react";
 import { useState } from "react";
-import { toast } from "../ui/use-toast";
+import { toast } from "sonner";
 import { linkType } from "@/interfaces/types";
 
 export function EditLinkDialog({ children,link,setShortcode,setParentTitle }: {
@@ -39,32 +39,19 @@ export function EditLinkDialog({ children,link,setShortcode,setParentTitle }: {
       const res = await updateLinkAction(formdata)
       
       if(res.status == HTTP_STATUS.OK){
-        toast({
-          title:"Link Updated Successfully !!"
-        })
+        toast.success("Link Updated Successfully !!")
 
         setParentTitle(new_title)
         setShortcode(new_short_code)
       }
       else if(res.status == HTTP_STATUS.CONFLICT){
-          toast({
-            title:"Conflict!!",
-            description:"The short code has already been taken",
-            variant:"destructive"
-          })
+          toast.error("The short code has already been taken")
       }
       else if(res.status == HTTP_STATUS.BAD_REQUEST){
-        toast({
-          title:"Invalid Inputs",
-          variant:"destructive"
-        })
+        toast.error("Invalid Inputs")
       }
       else{
-        toast({
-          title:"Some error occured",
-          description:"Please try again later",
-          variant:"destructive"
-        })
+        toast.error("Some error occured")
       }
   }
 

@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { SkeletonCard } from "@/components/CardComponents/SkeletonCard";
 import { Turnstile } from '@marsidev/react-turnstile'
@@ -24,7 +24,6 @@ import { LoadingSpinner } from "@/components/LoadingComponents/LoadingSpinner";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [token,setToken] = useState<string>("")
@@ -36,7 +35,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (data) {
       router.push("/app/home");
-      toast({ title: "Welcome back!" });
+      toast.success("Welcome back!");
     }
   }, [data, router, toast]);
 
@@ -89,11 +88,7 @@ const LoginPage = () => {
                 const verify = await captchaVerify(token);
 
                 if(verify == 403){
-                    toast({
-                      title:"Captcha invalid",
-                      description: "Please try again",
-                      variant:"destructive"
-                    })
+                    toast.error("Captcha invalid!! Refresh the page")
                     return;
                 }
 
@@ -105,15 +100,10 @@ const LoginPage = () => {
                 });
                 setConfirmLoading(false);
                 if (res.status == 200) {
-                  toast({
-                    title: "User logged in successfully !!",
-                  });
+                  toast.success( "User logged in successfully !!");
                   router.push("/app/home");
                 } else {
-                  toast({
-                    title: "Wrong credentials !!",
-                    variant: "destructive",
-                  });
+                  toast.error("Wrong credentials !!");
                 }
               }}
             >

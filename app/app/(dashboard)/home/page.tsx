@@ -24,7 +24,7 @@ import { getTutorialStatus } from "@/lib/actions/getStatusAction";
 import { HTTP_STATUS } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import Loading from "./loading";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import encodeId from "@/lib/services/encodeId";
 
 export default function HomePage() {
@@ -111,10 +111,7 @@ export default function HomePage() {
                     router.push(`/app/links/${encodeId(linkId)}`)
                   }
                   else{
-                    toast({
-                      title:"Create a link",
-                      description:"Create atleast one link to continue"
-                    })
+                    toast.info("Create a link")
                     router.push('/app/links/create')
                   }
                 }} variant="outline" size="sm" className="text-sm mt-2">
@@ -199,10 +196,7 @@ export default function HomePage() {
                     router.push(`/app/links/${encodeId(linkId)}`)
                   }
                   else{
-                    toast({
-                      title:"Create a link",
-                      description:"Create atleast one link to continue"
-                    })
+                    toast.info("Create a link")
                     router.push('/app/links/create')
                   }
                 }} size="sm" className="py-3" variant="default">

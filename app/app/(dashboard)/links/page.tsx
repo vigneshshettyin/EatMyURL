@@ -17,7 +17,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { pageOrder, paginateOperation } from "@/lib/constants";
 import { EmptyLoading } from "@/components/LoadingComponents/EmptyLoading";
 
@@ -52,10 +52,7 @@ export default function Page() {
       (paginator.pageActive + paginator.value + 1 > totalPages &&
         action == paginateOperation.NEXT)
     ) {
-      toast({
-        title: "End of the links",
-        description: "That's all we have",
-      });
+      toast.info("End of the links");
       return;
     }
 

@@ -5,7 +5,7 @@ import { LoadingSpinner } from "@/components/LoadingComponents/LoadingSpinner";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { getUserDetails, updateUser } from "@/lib/actions/updateUserAction";
 import { HTTP_STATUS } from "@/lib/constants";
 import { Label } from "@radix-ui/react-label";
@@ -35,10 +35,7 @@ export default function SettingsPage(){
         const formdata = new FormData();
 
         if(!name || !confPass){
-            toast({
-                title:"Invalid Inputs",
-                description: "Name or password fields cannot be empty"
-            })
+            toast.error("Invalid Inputs")
             return;
         }
 
@@ -49,26 +46,14 @@ export default function SettingsPage(){
         const res = await updateUser(formdata);
         
         if(res.status == HTTP_STATUS.OK){
-            toast({
-                title: "User updated successfully"
-            })
+            toast.success("User updated successfully")
         } else if(res.status == HTTP_STATUS.BAD_REQUEST){
-            toast({
-                title: "Incorrect password",
-                variant: "destructive"
-            })
+            toast.error("Incorrect password")
         } 
         else if(res.status == HTTP_STATUS.NOT_ACCEPTABLE){
-            toast({
-                title: "Invalid Inputs",
-                description: "Password must contain atleast 6 characters",
-                variant: "destructive"
-            })
+            toast.error("Password must contain atleast 6 characters")
         } else{
-            toast({
-                title: "Error while updating the user",
-                variant: "destructive"
-            })
+            toast.error("Error while updating the user")
         }
         setUpdateLoading(false)
         setConfPass("")

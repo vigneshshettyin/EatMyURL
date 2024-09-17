@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { createLinkAction } from "@/lib/actions/createLinkAction";
 import { HTTP_STATUS } from "@/lib/constants";
 import encodeId from "@/lib/services/encodeId";
@@ -26,36 +26,19 @@ export default function CreatePage() {
             
             createLinkAction(e).then((res) => {
               if (res.status == HTTP_STATUS.CREATED) {
-                toast({
-                  title: "Link shortened successfully !!",
-                });
+                toast.success("Link shortened successfully !!");
 
               router.push(`/app/links/${encodeId(res.linkId as number)}`)
               } else if(res.status == HTTP_STATUS.NOT_ACCEPTABLE){
-                  toast({
-                    title: "This url cannot be shortened",
-                    variant: "destructive"
-                  })
+                  toast.error("This url cannot be shortened")
               } 
               else if (res.status == HTTP_STATUS.BAD_REQUEST) {
-                toast({
-                  title: "Invalid Inputs !!",
-                  description: "Please try again",
-                  variant: "destructive",
-                });
+                toast.error("Invalid Inputs !!");
               }else if (res.status == HTTP_STATUS.CONFLICT) {
-                toast({
-                  title: "The short code has already been in use",
-                  description:"Please try different shortcode",
-                  variant:"destructive"
-                })
+                toast.error("The short code has already been in use")
               }
               else{
-                toast({
-                  title: "Error while shortening the link",
-                  description: "Please try again",
-                  variant: "destructive",
-                });
+                toast.error("Error while shortening the link");
               }
               setLongurl("");
               setTitle("");
