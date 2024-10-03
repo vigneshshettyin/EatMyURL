@@ -156,7 +156,7 @@ export default function Home() {
         </div>
         <a
           target="_blank"
-          className="group flex max-w-fit items-center space-x-2 rounded-md border border-gray-200 bg-white px-3 py-2 transition-colors hover:bg-gray-100"
+          className="group flex max-w-fit items-center space-x-2 rounded-md px-3 py-2 transition-colors"
           href="https://status.eurl.dev"
         >
           <div className="relative h-3 w-3">
@@ -164,9 +164,7 @@ export default function Home() {
             <div className="absolute inset-0 z-10 m-auto h-3 w-3 rounded-full bg-green-500"></div>
           </div>
           <p className="text-sm font-medium text-gray-800">
-            Status:{" "}
-            <span className="text-green-500 group-hover:text-gray-800"/>
-              Operational
+            Status
           </p>
         </a>
       </Card>
