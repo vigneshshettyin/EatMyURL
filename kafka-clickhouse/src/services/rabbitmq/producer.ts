@@ -2,11 +2,34 @@ import rabbitmqConnection from './connection.js';
 import UserLocationService from '../location/location.js';
 import { ProduceMessage, UserLocation } from './types.js';
 
-const publisher = rabbitmqConnection.createPublisher({
+
+const exchangeName = 'exchange';                 // The exchange name
+const routingKey = 'eurl_click_analytics';       // The routing key
+
+const pub = rabbitmqConnection.createPublisher({
+  // Enable publish confirmations, similar to consumer acknowledgements
   confirm: true,
+  // Enable retries
   maxAttempts: 2,
-  exchanges: [{exchange: 'my-events', type: 'topic'}]
-})
+  // Ensure the existence of an exchange before we use it
+  exchanges: [{ exchange: exchangeName, type: 'fanout', durable: true }],
+});
+
+// Publish a message for testing
+// pub.send({ exchange: exchangeName, routingKey: routingKey }, {
+//   code: '123',
+//   browser: 'Chrome',
+//   os: 'Windows',
+//   device: 'Desktop',
+//   country: 'US',
+//   region: 'CA',
+//   city: 'Los Angeles',
+// })
+//   .then(() => console.log('Message published'))
+//   .catch((error) => console.error('Error publishing message:', error));
+
+// TODO: Implement the Producer class
+// TODO: Make it batch processing
 
 class Producer {
   async produceLogic(ip: string, browser: string, os: string, device: string, code: string): Promise<void> {
@@ -20,9 +43,9 @@ class Producer {
       region: location.region,
       city: location.city,
     };
-    publisher.send(
-      {exchange: 'my-events', routingKey: 'users.visit'}, // metadata
-      JSON.stringify(message)
+    pub.send(
+      {exchange: exchangeName, routingKey: routingKey}, // metadata
+      message
     ).catch((error) => {
       console.error('Error producing message:', error);
   }).finally(() => {
