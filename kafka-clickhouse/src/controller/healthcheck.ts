@@ -36,4 +36,6 @@ class HealthCheckController {
   }
 }
 
-export default new HealthCheckController();
+const instance = new HealthCheckController();
+
+export default instance;

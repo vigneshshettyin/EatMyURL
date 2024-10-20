@@ -25,6 +25,7 @@
   "scripts": {
     "dev": "nodemon --env-file=.env build/src/main.js",
     "kafka:worker": "nodemon --env-file=.env build/src/services/redis/worker.js",
+    "kafka:worker:test": "nodemon --env-file=.env build/src/services/redis/subscriber.js",
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
     "prebuild": "npm run lint",
@@ -41,8 +42,8 @@
     "@clickhouse/client": "^1.1.0",
     "express": "^4.19.2",
     "ioredis": "^5.4.1",
-    "kafkajs": "^2.2.4",
     "node-fetch": "^3.3.2",
+    "rabbitmq-client": "^5.0.0",
     "tslib": "~2.6"
   },
   "volta": {

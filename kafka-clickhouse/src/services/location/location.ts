@@ -30,4 +30,6 @@ class UserLocationService {
   }
 }
 
-export default new UserLocationService();
+const instance = new UserLocationService();
+
+export default instance;

@@ -1,7 +1,7 @@
 // worker.js
 import { parentPort } from 'worker_threads';
 import RedisQueue from './connection.js';
-import KafkaProducer from '../kafka/producer.js';
+import KafkaProducer from '../rabbitmq/producer.js';
 
 let running = true;
 
