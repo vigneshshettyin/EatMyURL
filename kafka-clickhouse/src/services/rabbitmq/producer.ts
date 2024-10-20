@@ -43,6 +43,7 @@ class Producer {
       region: location.region,
       city: location.city,
     };
+    console.log('Producing message:', message);
     pub.send(
       {exchange: exchangeName, routingKey: routingKey}, // metadata
       message
