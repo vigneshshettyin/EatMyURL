@@ -1,0 +1,21 @@
+services:
+  web:
+    image: vigneshshettyin/eurl-api:latest
+    ports:
+      - "3215:3215"
+    environment:
+      CLICKHOUSE_URL: ${CLICKHOUSE_URL}
+      RABBITMQ_URI: ${RABBITMQ_URI}
+      REDIS_URI: ${REDIS_URI}
+      SECRET_KEY: ${SECRET_KEY}
+      PORT: 3215
+    networks:
+      nginx-proxy-manager_default:
+        ipv4_address: 172.17.0.7
+
+networks:
+  nginx-proxy-manager_default:
+    external: true
+    ipam:
+      config:
+        - subnet: 172.17.0.0/16
