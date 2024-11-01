@@ -11,11 +11,11 @@ services:
       PORT: 3215
     networks:
       nginx-proxy-manager_default:
-        ipv4_address: 172.17.0.7
+        ipv4_address: 172.18.0.4
 
 networks:
   nginx-proxy-manager_default:
     external: true
     ipam:
       config:
-        - subnet: 172.17.0.0/16
+        - subnet: 172.18.0.0/16
