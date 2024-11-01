@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "docker build -t ${env.IMAGE_NAME} -f ./kafka-clickhouse/Dockerfile ."
+                sh "docker build -t ${env.IMAGE_NAME} -f ./kafka-clickhouse/Dockerfile"
             }
         }
         stage('Push Image') {
