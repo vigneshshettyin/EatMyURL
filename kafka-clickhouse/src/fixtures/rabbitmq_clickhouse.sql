@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS eurl_data.click_analytics_rq (
     `city` String                               -- The city where the user is located
 ) ENGINE = RabbitMQ                              -- Use RabbitMQ as the table engine for real-time data ingestion
 SETTINGS
-    rabbitmq_host_port = '172.17.0.5:5672',      -- RabbitMQ broker address
+    rabbitmq_host_port = '172.18.0.9:5672',      -- RabbitMQ broker address
     rabbitmq_routing_key_list = 'eurl_click_analytics', -- RabbitMQ routing key for message filtering
     rabbitmq_exchange_name = 'exchange',         -- The RabbitMQ exchange name where messages are published
     rabbitmq_format = 'JSONEachRow';             -- Format for incoming messages from RabbitMQ (JSON format, one message per row)
