@@ -31,8 +31,6 @@ const pub = rabbitmqConnection.createPublisher({
 // TODO: Implement the Producer class
 // TODO: Make it batch processing
 
-let dump = [];
-
 class Producer {
   async produceLogic(ip: string, browser: string, os: string, device: string, code: string): Promise<void> {
     const location: UserLocation = await UserLocationService.getUserLocation(ip);
@@ -45,15 +43,15 @@ class Producer {
       region: location.region,
       city: location.city,
     };
-    console.log('Producing message:', JSON.stringify(message));
-    dump.push(message);
-    if (dump.length >= 10) {
-      pub.send({ exchange: exchangeName, routingKey: routingKey }, dump)
-        .then(() => console.log(`Published ${dump.length} messages, at ${new Date().toISOString()}`))
-        .catch((error) => console.error('Error publishing message:', error));
-      dump = [];
-    }
-
+    console.log('Producing message:', message);
+    pub.send(
+      {exchange: exchangeName, routingKey: routingKey}, // metadata
+      message
+    ).catch((error) => {
+      console.error('Error producing message:', error);
+  }).finally(() => {
+    console.log('Message produced');
+  });
 }
 }
 
