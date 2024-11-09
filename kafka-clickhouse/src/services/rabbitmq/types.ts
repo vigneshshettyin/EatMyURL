@@ -13,3 +13,10 @@ export interface ProduceMessage {
   region: string | null;
   city: string | null;
 }
+export interface SourceObjects {
+  ip: string;
+  browser: string;
+  os: string;
+  device: string;
+  code: string;
+}

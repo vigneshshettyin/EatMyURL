@@ -2,16 +2,25 @@
 import { parentPort } from 'worker_threads';
 import RedisQueue from './connection.js';
 import KafkaProducer from '../rabbitmq/producer.js';
+import { SourceObjects } from '../rabbitmq/types.js';
 
 let running = true;
+const batch = 10;
 
 async function processQueue(): Promise<void> {
+  const batchMessages : SourceObjects[] = [];
   while (running) {
     try {
       const message = await RedisQueue.dequeue(10);
       if (message) {
-        const { ip, browser, os, device, code } = message;
-        await KafkaProducer.produceLogic(ip, browser, os, device, code);
+        batchMessages.push(message);
+        if (batchMessages.length < batch) {
+          continue;
+        }
+        else {
+          await KafkaProducer.produceLogic(batchMessages);
+          batchMessages.length = 0;
+        }
       }
     } catch (error) {
       console.error('Error processing queue:', error);

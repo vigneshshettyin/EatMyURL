@@ -1,6 +1,6 @@
 import rabbitmqConnection from './connection.js';
 import UserLocationService from '../location/location.js';
-import { ProduceMessage, UserLocation } from './types.js';
+import { ProduceMessage, UserLocation, SourceObjects } from './types.js';
 
 
 const exchangeName = 'exchange';                 // The exchange name
@@ -15,16 +15,47 @@ const pub = rabbitmqConnection.createPublisher({
   exchanges: [{ exchange: exchangeName, type: 'fanout', durable: true }],
 });
 
-// Publish a message for testing
-// pub.send({ exchange: exchangeName, routingKey: routingKey }, {
-//   code: '123',
-//   browser: 'Chrome',
-//   os: 'Windows',
-//   device: 'Desktop',
-//   country: 'US',
-//   region: 'CA',
-//   city: 'Los Angeles',
-// })
+// const test_data = [
+//   {
+//     code: '123',
+//     browser: 'Chrome',
+//     os: 'Windows',
+//     device: 'Desktop',
+//     country: 'US',
+//     region: 'CA',
+//     city: 'Los Angeles',
+//   },
+//   {
+//     code: '123',
+//     browser: 'Chrome',
+//     os: 'Windows',
+//     device: 'Desktop',
+//     country: 'US',
+//     region: 'CA',
+//     city: 'Los Angeles',
+//   },
+//   {
+//     code: '123',
+//     browser: 'Chrome',
+//     os: 'Windows',
+//     device: 'Desktop',
+//     country: 'US',
+//     region: 'CA',
+//     city: 'Los Angeles',
+//   },
+//   {
+//     code: '123',
+//     browser: 'Chrome',
+//     os: 'Windows',
+//     device: 'Desktop',
+//     country: 'US',
+//     region: 'CA',
+//     city: 'Los Angeles',
+//   }
+// ]
+
+// // Publish a message for testing
+// pub.send({ exchange: exchangeName, routingKey: routingKey }, test_data)
 //   .then(() => console.log('Message published'))
 //   .catch((error) => console.error('Error publishing message:', error));
 
@@ -32,25 +63,31 @@ const pub = rabbitmqConnection.createPublisher({
 // TODO: Make it batch processing
 
 class Producer {
-  async produceLogic(ip: string, browser: string, os: string, device: string, code: string): Promise<void> {
-    const location: UserLocation = await UserLocationService.getUserLocation(ip);
-    const message: ProduceMessage = {
-      code,
-      browser,
-      os,
-      device,
-      country: location.country,
-      region: location.region,
-      city: location.city,
-    };
-    console.log('Producing message:', message);
+  async produceLogic(produceObjects : SourceObjects[]): Promise<void> {
+    const messages: ProduceMessage[] = [];
+    for (const obj of produceObjects) {
+      const { ip, browser, os, device, code } = obj;
+      const location: UserLocation = await UserLocationService.getUserLocation(ip);
+      const message: ProduceMessage = {
+        code,
+        browser,
+        os,
+        device,
+        country: location.country,
+        region: location.region,
+        city: location.city,
+      };
+      messages.push(message);
+    }
     pub.send(
-      {exchange: exchangeName, routingKey: routingKey}, // metadata
-      message
+      {exchange: exchangeName, routingKey: routingKey},
+      messages
     ).catch((error) => {
       console.error('Error producing message:', error);
+      messages.length = 0;
   }).finally(() => {
-    console.log('Message produced');
+    console.log(`[Info] : Produced ${messages.length} messages at ${new Date().toISOString()}`);
+    messages.length = 0;
   });
 }
 }
