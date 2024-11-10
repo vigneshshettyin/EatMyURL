@@ -1,6 +1,6 @@
 import { Worker } from 'worker_threads';
 
-const numWorkers = 2;
+const numWorkers = 4;
 const workers = [];
 
 import path from 'path';
