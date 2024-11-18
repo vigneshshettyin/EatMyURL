@@ -41,10 +41,11 @@ pipeline {
     post {
         always {
             sh 'rm -f *.log'
+            sh 'rm -f *.txt'
             script {
                 def logContent = currentBuild.rawBuild.getLog(1000).join("\n")
-                writeFile file: 'console.log', text: logContent
-                archiveArtifacts artifacts: 'console.log', allowEmptyArchive: true
+                writeFile file: 'console_output.txt', text: logContent
+                archiveArtifacts artifacts: 'console_output.txt', allowEmptyArchive: true
             }
             sh "docker logout"
             sh "docker system prune -af"
@@ -159,7 +160,7 @@ pipeline {
                 mimeType: 'text/html',
                 from: 'Jenkins <build@vshetty.dev>',
                 to: 'jenkins+vignesh@vshetty.dev, vijeshsshetty@gmail.com',
-                attachmentsPattern: '*.log'
+                attachmentsPattern: 'console_output.txt'
             )
         }
     }
