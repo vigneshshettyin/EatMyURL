@@ -43,7 +43,7 @@
     "ioredis": "^5.4.1",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.441.0",
-    "next": "14.2.20",
+    "next": "14.2.21",
     "next-auth": "^4.24.7",
     "next-themes": "^0.3.0",
     "prisma": "^5.22.0",
