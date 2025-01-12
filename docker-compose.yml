@@ -4,7 +4,7 @@ services:
     ports:
       - "3215:3215"
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: ${EURL_DB_URI}
       REDIS_URI: ${REDIS_URI}
       SECRET_KEY: ${SECRET_KEY}
       PORT: 3215

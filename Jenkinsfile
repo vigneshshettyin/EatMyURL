@@ -7,7 +7,7 @@ pipeline {
         IMAGE_NAME = 'eurl-api'
         DOCKER_CREDENTIALS = credentials('dockerHub')
         REDIS_URI = credentials('REDIS_URI')
-        DATABASE_URL = credentials('EURL_DB_URI')
+        EURL_DB_URI = credentials('EURL_DB_URI')
         SECRET_KEY = credentials('SECRET_KEY')
         DOCKER_REPO = "${DOCKER_CREDENTIALS_USR}/eurl-api:latest"
     }
