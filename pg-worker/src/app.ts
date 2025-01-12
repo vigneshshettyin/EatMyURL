@@ -14,7 +14,7 @@ const queueService = new QueueService(10); // Batch size 10
 const queueProcessor = new QueueProcessor(queueService, 10);
 
 app.use(express.json());
-// app.use(secretKeyAuth);
+app.use(secretKeyAuth);
 app.use(loggingMiddleware);
 app.use(errorMiddleware);
 
