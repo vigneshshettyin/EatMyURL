@@ -6,9 +6,8 @@ pipeline {
         GIT_BRANCH = 'main'
         IMAGE_NAME = 'eurl-api'
         DOCKER_CREDENTIALS = credentials('dockerHub')
-        CLICKHOUSE_URL = credentials('CLICKHOUSE_URL')
-        RABBITMQ_URI = credentials('RABBITMQ_URI')
         REDIS_URI = credentials('REDIS_URI')
+        DATABASE_URL = credentials('EURL_DB_URI')
         SECRET_KEY = credentials('SECRET_KEY')
         DOCKER_REPO = "${DOCKER_CREDENTIALS_USR}/eurl-api:latest"
     }
@@ -21,7 +20,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "cd kafka-clickhouse && docker build -t ${env.IMAGE_NAME} ."
+                sh "cd pg-worker && docker build -t ${env.IMAGE_NAME} ."
             }
         }
         stage('Push Image') {

@@ -4,8 +4,7 @@ services:
     ports:
       - "3215:3215"
     environment:
-      CLICKHOUSE_URL: ${CLICKHOUSE_URL}
-      RABBITMQ_URI: ${RABBITMQ_URI}
+      DATABASE_URL: ${DATABASE_URL}
       REDIS_URI: ${REDIS_URI}
       SECRET_KEY: ${SECRET_KEY}
       PORT: 3215
