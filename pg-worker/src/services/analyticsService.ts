@@ -4,6 +4,7 @@ export const fetchAnalyticsByOption = async (option: string, code: string) => {
   const totalVisits = await prisma.clickAnalytics.count({ where: { code } });
 
   const groupedData = await prisma.clickAnalytics.groupBy({
+    // @ts-ignore
     by: [option] as any,
     where: { code },
     _count: { id: true },
