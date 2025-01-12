@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "npm run prisma:generate && node dist/server.js",
     "dev": "ts-node-dev --transpile-only --respawn --exit-child -r dotenv/config src/server.ts",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev --name init",
