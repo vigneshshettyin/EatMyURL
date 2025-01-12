@@ -1,10 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { performHealthCheck } from "../services/healthCheckService";
 
 export const healthCheck = async (
   _req: Request,
-  res: Response,
-  _next: NextFunction
+  res: Response
 ): Promise<void> => {
   try {
     const healthStatus = await performHealthCheck();

@@ -14,6 +14,7 @@ const secretKeyAuth = (
 
   if (!apikey || apikey !== SECRET_KEY) {
     res.status(401).json({ error: "Unauthorized" });
+    return
   }
 
   next();
