@@ -5,11 +5,9 @@ import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
 import PrismaClientManager from "@/lib/services/pgConnect";
 import { HTTP_STATUS } from "@/lib/constants";
-import { getEngagements } from "../services/getEngagements";
+const prisma = PrismaClientManager.getInstance().getPrismaClient();
 
 export async function getLinks(pageNumber: string) {
-  const posgresInstance = PrismaClientManager.getInstance();
-  const prisma = posgresInstance.getPrismaClient();
   const session: ISessionType | null = await getServerSession(authOptions);
   // const searchParams = req.nextUrl.searchParams;
 
@@ -48,12 +46,17 @@ export async function getLinks(pageNumber: string) {
       },
       skip: (parseInt(page) - 1) * parseInt(page_size),
       take: parseInt(page_size),
+      include: {
+        _count : {
+          select: {
+            click_analytics: true
+          }
+        }
+      }
     });
 
-    const engaged_links = await getEngagements(links);
-
     return {
-        links:engaged_links,
+        links,
         totalLinks,
         total_pages,
         status: HTTP_STATUS.CREATED
@@ -68,7 +71,6 @@ export async function getLinks(pageNumber: string) {
 
 export async function getLinkDetails(linkId:string){
   const session: ISessionType | null = await getServerSession(authOptions);
-  const prisma = PrismaClientManager.getInstance().getPrismaClient();
 
   if (!session?.user) {
     return {
@@ -94,6 +96,13 @@ export async function getLinkDetails(linkId:string){
       where:{
         id : Number.parseInt(linkId),
         user_id : parseInt(session.user.sub)
+      },
+      include: {
+        _count: {
+          select: {
+            click_analytics: true
+          }
+        }
       }
   })
 
@@ -106,3 +115,47 @@ export async function getLinkDetails(linkId:string){
 
   return {status:HTTP_STATUS.OK,link};
 } 
+
+export const lastSevenDaysAnalytics = async (code: string) => {
+  const todayDate = new Date();
+  const sevenDaysAgo = new Date(todayDate);
+  sevenDaysAgo.setDate(todayDate.getDate() - 7);
+
+  const lastWeekStartDate = new Date(sevenDaysAgo);
+  lastWeekStartDate.setDate(lastWeekStartDate.getDate() - 7);
+  const lastWeekEndDate = new Date(sevenDaysAgo);
+
+  const [thisWeekCount, lastWeekCount] = await Promise.all([
+    prisma.clickAnalytics.count({
+      where: {
+        code,
+        timestamp: {
+          gte: sevenDaysAgo,
+          lte: todayDate,
+        },
+      },
+    }),
+    prisma.clickAnalytics.count({
+      where: {
+        code,
+        timestamp: {
+          gte: lastWeekStartDate,
+          lte: lastWeekEndDate,
+        },
+      },
+    }),
+  ]);
+
+  const percentageChange =
+    lastWeekCount !== 0
+      ? ((thisWeekCount - lastWeekCount) / lastWeekCount) * 100
+      : thisWeekCount !== 0
+      ? 100
+      : 0;
+
+  return {
+    totalVisitsThisWeek: thisWeekCount,
+    totalVisitsLastWeek: lastWeekCount,
+    percentageChange,
+  };
+};

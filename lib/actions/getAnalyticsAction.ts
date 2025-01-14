@@ -1,3 +1,6 @@
 "use server";
 
-export async function getAnalyticsAction(shortcode: string) {}
+export async function getAnalyticsAction(shortcode: string) {
+
+}
+

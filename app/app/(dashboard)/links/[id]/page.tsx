@@ -108,34 +108,17 @@ export default function Page({
     long_url: "https://example.com/e7b9f3a7-0a15-4b7d-8d62-0d5f1a52e73e",
     created_at: new Date("2023-05-28T12:34:56Z"),
     title: "Sample Title",
+    _count: {
+      click_analytics: 100
+    }
   });
   const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
     getLinkDetails(decodeId(params.id).toString()).then((res) => {
-      if (res.status == HTTP_STATUS.NOT_FOUND) {
-        toast.error("Link not found");
-        router.push("/app/links");
-        return;
-      }
-
-      if (res.link) {
-        //@ts-ignore
-        setfetchLink(res.link);
-        //@ts-ignore
-        setTitle(res.link.title);
-        //@ts-ignore
-        setShortcode(res.link.short_code);
-      }
-      //@ts-ignore
-      // getAnalyticsAction(res.link.short_code).then((e) => {
-      //   //@ts-ignore
-      //   // setLink(e);
-      //   setNoDataSet(Object.keys(e.devices).length);
-      //   setLoading(false);
-      // });
-      setLoading(false);
+      setfetchLink(res.link)
+      setLoading(false)
     });
   }, [router, params.id]);
 
@@ -261,7 +244,7 @@ export default function Page({
       <div className="flex md:flex-row flex-col mt-6 mr-0">
         <div className="flex-1 flex justify-between shadow-md p-4 rounded-xl items-center border-[0.5px]">
           <h1 className="text-md">Engagements</h1>
-          <h1 className="text-2xl font-bold">{link.engagement}</h1>
+          <h1 className="text-2xl font-bold">{fetchLink._count.click_analytics}</h1>
         </div>
         <div className="flex-1 flex justify-between shadow-md ml-0 md:mt-0 mt-4 md:ml-4 p-4 rounded-xl items-center border-[0.5px]">
           <h1 className="text-md">Last 7 days</h1>

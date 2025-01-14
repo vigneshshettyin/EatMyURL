@@ -65,6 +65,8 @@ export type publicLinkType =  {
     clicks? : string
 }
 
+type countType = Record<string,number>
+
 export type linkType = {
   id:number,
   user_id: number;
@@ -72,7 +74,8 @@ export type linkType = {
   long_url: string;
   created_at: Date;
   title: string | null;
-  engagements?: number
+  engagements?: number;
+  _count:countType
 }
 
 export type paginationType = {

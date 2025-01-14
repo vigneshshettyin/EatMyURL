@@ -25,13 +25,13 @@ model links {
   long_url   String
   created_at DateTime
   title String?
+  click_analytics ClickAnalytics[]
 
   @@index(short_code)
 }
 
 model ClickAnalytics {
   id        Int      @id @default(autoincrement())
-  code      String?
   browser   String?
   os        String?
   device    String?
@@ -39,7 +39,8 @@ model ClickAnalytics {
   region    String?
   city      String?
   timestamp DateTime @default(now()) @db.Date
-
+  link links @relation(fields: [code], references: [short_code])
+  code      String
   @@index([code, timestamp])
   @@index(code)
 }
