@@ -19,17 +19,13 @@ import {
 } from "@/components/ui/table";
 import { Label } from "@radix-ui/react-label";
 import { PieChart } from "@/components/GraphicalComponents/PieChart";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LinkShareDialog } from "@/components/DialogComponents/LinkShareDialog";
 import { EditLinkDialog } from "@/components/DialogComponents/EditLinkDialog";
 import { copyToClipboard } from "@/lib/utils";
-import { LinkType, linkType } from "@/interfaces/types";
+import { headerAnalyticsType, linkType } from "@/interfaces/types";
 import { useEffect, useState } from "react";
-import { getAnalyticsAction } from "@/lib/actions/getAnalyticsAction";
-import { getLinkDetails } from "@/lib/actions/getLinksAction";
-import { HTTP_STATUS } from "@/lib/constants";
-import { toast } from "sonner";
+import { getLinkDetailsWithAnalytics } from "@/lib/actions/getLinksAction";
 import { useRouter } from "next/navigation";
 import { LinkPageLoading } from "@/components/LoadingComponents/LinkPageLoading";
 import { NoDataLoading } from "@/components/LoadingComponents/NoDataLoading";
@@ -67,9 +63,6 @@ export default function Page({
   }
 
   const [link, setLink] = useState({
-    engagement: 1200,
-    last7DaysEngage: 900,
-    weeklyChange: -25,
     devices: {
       Desktop: 720,
       Mobile: 420,
@@ -109,16 +102,50 @@ export default function Page({
     created_at: new Date("2023-05-28T12:34:56Z"),
     title: "Sample Title",
     _count: {
-      click_analytics: 100
-    }
+      click_analytics: 100,
+    },
   });
+
+  const [headerAnalytics, setHeaderAnalytics] = useState<headerAnalyticsType>({
+    totalVisitsThisWeek: 0,
+    totalVisitsLastWeek: 0,
+    percentageChange: 0,
+    devices: [
+      { device: "Desktop", engagements: 720 },
+      { device: "Mobile", engagements: 420 },
+      { device: "Tablet", engagements: 60 },
+    ],
+    os: [
+      { os: "windows11", engagements: 48 },
+      { os: "macOS", engagements: 50 },
+    ],
+    browsers: [
+      { browser: "chrome", engagements: 45 },
+      { browser: "firefox", engagements: 50 },
+      { browser: "safari", engagements: 70 },
+    ],
+    cities: [
+      { city: "New York", engagements: 100 },
+      { city: "Los Angeles", engagements: 50 },
+      { city: "Chicago", engagements: 40 },
+      { city: "Houston", engagements: 30 },
+    ],
+    locations: [
+      { id: 1, country: "United States", engagements: 600, percentage: "50%" },
+      { id: 2, country: "United Kingdom", engagements: 300, percentage: "20%" },
+      { id: 3, country: "Canada", engagements: 180, percentage: "20%" },
+      { id: 4, country: "Australia", engagements: 120, percentage: "10%" },
+    ],
+  });
+
   const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
-    getLinkDetails(decodeId(params.id).toString()).then((res) => {
-      setfetchLink(res.link)
-      setLoading(false)
+    getLinkDetailsWithAnalytics(decodeId(params.id).toString()).then((res) => {
+      setfetchLink(res.link as linkType);
+      setHeaderAnalytics(res.analytics as headerAnalyticsType);
+      setLoading(false);
     });
   }, [router, params.id]);
 
@@ -244,17 +271,23 @@ export default function Page({
       <div className="flex md:flex-row flex-col mt-6 mr-0">
         <div className="flex-1 flex justify-between shadow-md p-4 rounded-xl items-center border-[0.5px]">
           <h1 className="text-md">Engagements</h1>
-          <h1 className="text-2xl font-bold">{fetchLink._count.click_analytics}</h1>
+          <h1 className="text-2xl font-bold">
+            {fetchLink._count.click_analytics}
+          </h1>
         </div>
         <div className="flex-1 flex justify-between shadow-md ml-0 md:mt-0 mt-4 md:ml-4 p-4 rounded-xl items-center border-[0.5px]">
           <h1 className="text-md">Last 7 days</h1>
-          <h1 className="text-2xl font-bold">{link.last7DaysEngage}</h1>
+          <h1 className="text-2xl font-bold">
+            {headerAnalytics.totalVisitsThisWeek}
+          </h1>
         </div>
         <div className="flex-1 flex justify-between shadow-md ml-0 md:mt-0 mt-4 md:ml-4 p-4 rounded-xl items-center border-[0.5px]">
           <h1 className="text-md">Weekly change</h1>
           <div className="flex items-center">
             <ArrowUpDownIcon size={25} />
-            <h1 className="text-2xl font-bold ml-1">{link.weeklyChange}%</h1>
+            <h1 className="text-2xl font-bold ml-1">
+              {headerAnalytics.percentageChange}%
+            </h1>
           </div>
         </div>
       </div>
@@ -270,7 +303,7 @@ export default function Page({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {link.locations.map((location: any) => {
+            {headerAnalytics.locations.map((location: any) => {
               return (
                 <TableRow key={location.id}>
                   <TableCell className="font-medium">{location.id}</TableCell>
@@ -279,7 +312,7 @@ export default function Page({
                     {location.engagements}
                   </TableCell>
                   <TableCell className="text-right">
-                    {location.percentage}%
+                    {location.percentage}
                   </TableCell>
                 </TableRow>
               );
@@ -298,8 +331,12 @@ export default function Page({
                 </div>
               ) : (
                 <PieChart
-                  devices={Object.keys(link.devices ?? {})}
-                  data={Object.values(link.devices ?? {})}
+                  devices={headerAnalytics.devices.map(
+                    (device) => device.device
+                  )}
+                  data={headerAnalytics.devices.map((device) => {
+                    return device.engagements;
+                  })}
                 />
               )}
             </div>
@@ -314,8 +351,8 @@ export default function Page({
                 </div>
               ) : (
                 <PieChart
-                  devices={Object.keys(link.os ?? {})}
-                  data={Object.values(link.os ?? {})}
+                  devices={headerAnalytics.os.map((os) => os.os)}
+                  data={headerAnalytics.os.map((os) => os.engagements)}
                 />
               )}
             </div>
@@ -330,30 +367,34 @@ export default function Page({
                 </div>
               ) : (
                 <PieChart
-                  devices={Object.keys(link.browser ?? {})}
-                  data={Object.values(link.browser ?? {})}
+                  devices={headerAnalytics.browsers.map(
+                    (browser) => browser.browser
+                  )}
+                  data={headerAnalytics.browsers.map(
+                    (browser) => browser.engagements
+                  )}
                 />
               )}
             </div>
           </div>
         </div>
       </div>
-      <div className="flex justify-center md:justify-start"> 
-      <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px]">
-            <Label className="font-bold ml-3 text-lg">City</Label>
-            <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
-              {NoDataSet == 1 ? (
-                <div>
-                  <NoDataLoading />
-                </div>
-              ) : (
-                <PieChart
-                  devices={Object.keys(link.city ?? {})}
-                  data={Object.values(link.city ?? {})}
-                />
-              )}
-            </div>
-      </div>
+      <div className="flex justify-center md:justify-start">
+        <div className="mt-8 shadow-md p-6 rounded-xl w-fit border-[0.5px]">
+          <Label className="font-bold ml-3 text-lg">City</Label>
+          <div className="mt-4 md:w-[300px] md:h-[300px] w-[250px] h-[250px]">
+            {NoDataSet == 1 ? (
+              <div>
+                <NoDataLoading />
+              </div>
+            ) : (
+              <PieChart
+                devices={headerAnalytics.cities.map((city) => city.city)}
+                data={headerAnalytics.cities.map((city) => city.engagements)}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

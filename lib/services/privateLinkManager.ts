@@ -6,7 +6,7 @@ import z from "zod";
 import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
 import validateURLCreateReq from "@/lib/validations/url_create";
-import PrismaClientManager from "@/lib/services/pgConnect";
+import prisma from "@/lib/services/pgConnect";
 import { HTTP_STATUS } from "@/lib/constants";
 import { linkType } from "@/interfaces/types";
 import {
@@ -17,8 +17,6 @@ import {
 const alphabetOnlySchema = z.string().regex(/^[a-zA-Z]+$/);
 
 export async function createPrivateLink(formdata: FormData) {
-  const posgresInstance = PrismaClientManager.getInstance();
-  const prisma = posgresInstance.getPrismaClient();
   const { title, long_url, status } = await validateURLCreateReq(formdata);
   const session: ISessionType | null = await getServerSession(authOptions);
 
@@ -33,7 +31,7 @@ export async function createPrivateLink(formdata: FormData) {
   // if custom short code exists
   if (custom_short_code) {
     // check if duplicate
-    const link: linkType | null = await prisma.links.findFirst({
+    const link = await prisma.links.findFirst({
       where: {
         short_code: custom_short_code,
       },
@@ -97,8 +95,6 @@ export async function createPrivateLink(formdata: FormData) {
 }
 
 export async function updatePrivateLink(formdata: FormData) {
-  const prisma = PrismaClientManager.getInstance().getPrismaClient();
-
   const title: string = formdata.get("title") as string;
   const shortcode: string = formdata.get("short_code") as string;
   const linkId: number = Number.parseInt(formdata.get("linkId") as string);

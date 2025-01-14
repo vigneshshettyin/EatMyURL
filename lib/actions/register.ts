@@ -1,7 +1,7 @@
 "use server";
 
 import bcrypt from "bcrypt";
-import PrismaClientManager from "../services/pgConnect";
+import prisma from "../services/pgConnect";
 import { HTTP_STATUS } from "../constants";
 import z from 'zod'
 
@@ -13,7 +13,6 @@ const register = async (formData: FormData) => {
   const password: string = formData.get("password") as string;
   const email: string = formData.get("email") as string;
   const name: string = formData.get("name") as string;
-  const prisma = PrismaClientManager.getInstance().getPrismaClient();
   const emailRes = emailValid.safeParse(email)
   const passwordRes = passwordValid.safeParse(password)
 

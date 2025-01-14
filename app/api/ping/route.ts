@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 
-import PrismaClientManager from "@/lib/services/pgConnect";
+import prisma from "@/lib/services/pgConnect";
 import RedisClientManager from "@/lib/services/redisConnect";
 
 import userAgentAnlytics from "@/lib/services/ua";
@@ -19,8 +19,9 @@ export async function GET(req: NextRequest) {
     user_anlytics: userAgent,
   };
 
-  const posgresInstance = PrismaClientManager.getInstance();
-  const postgresStatus = await posgresInstance.checkStatus();
+  const checkPg = await prisma.$queryRaw`SELECT 1`;
+  const postgresStatus = checkPg === 1;
+
 
   const redisInstance = RedisClientManager.getInstance();
   const redisStatus = await redisInstance.checkStatus();

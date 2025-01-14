@@ -4,12 +4,10 @@ import { getServerSession } from "next-auth";
 
 import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
-import PrismaClientManager from "@/lib/services/pgConnect";
+import prisma from "@/lib/services/pgConnect";
 import { HTTP_STATUS, RESPONSE } from "@/lib/constants";
 
 export async function GET(req: NextRequest) {
-  const posgresInstance = PrismaClientManager.getInstance();
-  const prisma = posgresInstance.getPrismaClient();
   const session: ISessionType | null = await getServerSession(authOptions);
   const searchParams = req.nextUrl.searchParams;
 

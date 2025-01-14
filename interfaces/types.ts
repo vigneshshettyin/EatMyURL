@@ -8,12 +8,11 @@ export interface gettingStartedStatus {
 }
 
 export interface locationsDetails {
-  id:number,
+  id: number;
   country: string;
   engagements: number;
   percentage: number;
 }
-
 
 export interface LinkType {
   id?: number;
@@ -26,14 +25,13 @@ export interface LinkType {
   weeklyChange?: number;
   locations?: any;
   devices?: Record<string, number>;
-  refs?: Record<string, number>,
-  os?:Record<string, number>,
-  browser?:Record<string, number>,
+  refs?: Record<string, number>;
+  os?: Record<string, number>;
+  browser?: Record<string, number>;
 }
 
-
 export interface QRCodeType {
-  id:number;
+  id: number;
   title?: string;
   shortLink: string;
   longLink: string;
@@ -47,8 +45,8 @@ export interface User {
   startStatus?: gettingStartedStatus;
 }
 
-export type EditLink = Pick<LinkType,'title' | 'shortLink'>
-export type EditQR = Pick<LinkType,'title' | 'shortLink'>
+export type EditLink = Pick<LinkType, "title" | "shortLink">;
+export type EditQR = Pick<LinkType, "title" | "shortLink">;
 
 export type createLink = {
   longUrl: string;
@@ -59,26 +57,59 @@ export type createLink = {
 
 export type createQR = Pick<createLink, "longUrl" | "title" | "shortLink">;
 
-export type publicLinkType =  {
-    longUrl : string;
-    shortUrl : string,
-    clicks? : string
-}
+export type publicLinkType = {
+  longUrl: string;
+  shortUrl: string;
+  clicks?: string;
+};
 
-type countType = Record<string,number>
+type countType = {
+  click_analytics: number;
+};
 
 export type linkType = {
-  id:number,
+  id: number;
   user_id: number;
   short_code: string;
   long_url: string;
   created_at: Date;
   title: string | null;
   engagements?: number;
-  _count:countType
-}
+  _count: countType;
+};
+
+
+
+export type headerAnalyticsType = {
+  totalVisitsThisWeek: number;
+  totalVisitsLastWeek: number;
+  percentageChange: number;
+  devices: Array<{
+    device: string;
+    engagements: number;
+  }>;
+  os: Array<{
+    os: string;
+    engagements: number;
+  }>;
+  browsers: Array<{
+    browser: string;
+    engagements: number;
+  }>;
+  cities: Array<{
+    city: string;
+    engagements: number;
+  }>;
+  locations: Array<{
+    id: number;
+    country: string;
+    engagements: number;
+    percentage: string;
+  }>;
+};
+
 
 export type paginationType = {
-  value: number,
-  pageActive: pageOrder
-}
+  value: number;
+  pageActive: pageOrder;
+};

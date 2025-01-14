@@ -6,7 +6,7 @@ import {
   setPrivateShortCode,
 } from "@/lib/services/redisPublicGenerate";
 import { NextRequest } from "next/server";
-import PrismaClientManager from "@/lib/services/pgConnect";
+import prisma from "@/lib/services/pgConnect";
 
 export async function GET(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -28,7 +28,6 @@ export async function GET(req: NextRequest) {
       HTTP_STATUS.BAD_REQUEST
     );
   } else if (!long_url && !checkIfShortCodePublic(shortCode)) {
-    const prisma = PrismaClientManager.getInstance().getPrismaClient();
     const link = await prisma.links.findFirst({
       where: {
         short_code: shortCode,

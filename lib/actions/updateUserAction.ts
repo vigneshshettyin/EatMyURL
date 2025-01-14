@@ -1,7 +1,7 @@
 'use server'
 
 import { ISessionType } from "@/interfaces/url";
-import PrismaClientManager from "../services/pgConnect"
+import prisma from "../services/pgConnect"
 import { getServerSession } from "next-auth";
 import authOptions from "../authOptions";
 import bcrypt from 'bcrypt'
@@ -16,7 +16,6 @@ export async function updateUser(formdata: FormData){
     const confPass = formdata.get('confPass') as string
     let newPass = formdata.get('newPass') as string
 
-    const prisma = PrismaClientManager.getInstance().getPrismaClient();
     const session: ISessionType | null = await getServerSession(authOptions);
   
     if (!session?.user) {
@@ -77,7 +76,6 @@ export async function updateUser(formdata: FormData){
 }
 
 export async function getUserDetails(){
-    const prisma = PrismaClientManager.getInstance().getPrismaClient();
     const session: ISessionType | null = await getServerSession(authOptions);
 
     if (!session?.user) {
