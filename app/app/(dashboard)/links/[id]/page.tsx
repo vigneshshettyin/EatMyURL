@@ -129,12 +129,13 @@ export default function Page({
         setShortcode(res.link.short_code);
       }
       //@ts-ignore
-      getAnalyticsAction(res.link.short_code).then((e) => {
-        //@ts-ignore
-        setLink(e);
-        setNoDataSet(Object.keys(e.devices).length);
-        setLoading(false);
-      });
+      // getAnalyticsAction(res.link.short_code).then((e) => {
+      //   //@ts-ignore
+      //   // setLink(e);
+      //   setNoDataSet(Object.keys(e.devices).length);
+      //   setLoading(false);
+      // });
+      setLoading(false);
     });
   }, [router, params.id]);
 

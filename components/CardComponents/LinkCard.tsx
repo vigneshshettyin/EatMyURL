@@ -1,17 +1,11 @@
 "use client";
 import {
-  BarChart2,
   Calendar,
   Copy,
   LinkIcon,
   Pencil,
   Share2,
 } from "lucide-react";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import { Button } from "../ui/button";
 import { EditLinkDialog } from "../DialogComponents/EditLinkDialog";
 import { copyToClipboard } from "@/lib/utils";
@@ -86,18 +80,6 @@ export function LinkCard({
           </h1>
 
           <div className="flex mt-6 lg:flex-row flex-col">
-            <div className="flex">
-              <BarChart2 size={20} />
-              <h1 className="text-sm ml-2 hover:underline cursor-pointer">
-                {link.engagements}{" "}
-                <HoverCard>
-                  <HoverCardTrigger>engagement</HoverCardTrigger>
-                  <HoverCardContent>
-                    Includes short link clicks, QR Code scans
-                  </HoverCardContent>
-                </HoverCard>
-              </h1>
-            </div>
             <div className="flex mt-2 lg:mt-0">
               <Calendar className="ml-0 lg:ml-4 " size={20} />
               <h1 className="text-sm ml-2">{months[link.created_at.getMonth()]} {link.created_at.getDate()},{link.created_at.getFullYear()}</h1>
