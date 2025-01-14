@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "rimraf kafka-clickhouse && next build",
+    "build": "rimraf pg-worker && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "prisma:generate": "npx prisma generate"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^0.7.2",
@@ -32,7 +32,6 @@
     "@sentry/nextjs": "^7.119.0",
     "@types/ua-parser-js": "^0.7.39",
     "@vercel/analytics": "^1.3.1",
-    "axios": "^1.7.8",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.3",
