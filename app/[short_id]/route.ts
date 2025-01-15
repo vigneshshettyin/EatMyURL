@@ -15,7 +15,9 @@ export async function GET(req: NextRequest) {
   const long_url = await getLongUrl(shortCode);
 
   if (!!long_url) {
-    await publishUserAgent(req, shortCode);
+    if (!checkIfShortCodePublic(shortCode)) {
+      await publishUserAgent(req, shortCode);
+    }
     return Response.redirect(long_url, 301);
   }
 
