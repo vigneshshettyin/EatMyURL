@@ -66,7 +66,7 @@ export default function SettingsPage(){
     }
 
 
-    return <div className="mt-10 flex flex-col items-center">
+    return <div className="flex flex-col items-center justify-center h-[85vh]">
         <Avatar className="w-16 h-16">
               <AvatarImage src="https://github.com/shadcn.png" />
         </Avatar>
