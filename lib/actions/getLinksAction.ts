@@ -5,7 +5,6 @@ import { ISessionType } from "@/interfaces/url";
 import authOptions from "@/lib/authOptions";
 import prisma from "@/lib/services/pgConnect";
 import { HTTP_STATUS } from "@/lib/constants";
-import { headerAnalyticsType } from "@/interfaces/types";
 
 export async function getLinks(pageNumber: string) {
   const session: ISessionType | null = await getServerSession(authOptions);

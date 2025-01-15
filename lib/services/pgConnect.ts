@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import PrismaClientManager from "./pgSingelton";
 
-const prisma = new PrismaClient();
+const prisma = PrismaClientManager.getInstance().getPrismaClient();
 
 export default prisma;

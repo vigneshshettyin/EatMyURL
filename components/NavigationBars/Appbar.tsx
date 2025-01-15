@@ -11,8 +11,8 @@ import { SideNavbarMobile } from "./SideNavbarMobile";
 export function Appbar() {
 
   return (
-    <div className="fixed h-[8.5vh] top-0 w-full pb-3 z-30 bg-inherit border-b-2">
-      <div className="flex mt-3 px-6">
+    <div className="fixed h-fit py-3 top-0 w-full pb-3 z-30 bg-inherit border-b-2">
+      <div className="flex px-6">
         <div className="flex mt-1">
         <Link href="/">
           <Label className="text-xl font-bold cursor-pointer">
