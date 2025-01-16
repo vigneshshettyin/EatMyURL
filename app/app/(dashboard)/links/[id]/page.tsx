@@ -62,37 +62,6 @@ export default function Page({
     return parseInt(decodedStr, 10);
   }
 
-  const [link, setLink] = useState({
-    devices: {
-      Desktop: 720,
-      Mobile: 420,
-      Tablet: 60,
-    },
-    os: {
-      windows10: 100,
-      windows11: 48,
-      macOS: 50,
-    },
-    browser: {
-      chrome: 45,
-      firefox: 50,
-      safari: 70,
-    },
-    city: {
-      "New York": 100,
-      "Los Angeles": 50,
-      Chicago: 40,
-      Houston: 30,
-    },
-    locations: [
-      { id: 1, country: "United States", engagements: 600, percentage: 50 },
-      { id: 2, country: "United Kingdom", engagements: 300, percentage: 25 },
-      { id: 3, country: "Canada", engagements: 180, percentage: 15 },
-      { id: 4, country: "Australia", engagements: 120, percentage: 10 },
-    ],
-  });
-
-  const [NoDataSet, setNoDataSet] = useState(Object.keys(link.devices).length);
 
   const [fetchLink, setfetchLink] = useState<linkType>({
     id: 1,
@@ -140,6 +109,13 @@ export default function Page({
 
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+  const REDIRECT_URL: string = process.env.REDIRECT_URL || "https://eurl.dev";
+  const [title, setTitle] = useState<string | null>(fetchLink.title);
+  const [shortCode, setShortcode] = useState<string>(fetchLink.short_code);
+  const [NoDataSet, setNoDataSet] = useState<number>(0);
+  const shortLink: string = `${REDIRECT_URL}/${shortCode}`;
+
   useEffect(() => {
     setLoading(true);
     getLinkDetailsWithAnalytics(decodeId(params.id).toString()).then((res) => {
@@ -149,11 +125,11 @@ export default function Page({
     });
   }, [router, params.id]);
 
-  const [loading, setLoading] = useState(false);
-  const REDIRECT_URL: string = process.env.REDIRECT_URL || "https://eurl.dev";
-  const [title, setTitle] = useState<string | null>(fetchLink.title);
-  const [shortCode, setShortcode] = useState<string>(fetchLink.short_code);
-  const shortLink: string = `${REDIRECT_URL}/${shortCode}`;
+  useEffect(() => {
+    setShortcode(fetchLink.short_code);
+    setTitle(fetchLink.title);
+    headerAnalytics.devices.length == 0 ? setNoDataSet(1) : setNoDataSet(0);
+  }, [fetchLink, headerAnalytics]);
 
   if (loading) {
     return <LinkPageLoading />;

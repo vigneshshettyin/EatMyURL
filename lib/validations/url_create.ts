@@ -3,9 +3,8 @@ import { urlSchema } from "../zod/url";
 const validateURLCreateReq = async (formdata: FormData) => {
   try {
     const long_url = formdata.get("longUrl");
-    let title:any = "New Link";
+    const title = formdata.get("title") || "New Link";
 
-    // validation of title need to be done
     const errors = urlSchema.safeParse({
       long_url,
     });

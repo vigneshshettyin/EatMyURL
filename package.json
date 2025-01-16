@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run prisma:generate && rimraf pg-worker && next build",
+    "build": "rimraf pg-worker && next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:generate": "npx prisma generate"
