@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("PG_DATABASE_URL")
+  connection_limit = 5
 }
 
 model user {
