@@ -1,6 +1,6 @@
 "use server";
 
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import prisma from "../services/pgConnect";
 import { HTTP_STATUS } from "../constants";
 import z from 'zod'
