@@ -4,7 +4,7 @@ import { ISessionType } from "@/interfaces/url";
 import prisma from "../services/pgConnect"
 import { getServerSession } from "next-auth";
 import authOptions from "../authOptions";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { HTTP_STATUS } from "../constants";
 import z from 'zod'
 
